@@ -1,0 +1,61 @@
+﻿@model PaginatedPieViewModel
+
+<link rel="stylesheet" href="~/css/gridStyles.css" />
+
+<h2>Pies</h2>
+<hr />
+
+@if (Model.IsNullOrEmpty)
+{
+    <div class="text-danger">No Pies at This Point</div>
+}
+else
+{
+    <div class="grid-table grid-6-columns">
+        <div class="grid-header">
+            <div>
+                <a asp-controller="Pie" asp-action="IndexPagingSorting"
+                   asp-route-sortOption="@Model.IdSortParam"
+                   asp-route-pageNumber="@Model.CurrentPage">Id</a>
+            </div>
+
+            <div>
+                <a asp-controller="Pie" asp-action="IndexPagingSorting"
+                   asp-route-sortOption="@Model.NameSortParam"
+                   asp-route-pageNumber="@Model.CurrentPage">Name</a>
+            </div>
+
+            <div>
+                <a asp-controller="Pie" asp-action="IndexPagingSorting"
+                   asp-route-sortOption="@Model.CategoryIdSortParam"
+                   asp-route-pageNumber="@Model.CurrentPage">Category Id</a>
+            </div>
+
+            <div>
+                <a asp-controller="Pie" asp-action="IndexPagingSorting"
+                   asp-route-sortOption="@Model.CategoryNameSortParam"
+                   asp-route-pageNumber="@Model.CurrentPage">Category Name</a>
+            </div>
+
+            <div>
+                <a asp-controller="Pie" asp-action="IndexPagingSorting"
+                   asp-route-sortOption="@Model.PriceSortParam"
+                   asp-route-pageNumber="@Model.CurrentPage">Price</a>
+            </div>
+
+            <div>Actions</div>
+        </div>
+
+        @await Html.PartialAsync("_PieGridPartial", Model)
+    </div>
+}
+
+@await Html.PartialAsync("_PaginationPartial", Model)
+
+<p>
+    <a class="btn btn-primary" asp-controller="Pie" asp-action="Add">Add a New Pie</a>
+</p>
+
+<div>
+    <a asp-controller="Pie" asp-action="Index">Back to Pie Overview</a>
+</div>

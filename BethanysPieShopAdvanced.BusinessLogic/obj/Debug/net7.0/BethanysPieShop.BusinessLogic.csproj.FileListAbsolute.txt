@@ -1,0 +1,17 @@
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.BusinessLogic.deps.json
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.BusinessLogic.dll
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.BusinessLogic.pdb
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.Common.dll
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.DataAccess.dll
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.Common.pdb
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\bin\Debug\net7.0\BethanysPieShop.DataAccess.pdb
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.csproj.AssemblyReference.cache
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.AssemblyInfoInputs.cache
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.AssemblyInfo.cs
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.csproj.CoreCompileInputs.cache
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.csproj.CopyComplete
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.dll
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\refint\BethanysPieShop.BusinessLogic.dll
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\BethanysPieShop.BusinessLogic.pdb
+D:\Repos\BethanysPieShopAdvanced.App\BethanysPieShopAdvanced.BusinessLogic\obj\Debug\net7.0\ref\BethanysPieShop.BusinessLogic.dll

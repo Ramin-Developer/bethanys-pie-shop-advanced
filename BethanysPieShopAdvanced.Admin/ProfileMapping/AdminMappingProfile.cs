@@ -1,0 +1,45 @@
+﻿namespace BethanysPieShop.Admin.ProfileMapping;
+
+// Todo: Include this code snippet at the end of CreateMap to add category name of the relevant pie to the mapping
+//      .ForMember(dest => dest.Category.Name, opts => opts.MapFrom(
+//          src => src.Pie!.CategoryName));
+public class AdminMappingProfile : Profile
+{
+    public AdminMappingProfile()
+    {
+        CreateMap<PieAddViewModel, PieDto>()
+            .ForMember(dest => dest.ShortDescription, opts => opts.MapFrom(
+                src => src.PieDto!.ShortDescription))
+
+            .ForMember(dest => dest.LongDescription, opts => opts.MapFrom(
+                src => src.PieDto!.LongDescription))
+
+            .ForMember(dest => dest.Price, opts => opts.MapFrom(
+                src => src.PieDto!.Price))
+
+            .ForMember(dest => dest.AllergyInformation, opts => opts.MapFrom( 
+                src => src.PieDto!.AllergyInformation))
+
+            .ForMember(dest => dest.ImageThumbnailUrl, opts => opts.MapFrom(
+                src => src.PieDto!.ImageThumbnailUrl))
+
+            .ForMember(dest => dest.ImageUrl, opts => opts.MapFrom(
+                src => src.PieDto!.ImageUrl))
+
+            .ForMember(dest => dest.InStock, opts => opts.MapFrom(
+                src => src.PieDto!.InStock))
+
+            .ForMember(dest => dest.IsPieOfTheWeek, opts => opts.MapFrom(
+                src => src.PieDto!.IsPieOfTheWeek))
+
+            .ForMember(dest => dest.Name, opts => opts.MapFrom(
+                src => src.PieDto!.Name))
+
+            .ForMember(dest => dest.CategoryId, opts => opts.MapFrom(
+                src => src.PieDto!.CategoryId));
+
+            // Todo: Check if this line shoulds be uncommented:
+            //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(
+            //    src => src.PieDto!.RowVersion));
+    }
+}

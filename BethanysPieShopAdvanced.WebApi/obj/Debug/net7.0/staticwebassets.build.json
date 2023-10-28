@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1FOyfcPPWK4tLOZdomROGOXMY5ZlxrK5RugEEeSvLPM=",
+  "Source": "BethanysPieShop.WebApi",
+  "BasePath": "_content/BethanysPieShop.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,49 @@
+﻿@model CategoryDto
+
+<h2>Delete the Category @Model.Name</h2>
+<hr />
+
+@if (string.IsNullOrEmpty(Model.ErrorMessage) != false)
+{
+    <p class="text-danger">@Model.ErrorMessage</p>
+}
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label asp-for="Id"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model?.Id
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Name"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model?.Name
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="Description"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model?.Description
+        </dd>
+        <dt class="col-sm-2">
+            <label asp-for="DateAdded"></label>
+        </dt>
+        <dd class="col-sm-10">
+            @Model?.DateAdded.ToShortDateString()
+        </dd>
+
+    </dl>
+</div>
+
+<form asp-controller="Category" asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Delete the Category" class="btn btn-danger" />
+</form>
+
+<br />
+<div>
+    <a asp-action="Index" asp-controller="Category">Back to Category Overview</a>
+</div>

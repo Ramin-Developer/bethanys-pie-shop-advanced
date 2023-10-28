@@ -1,0 +1,38 @@
+﻿@model List<PieDto>
+
+<link rel="stylesheet" href="~/css/gridStyles.css" />
+
+<h2>Pies Overview</h2>
+<hr />
+
+@if (@Model.Any() == false)
+{
+    <div class="text-danger">No Pies at This Point</div>
+}
+else
+{
+    <div class="grid-table grid-6-columns">
+        <div class="grid-header">
+            <div>ID</div>
+            <div>Name</div>
+            <div>Category ID</div>
+            <div>Category Name</div>
+            <div>Price</div>
+            <div>Actions</div>
+        </div>
+
+        @foreach (var pie in Model)
+        {
+            <div class="grid-row">
+                <div>@pie.Id</div>
+                <div>@pie.Name</div>
+                <div>@pie.CategoryId</div>
+                <div>@pie.CategoryName</div>
+                <div>@pie.Price</div>
+
+                @* Action Links to: Details, Edit, Delete *@
+                @await Html.PartialAsync("_PieActionPartial", pie)
+            </div>
+        }
+    </div>
+}

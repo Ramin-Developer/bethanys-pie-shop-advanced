@@ -1,0 +1,10 @@
+﻿global using BethanysPieShop.Common.Constant;
+global using BethanysPieShop.Common.DTO;
+global using BethanysPieShop.Common.Entity;
+global using BethanysPieShop.Common.Interface;
+global using BethanysPieShop.DataAccess.Context;
+global using BethanysPieShop.SharedConfiguration.Configuration;
+global using BethanysPieShop.WebApi;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using System.Text.Json.Serialization;
