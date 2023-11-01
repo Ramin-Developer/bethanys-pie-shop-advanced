@@ -92,10 +92,13 @@ public class PieController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<int>> Delete(int id)
     {
+        if (id <= 0)
+            return BadRequest(GeneralValues.IdInValidError);
+
         var affectedRows = await _pieService
                 .DeletePieAsync(id);
 
-        if (affectedRows <= 0)
+        if (affectedRows == 0)
         {
             var errorMsg = PieValues.NotFoundIdError.Replace("{pieId}", id.ToString());
 

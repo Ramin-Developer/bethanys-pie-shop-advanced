@@ -175,7 +175,7 @@ public class PieController : BaseController<PieController>
         return View(viewModel);
     }
 
-    [HttpPost]
+    [HttpDelete]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var validationResult = ValidateId(id);
