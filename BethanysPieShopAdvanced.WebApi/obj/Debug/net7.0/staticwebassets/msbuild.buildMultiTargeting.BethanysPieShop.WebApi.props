@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\BethanysPieShop.WebApi.props" />
-</Project>
