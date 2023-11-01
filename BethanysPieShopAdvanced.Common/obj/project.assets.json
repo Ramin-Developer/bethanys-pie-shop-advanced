@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
+      "projectUniqueName": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
       "projectName": "BethanysPieShop.Common",
-      "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
+      "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
       "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-      "outputPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\obj\\",
+      "outputPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

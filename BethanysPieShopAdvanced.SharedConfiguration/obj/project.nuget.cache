@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ifL3qP9icJQ5rVodV5ZLozhrFaU/YNHe5X9rV5p0MDmugW4Tc/d2NCNAja+f/3Hzjk7G0EYnwJZ81KaJzGtF1A==",
+  "dgSpecHash": "bJ+097AB/muKgkLGTVUDg3MCMYtIVJNpLpSfvvYGkjCRXr2aTHEpy+VIKNguK/vfd7qCiMeNKFRbgnhf1dtKoQ==",
   "success": true,
-  "projectFilePath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.SharedConfiguration\\BethanysPieShop.SharedConfiguration.csproj",
+  "projectFilePath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.SharedConfiguration\\BethanysPieShop.SharedConfiguration.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramin\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ramin\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

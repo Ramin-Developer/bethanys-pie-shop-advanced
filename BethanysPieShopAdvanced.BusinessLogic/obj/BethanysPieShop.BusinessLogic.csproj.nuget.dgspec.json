@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj": {}
+    "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj": {}
   },
   "projects": {
-    "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj": {
+    "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj",
+        "projectUniqueName": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj",
         "projectName": "BethanysPieShop.BusinessLogic",
-        "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj",
+        "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\BethanysPieShop.BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\obj\\",
+        "outputPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
-                "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj"
+              "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
+                "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj"
               },
-              "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj": {
-                "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj"
+              "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj": {
+                "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj"
               }
             }
           }
@@ -81,14 +81,14 @@
         }
       }
     },
-    "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
+    "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
+        "projectUniqueName": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
         "projectName": "BethanysPieShop.Common",
-        "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
+        "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj",
         "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\obj\\",
+        "outputPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -141,14 +141,14 @@
         }
       }
     },
-    "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj": {
+    "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj",
+        "projectUniqueName": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj",
         "projectName": "BethanysPieShop.DataAccess",
-        "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj",
+        "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\BethanysPieShop.DataAccess.csproj",
         "packagesPath": "C:\\Users\\ramin\\.nuget\\packages\\",
-        "outputPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\obj\\",
+        "outputPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -170,8 +170,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
-                "projectPath": "D:\\Repos\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj"
+              "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj": {
+                "projectPath": "D:\\Repos\\Code\\BethanysPieShopAdvanced.App\\BethanysPieShopAdvanced.Common\\BethanysPieShop.Common.csproj"
               }
             }
           }
