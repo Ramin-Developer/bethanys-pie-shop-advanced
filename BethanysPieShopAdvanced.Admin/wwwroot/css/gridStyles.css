@@ -1,0 +1,57 @@
+﻿/* Base grid table styles */
+.grid-table {
+    display: grid;
+    gap: 5px;
+    grid-auto-rows: auto;
+}
+
+.grid-header, .grid-row {
+    display: grid;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.grid-header div, .grid-row div {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-bottom-width: 0;
+    border-top-width: 0;
+}
+
+.grid-row:last-child div {
+    border-bottom-width: 1px;
+}
+
+.grid-header div {
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    background-color: #eee;
+}
+
+.grid-row:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.grid-row:nth-child(even) {
+    background-color: #e9e9e9;
+}
+
+/* 4 columns modifier */
+.grid-4-columns .grid-header,
+.grid-4-columns .grid-row {
+    grid-template-columns: 50px 300px 70px auto;
+}
+
+/* 5 columns modifier */
+.grid-5-columns .grid-header,
+.grid-5-columns .grid-row {
+    grid-template-columns: 40px 120px 300px 70px auto;
+}
+
+/* 6 columns modifier */
+.grid-6-columns .grid-header,
+.grid-6-columns .grid-row {
+    grid-template-columns: 40px 300px 110px 150px 70px auto;
+}
+
+/* Add more modifiers as needed... */

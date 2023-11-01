@@ -1,0 +1,79 @@
+﻿@model PieAddViewModel
+
+<h2>Add a New Pie</h2>
+<hr />
+
+@if (string.IsNullOrEmpty(Model.ErrorMessage) == false)
+{
+    <p class="alert alert-danger">@Model.ErrorMessage</p>
+}
+
+<div>
+    <form asp-controller="Pie" asp-action="Add" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.Name" class="form-label"></label>
+            <input asp-for="PieDto!.Name" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.ShortDescription" class="form-label"></label>
+            <textarea asp-for="PieDto!.ShortDescription" class="form-control" rows="5" cols="50"
+                      style="resize: none;">
+        </textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.LongDescription" class="form-label"></label>
+            <textarea asp-for="PieDto!.LongDescription" class="form-control" rows="5" cols="50"
+                      style="resize: none;">
+        </textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.AllergyInformation" class="form-label"></label>
+            <textarea asp-for="PieDto!.AllergyInformation" class="form-control" rows="5" cols="50"
+                      style="resize: none;">
+        </textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.Price" class="form-label"></label>
+            <input asp-for="PieDto!.Price" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.ImageThumbnailUrl" class="form-label"></label>
+            <input asp-for="PieDto!.ImageThumbnailUrl" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.ImageUrl" class="form-label"></label>
+            <input asp-for="PieDto!.ImageUrl" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.IsPieOfTheWeek" class="form-label"></label>
+            <input asp-for="PieDto!.IsPieOfTheWeek" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PieDto!.InStock" class="form-label"></label>
+            <input asp-for="PieDto!.InStock" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Categories" class="form-label"></label>
+            <select asp-for="PieDto!.CategoryId" asp-items="Model.Categories"></select>
+        </div>
+
+        <input type="submit" value="Add the Pie" class="btn btn-primary" />
+    </form>
+</div>
+
+
+<br />
+<div>
+    <a asp-controller="Pie" asp-action="Index">Back to Pie Overview</a>
+</div>

@@ -1,0 +1,12 @@
+﻿global using BethanysPieShop.Common.Constant;
+global using BethanysPieShop.Common.Entity;
+global using BethanysPieShop.Common.EnumType;
+global using BethanysPieShop.Common.Interface;
+global using BethanysPieShop.Common.Pagination;
+global using BethanysPieShop.DataAccess.Context;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.EntityFrameworkCore.Migrations;
+global using Microsoft.Extensions.Caching.Memory;
+global using System.Linq.Expressions;

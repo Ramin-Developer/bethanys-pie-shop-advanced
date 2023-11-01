@@ -1,0 +1,50 @@
+﻿@model CategoryListViewModel
+
+<h2>Categories</h2>
+<hr />
+
+@if (Model.Categories.Any() == false)
+{
+    <p>No results</p>
+}
+else
+{
+    @foreach (var category in Model.Categories)
+    {
+        @if (string.IsNullOrEmpty(category.SuccessMessage) == false)
+        {
+            <p class="text-success">@category.SuccessMessage</p>
+        }
+    }
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.DateAdded.ToShortDateString()</td>
+                    <td>
+                        <a asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">Details</a>
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    <a asp-controller="Category" asp-action="Add">Add a Category</a>
+</div>
