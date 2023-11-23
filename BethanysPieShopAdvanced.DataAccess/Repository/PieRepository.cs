@@ -105,8 +105,10 @@ public class PieRepository : IPieRepository
     {
         var pieToDelete = await _dbContext
             .Pies
-            .FirstOrDefaultAsync(p => p.Id == id)
-            ?? throw new ArgumentException(PieValues.UpdateTargetNullError, nameof(id));
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (pieToDelete == null)
+            return 0;
 
         _dbContext.Pies.Remove(pieToDelete);
 

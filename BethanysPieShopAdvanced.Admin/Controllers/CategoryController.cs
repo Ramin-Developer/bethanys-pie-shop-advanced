@@ -1,6 +1,4 @@
-﻿namespace BethanysPieShop.Admin.Controllers;
-
-// Todo: Use ValidateId() to check the item IDs. 
+﻿namespace BethanysPieShop.Admin.Controllers; 
 
 public class CategoryController : BaseController<CategoryController>
 {
