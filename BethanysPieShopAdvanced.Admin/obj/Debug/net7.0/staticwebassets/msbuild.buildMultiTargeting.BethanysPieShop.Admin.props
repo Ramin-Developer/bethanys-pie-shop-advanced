@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\BethanysPieShop.Admin.props" />
-</Project>
