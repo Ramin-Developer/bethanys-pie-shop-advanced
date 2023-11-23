@@ -1,16 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Helper;
 
-public class PieHelperService : IPieHelperService
+public class PieHelperService(ICategoryService catService, IPieService pieService) : IPieHelperService
 {
-    public PieHelperService(ICategoryService catService, IPieService pieService)
-    {
-        _catService = catService
-            ?? throw new ArgumentNullException(nameof(catService), GeneralValues.ArgumentNullError);
-
-        _pieService = pieService
-            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
-    }
-
     public IEnumerable<SelectListItem> GetSelectList(IEnumerable<CategoryDto> catDTOs, int? selectedId) =>
         catDTOs.Select(c => new SelectListItem
         {
@@ -125,6 +116,8 @@ public class PieHelperService : IPieHelperService
         return GetSelectList(catDtoList, selectedId);
     }
 
-    private readonly ICategoryService _catService;
-    private readonly IPieService _pieService;
+    private readonly ICategoryService _catService = catService
+            ?? throw new ArgumentNullException(nameof(catService), GeneralValues.ArgumentNullError);
+    private readonly IPieService _pieService = pieService
+            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
 }

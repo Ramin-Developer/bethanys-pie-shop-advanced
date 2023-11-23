@@ -1,11 +1,7 @@
 ﻿namespace BethanysPieShop.DataAccess.Repository;
 
-public class OrderRepository : IOrderRepository
+public class OrderRepository(PieShopDbContext dbContext) : IOrderRepository
 {
-    public OrderRepository(PieShopDbContext dbContext) =>
-        _dbContext = dbContext
-            ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
-
     public async Task<IEnumerable<Order>> GetOrdersWithOrderLinesAsync() =>
         await
             _dbContext
@@ -31,5 +27,6 @@ public class OrderRepository : IOrderRepository
             .FirstOrDefaultAsync();
     }
 
-    private readonly PieShopDbContext _dbContext;
+    private readonly PieShopDbContext _dbContext = dbContext
+            ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
 }

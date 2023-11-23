@@ -1,16 +1,8 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-public abstract class BaseController<T> : Controller where T : Controller
+public abstract class BaseController<T>(ILogger logger, IPieModelErrorService errorService)
+    : Controller where T : Controller
 {
-    public BaseController(ILogger logger, IPieModelErrorService errorService)
-    {
-        _logger = logger
-            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
-
-        _errorService = errorService
-            ?? throw new ArgumentNullException(nameof(errorService), GeneralValues.ArgumentNullError);
-    }
-
     protected IActionResult HandleError(Exception ex, string methodName, PieEditViewModel pieEditVm = null!)
     {
         IActionResult HandleInvalidException(InvalidPieException invalidPieEx)
@@ -48,6 +40,8 @@ public abstract class BaseController<T> : Controller where T : Controller
 
     public bool IsIdValid(int? id) => id.HasValue && id.Value > 0;
 
-    protected readonly ILogger _logger;
-    protected readonly IPieModelErrorService _errorService;
+    protected readonly ILogger _logger = logger
+            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
+    protected readonly IPieModelErrorService _errorService = errorService
+            ?? throw new ArgumentNullException(nameof(errorService), GeneralValues.ArgumentNullError);
 }

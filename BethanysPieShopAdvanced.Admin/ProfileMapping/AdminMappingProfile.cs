@@ -7,8 +7,7 @@
 //          src => src.Pie!.CategoryName));
 public class AdminMappingProfile : Profile
 {
-    public AdminMappingProfile()
-    {
+    public AdminMappingProfile() =>
         CreateMap<PieAddViewModel, PieDto>()
             .ForMember(dest => dest.ShortDescription, opts => opts.MapFrom(
                 src => src.PieDto!.ShortDescription))
@@ -19,7 +18,7 @@ public class AdminMappingProfile : Profile
             .ForMember(dest => dest.Price, opts => opts.MapFrom(
                 src => src.PieDto!.Price))
 
-            .ForMember(dest => dest.AllergyInformation, opts => opts.MapFrom( 
+            .ForMember(dest => dest.AllergyInformation, opts => opts.MapFrom(
                 src => src.PieDto!.AllergyInformation))
 
             .ForMember(dest => dest.ImageThumbnailUrl, opts => opts.MapFrom(
@@ -37,11 +36,8 @@ public class AdminMappingProfile : Profile
             .ForMember(dest => dest.Name, opts => opts.MapFrom(
                 src => src.PieDto!.Name))
 
+            // Todo: Check if this line shoulds be uncommented:
+            //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(src => src.PieDto!.RowVersion));
             .ForMember(dest => dest.CategoryId, opts => opts.MapFrom(
                 src => src.PieDto!.CategoryId));
-
-            // Todo: Check if this line shoulds be uncommented:
-            //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(
-            //    src => src.PieDto!.RowVersion));
-    }
 }

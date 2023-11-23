@@ -1,13 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Helper;
 
-public class PieModelErrorService : IPieModelErrorService
+public class PieModelErrorService(ILogger<PieModelErrorService> logger) : IPieModelErrorService
 {
-    public PieModelErrorService(ILogger<PieModelErrorService> logger)
-    {
-        _logger = logger
-            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
-    }
-
     public IActionResult HandleException(Exception ex, string logFormat, Dictionary<string, object> args)
     {
         // Log with structured logging
@@ -103,5 +97,6 @@ public class PieModelErrorService : IPieModelErrorService
             modelState.AddModelError("Pie.CategoryId", $"Current value: {databaseValues.CategoryId}");
     }
 
-    private readonly ILogger<PieModelErrorService> _logger;
+    private readonly ILogger<PieModelErrorService> _logger = logger
+            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
 }

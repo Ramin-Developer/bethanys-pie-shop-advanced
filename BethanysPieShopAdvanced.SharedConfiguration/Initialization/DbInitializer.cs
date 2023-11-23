@@ -1,13 +1,7 @@
 ﻿namespace BethanysPieShop.SharedConfiguration.Initialization;
 
-public class DbInitializer
+public class DbInitializer(PieShopDbContext dbContext)
 {
-    public DbInitializer(PieShopDbContext dbContext)
-    {
-        _dbContext = dbContext
-            ?? throw new ArgumentException(GeneralValues.ArgumentNullError, nameof(dbContext));
-    }
-
     public void Seed()
     {
         SeedCategories();
@@ -342,5 +336,6 @@ public class DbInitializer
     }
 
     private Dictionary<string, Category>? _categories;
-    private readonly PieShopDbContext _dbContext;
+    private readonly PieShopDbContext _dbContext = dbContext
+            ?? throw new ArgumentException(GeneralValues.ArgumentNullError, nameof(dbContext));
 }
