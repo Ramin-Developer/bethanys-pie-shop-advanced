@@ -27,7 +27,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
         if (pieDto == null)
         {
-            _logger.LogWarning(PieValues.NotFoundIdError, id.ToString());
+            _logger.LogWarning(PieValues.NotFoundIdError);
             var warningMsg = PieValues.NotFoundIdError.Replace("{pieId}", id.ToString());
 
             return NotFound(warningMsg);
@@ -45,7 +45,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
         if (existingPie != null)
         {
-            _logger.LogWarning(PieValues.NotFoundIdError, pieDto.Name);
+            _logger.LogWarning(PieValues.NotFoundIdError);
             var errorMsg = PieValues.FoundNameFormatError.Replace("{pieId}", pieDto.Name);
 
             return NotFound(errorMsg);

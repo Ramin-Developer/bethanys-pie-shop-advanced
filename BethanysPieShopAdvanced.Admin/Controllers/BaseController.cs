@@ -42,6 +42,7 @@ public abstract class BaseController<T>(ILogger logger, IPieModelErrorService er
 
     protected readonly ILogger _logger = logger
             ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
+    
     protected readonly IPieModelErrorService _errorService = errorService
             ?? throw new ArgumentNullException(nameof(errorService), GeneralValues.ArgumentNullError);
 }

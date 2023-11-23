@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\CategoryController.cs~RF3beb89.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.Admin\BethanysPieShop.Admin\.editorconfig" />
   </ItemGroup>
 
