@@ -1,11 +1,8 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-public class HomeController : BaseController<HomeController>
+public class HomeController(ILogger<HomeController> logger, IPieModelErrorService errorService)
+    : BaseController<HomeController>(logger, errorService)
 {
-    public HomeController(ILogger<HomeController> logger, IPieModelErrorService errorService)
-        : base(logger, errorService)
-    { }
-
     [HttpGet]
     public IActionResult Index()
     {

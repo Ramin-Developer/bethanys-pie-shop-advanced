@@ -1,11 +1,7 @@
 ﻿namespace BethanysPieShop.DataAccess.Repository;
 
-public class PieRepository : IPieRepository
+public class PieRepository(PieShopDbContext dbContext) : IPieRepository
 {
-    public PieRepository(PieShopDbContext dbContext) =>
-        _dbContext = dbContext
-        ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
-
     public IQueryable<Pie> GetPies()
     {
         return _dbContext
@@ -169,5 +165,6 @@ public class PieRepository : IPieRepository
             pie.LongDescription != null && pie.LongDescription!.Contains(searchQuery);
     }
 
-    private readonly PieShopDbContext _dbContext;
+    private readonly PieShopDbContext _dbContext = dbContext
+        ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
 }

@@ -1,12 +1,8 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
-public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory>
+public class HomeControllerTest(CustomWebApplicationFactory factory)
+    : IClassFixture<CustomWebApplicationFactory>
 {
-    public HomeControllerTest(CustomWebApplicationFactory factory)
-    {
-        _client = factory.CreateClient();
-    }
-
     [Fact]
     public async Task HealthCheck_Returns_Healthy()
     {
@@ -19,5 +15,5 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory>
         response.EnsureSuccessStatusCode();
     }
 
-    private readonly HttpClient _client;
+    private readonly HttpClient _client = factory.CreateClient();
 }

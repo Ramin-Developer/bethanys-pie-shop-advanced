@@ -1,16 +1,8 @@
 ﻿namespace BethanysPieShop.DataAccess.Repository;
 
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryCache)
+    : ICategoryRepository
 {
-    public CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryCache)
-    {
-        _dbContext = dbContext
-            ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
-
-        _memoryCache = memoryCache
-            ?? throw new ArgumentNullException(nameof(memoryCache), GeneralValues.ArgumentNullError);
-    }
-
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
         if (_memoryCache.TryGetValue(CategoriesCacheName, out List<Category>? categories) == false)
@@ -114,6 +106,8 @@ public class CategoryRepository : ICategoryRepository
 
     private string CategoriesCacheName { get; } = "CategoriesCache";
 
-    private readonly PieShopDbContext _dbContext;
-    private readonly IMemoryCache _memoryCache;
+    private readonly PieShopDbContext _dbContext = dbContext
+            ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
+    private readonly IMemoryCache _memoryCache = memoryCache
+            ?? throw new ArgumentNullException(nameof(memoryCache), GeneralValues.ArgumentNullError);
 }

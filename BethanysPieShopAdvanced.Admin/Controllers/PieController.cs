@@ -1,25 +1,13 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
 [Produces("application/json")]
-public class PieController : BaseController<PieController>
+public class PieController(
+    ILogger<PieController> logger,
+    IMapper mapper,
+    IPieService pieService,
+    IPieHelperService pieHelperService,
+    IPieModelErrorService errorService) : BaseController<PieController>(logger, errorService)
 {
-    public PieController(
-        ILogger<PieController> logger,
-        IMapper mapper,
-        IPieService pieService,
-        IPieHelperService pieHelperService,
-        IPieModelErrorService errorService) : base(logger, errorService)
-    {
-        _pieService = pieService
-            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
-
-        _mapper = mapper
-            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
-
-        _pieHelperService = pieHelperService
-            ?? throw new ArgumentNullException(nameof(pieHelperService), GeneralValues.ArgumentNullError);
-    }
-
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -208,7 +196,10 @@ public class PieController : BaseController<PieController>
         }
     }
 
-    private readonly IPieService _pieService;
-    private readonly IMapper _mapper;
-    private readonly IPieHelperService _pieHelperService;
+    private readonly IPieService _pieService = pieService
+            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
+    private readonly IMapper _mapper = mapper
+            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
+    private readonly IPieHelperService _pieHelperService = pieHelperService
+            ?? throw new ArgumentNullException(nameof(pieHelperService), GeneralValues.ArgumentNullError);
 }

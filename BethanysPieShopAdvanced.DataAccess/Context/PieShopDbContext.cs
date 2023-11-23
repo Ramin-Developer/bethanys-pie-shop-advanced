@@ -1,10 +1,7 @@
 ﻿namespace BethanysPieShop.DataAccess.Context;
 
-public class PieShopDbContext : DbContext
+public class PieShopDbContext(DbContextOptions<PieShopDbContext> options) : DbContext(options)
 {
-    public PieShopDbContext(DbContextOptions<PieShopDbContext> options) : base(options)
-    { }
-
     public DbSet<Category> Categories { get; set; }
 
     public DbSet<Pie> Pies { get; set; }

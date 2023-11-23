@@ -2,17 +2,11 @@
 
 // Todo: Use ValidateId() to check the item IDs. 
 
-public class OrderController : BaseController<OrderController>
+public class OrderController(
+    ILogger<OrderController> logger,
+    IOrderService orderService,
+    IPieModelErrorService errorService) : BaseController<OrderController>(logger, errorService)
 {
-    public OrderController(
-        ILogger<OrderController> logger,
-        IOrderService orderService,
-        IPieModelErrorService errorService) : base(logger, errorService)
-    {
-        _orderService = orderService
-            ?? throw new ArgumentNullException(nameof(orderService), GeneralValues.ArgumentNullError);
-    }
-
     [HttpGet]
     public async Task<IActionResult> Index(int? orderId, int? orderLineId)
     {
@@ -74,5 +68,6 @@ public class OrderController : BaseController<OrderController>
         }
     }
 
-    private readonly IOrderService _orderService;
+    private readonly IOrderService _orderService = orderService
+            ?? throw new ArgumentNullException(nameof(orderService), GeneralValues.ArgumentNullError);
 }

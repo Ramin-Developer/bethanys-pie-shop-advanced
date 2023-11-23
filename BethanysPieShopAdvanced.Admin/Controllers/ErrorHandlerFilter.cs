@@ -1,10 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-public class ErrorHandlerFilter : IExceptionFilter
+public class ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) : IExceptionFilter
 {
-    public ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) =>
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
     public void OnException(ExceptionContext context)
     {
         var exception = context.Exception;
@@ -28,5 +25,5 @@ public class ErrorHandlerFilter : IExceptionFilter
         };
     }
 
-    private readonly ILogger<ErrorHandlerAttribute> _logger;
+    private readonly ILogger<ErrorHandlerAttribute> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 }

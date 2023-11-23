@@ -1,16 +1,10 @@
 ﻿namespace BethanysPieShop.Admin.Controllers; 
 
-public class CategoryController : BaseController<CategoryController>
+public class CategoryController(
+    ILogger<CategoryController> logger,
+    ICategoryService categoryService,
+    IPieModelErrorService errorService) : BaseController<CategoryController>(logger, errorService)
 {
-    public CategoryController(
-        ILogger<CategoryController> logger,
-        ICategoryService categoryService,
-        IPieModelErrorService errorService) : base(logger, errorService)
-    {
-        _catService = categoryService
-            ?? throw new ArgumentNullException(nameof(categoryService), GeneralValues.ArgumentNullError);
-    }
-
     [HttpGet]
     public async Task<IActionResult> Index(string? successMessage)
     {
@@ -162,5 +156,6 @@ public class CategoryController : BaseController<CategoryController>
         return View("Delete", catErrorDto);
     }
 
-    private readonly ICategoryService _catService;
+    private readonly ICategoryService _catService = categoryService
+            ?? throw new ArgumentNullException(nameof(categoryService), GeneralValues.ArgumentNullError);
 }

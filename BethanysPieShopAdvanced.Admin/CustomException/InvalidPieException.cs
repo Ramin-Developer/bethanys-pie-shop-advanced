@@ -1,8 +1,5 @@
 ﻿namespace BethanysPieShop.Admin.CustomException;
 
-public class InvalidPieException : CustomHandledException
-{
-    public InvalidPieException(string validationMessage, Exception innerException = null!)
-        : base(validationMessage, GeneralValues.PieValidationError, innerException)
-    { }
-}
+public class InvalidPieException(string validationMessage, Exception innerException = null!)
+    : CustomHandledException(validationMessage, GeneralValues.PieValidationError, innerException)
+{}

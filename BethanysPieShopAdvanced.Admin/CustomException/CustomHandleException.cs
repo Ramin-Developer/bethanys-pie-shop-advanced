@@ -1,14 +1,9 @@
 ﻿namespace BethanysPieShop.Admin.CustomException;
 
-public class CustomHandledException : Exception
+public class CustomHandledException(
+    string customMessage,
+    string userFriendlyMessage,
+    Exception innerException = null!) : Exception(customMessage, innerException)
 {
-    public CustomHandledException(
-        string customMessage,
-        string userFriendlyMessage,
-        Exception innerException = null!) : base(customMessage, innerException)
-    {
-        UserFriendlyMessage = userFriendlyMessage;
-    }
-
-    public string UserFriendlyMessage { get; set; }
+    public string UserFriendlyMessage { get; set; } = userFriendlyMessage;
 }

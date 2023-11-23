@@ -6,17 +6,8 @@
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
-public class PieController : ControllerBase
+public class PieController(ILogger<Pie> logger, IPieService pieService) : ControllerBase
 {
-    public PieController(ILogger<Pie> logger, IPieService pieService)
-    {
-        _logger = logger
-            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
-
-        _pieService = pieService
-            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
-    }
-
     // Get: api/pie
     [HttpGet]
     public async Task<ActionResult<List<PieDto>>> GetAll()
@@ -108,6 +99,8 @@ public class PieController : ControllerBase
         return Ok(affectedRows);
     }
 
-    private readonly ILogger<Pie> _logger;
-    private readonly IPieService _pieService;
+    private readonly ILogger<Pie> _logger = logger
+            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
+    private readonly IPieService _pieService = pieService
+            ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
 }

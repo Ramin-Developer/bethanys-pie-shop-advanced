@@ -4,5 +4,5 @@
 //      <td>@category!.DateAdded.Value.ToShortDateString()</td>
 public class CategoryListViewModel
 {
-    public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
+    public List<CategoryDto> Categories { get; set; } = [];
 }
