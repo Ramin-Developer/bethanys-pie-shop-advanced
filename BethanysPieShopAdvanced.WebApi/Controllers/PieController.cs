@@ -101,6 +101,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     private readonly ILogger<Pie> _logger = logger
             ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
+    
     private readonly IPieService _pieService = pieService
             ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
 }

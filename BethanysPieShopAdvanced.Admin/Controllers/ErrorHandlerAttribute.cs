@@ -11,5 +11,7 @@ public class ErrorHandlerAttribute(ILogger<ErrorHandlerAttribute> logger) : Attr
 
     public bool IsReusable => false;
 
-    private readonly ILogger<ErrorHandlerAttribute> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    private readonly ILogger<ErrorHandlerAttribute> _logger =
+        logger
+        ?? throw new ArgumentNullException(nameof(logger));
 }

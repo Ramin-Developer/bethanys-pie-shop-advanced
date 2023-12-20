@@ -1,3 +1,6 @@
+// Todo: Register a IWebApiClient interface and implement it in WebApiClient.
+// Todo: Use it in this project instead of BusinessLogic for CRUD operations.
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure shared logging.
