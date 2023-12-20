@@ -108,6 +108,7 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
 
     private readonly PieShopDbContext _dbContext = dbContext
             ?? throw new ArgumentNullException(nameof(dbContext), GeneralValues.ArgumentNullError);
+
     private readonly IMemoryCache _memoryCache = memoryCache
             ?? throw new ArgumentNullException(nameof(memoryCache), GeneralValues.ArgumentNullError);
 }

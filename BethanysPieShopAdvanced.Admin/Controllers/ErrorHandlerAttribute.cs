@@ -6,6 +6,7 @@ public class ErrorHandlerAttribute(ILogger<ErrorHandlerAttribute> logger) : Attr
     public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
     {
         var logger = serviceProvider.GetRequiredService<ILogger<ErrorHandlerAttribute>>();
+
         return new ErrorHandlerFilter(logger);
     }
 

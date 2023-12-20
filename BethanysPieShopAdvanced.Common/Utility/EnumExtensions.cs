@@ -16,9 +16,7 @@ public static class EnumExtensions
     public static TEnum GetCounterpart<TEnum>(this TEnum enumValue) where TEnum : Enum
     {
         if (enumValue is PieSortOption pieSortOption)
-        {
             return (TEnum)(object)GetPieSortOptionCounterpart(pieSortOption);
-        }
 
         var errorMsg = PieValues.NoCounterpartEnumTypeError.Replace("{enumType}", typeof(TEnum).Name);
         throw new InvalidOperationException(errorMsg);

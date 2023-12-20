@@ -1,14 +1,8 @@
 ﻿namespace BethanysPieShop.Common.Pagination;
 
-public class RequestPage
+public class RequestPage(int? pageNumber, int? pageSize = null)
 {
-    public RequestPage(int? pageNumber, int? pageSize = null)
-    {
-        PageNumber = pageNumber ?? PieValues.DefaultPageNumber;
-        PageSize = pageSize ?? PieValues.DefaultPageSize;
-    }
+    public int PageNumber { get; } = pageNumber ?? PieValues.DefaultPageNumber;
 
-    public int PageNumber { get; }
-
-    public int PageSize { get; }
+    public int PageSize { get; } = pageSize ?? PieValues.DefaultPageSize;
 }

@@ -2,15 +2,13 @@
 
 public class PieRepository(PieShopDbContext dbContext) : IPieRepository
 {
-    public IQueryable<Pie> GetPies()
-    {
-        return _dbContext
+    public IQueryable<Pie> GetPies() =>
+        _dbContext
             .Pies
             .Include(p => p.Category)
             .OrderBy(p => p.Name)
             .AsNoTracking()
             ?? Enumerable.Empty<Pie>().AsQueryable();
-    }
 
     public IQueryable<Pie> GetPagedPies(RequestPage requestPage)
     {

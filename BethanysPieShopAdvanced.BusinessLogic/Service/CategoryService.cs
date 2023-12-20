@@ -1,17 +1,8 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Service;
 
 // Todo: Add other validation rules to the methods.
-public class CategoryService : ICategoryService
+public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICategoryService
 {
-    public CategoryService(ICategoryRepository catRepo, IMapper mapper)
-    {
-        _catRepo = catRepo
-        ?? throw new ArgumentNullException(nameof(catRepo), GeneralValues.ArgumentNullError);
-
-        _mapper = mapper
-            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
-    }
-
     public async Task<List<CategoryDto>> GetCategoriesAsync()
     {
         var cat = (await _catRepo
@@ -127,6 +118,9 @@ public class CategoryService : ICategoryService
             throw new ArgumentNullException(nameof(catDto), GeneralValues.ArgumentNullError);
     }
 
-    private readonly ICategoryRepository _catRepo;
-    private readonly IMapper _mapper;
+    private readonly ICategoryRepository _catRepo = catRepo
+        ?? throw new ArgumentNullException(nameof(catRepo), GeneralValues.ArgumentNullError);
+
+    private readonly IMapper _mapper = mapper
+            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
 }

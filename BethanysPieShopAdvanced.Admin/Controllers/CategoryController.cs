@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.Admin.Controllers; 
+﻿namespace BethanysPieShop.Admin.Controllers;
 
 public class CategoryController(
     ILogger<CategoryController> logger,

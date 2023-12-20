@@ -1,17 +1,8 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Service;
 
 // Todo: Add validation rules to the methods.
-public class OrderService : IOrderService
+public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderService
 {
-    public OrderService(IOrderRepository orderRepo, IMapper mapper)
-    {
-        _orderRepo = orderRepo
-            ?? throw new ArgumentNullException(nameof(orderRepo), GeneralValues.ArgumentNullError);
-
-        _mapper = mapper
-            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
-    }
-
     public async Task<List<OrderDto>> GetOrdersWithOrderLinesAsync()
     {
         var result = (await
@@ -30,6 +21,8 @@ public class OrderService : IOrderService
         return _mapper.Map<OrderDto>(result);
     }
 
-    private readonly IOrderRepository _orderRepo;
-    private readonly IMapper _mapper;
+    private readonly IOrderRepository _orderRepo = orderRepo
+            ?? throw new ArgumentNullException(nameof(orderRepo), GeneralValues.ArgumentNullError);
+    private readonly IMapper _mapper = mapper
+            ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
 }

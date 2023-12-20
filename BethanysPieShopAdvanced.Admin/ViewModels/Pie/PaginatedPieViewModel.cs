@@ -4,7 +4,7 @@ public class PaginatedPieViewModel
 {
     public PaginatedPieViewModel(List<PieDto> itemList, int totalItemCount, int? currentPage, int? pageSize = null)
     {
-        _data = itemList ?? new List<PieDto>();
+        _data = itemList ?? [];
         TotalItemsCount = totalItemCount;
 
         PageSize = pageSize ?? PieValues.DefaultPageSize;

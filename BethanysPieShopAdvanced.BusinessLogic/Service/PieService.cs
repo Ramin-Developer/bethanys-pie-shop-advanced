@@ -1,19 +1,10 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Service;
 
-public class PieService : IPieService
+public class PieService(
+    IPieRepository pieRepo,
+    ICategoryRepository catRepo,
+    IMapper pieMapper) : IPieService
 {
-    public PieService(IPieRepository pieRepo, ICategoryRepository catRepo, IMapper pieMapper)
-    {
-        _pieRepo = pieRepo
-        ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
-
-        _catRepo = catRepo
-        ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
-
-        _pieMapper = pieMapper
-                ?? throw new ArgumentNullException(nameof(pieMapper), GeneralValues.ArgumentNullError);
-    }
-
     public async Task<List<PieDto>> GetPiesAsync()
     {
         var pies = await _pieRepo
@@ -131,14 +122,15 @@ public class PieService : IPieService
         return rowsAffected;
     }
 
-    public async Task<int> DeletePieAsync(int id)
-    {
-        var result = await _pieRepo.DeletePieAsync(id);
+    public async Task<int> DeletePieAsync(int id) =>
+        await _pieRepo.DeletePieAsync(id);
 
-        return result;
-    }
+    private readonly IPieRepository _pieRepo = pieRepo
+        ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
 
-    private readonly IPieRepository _pieRepo;
-    private readonly ICategoryRepository _catRepo;
-    private readonly IMapper _pieMapper;
+    private readonly ICategoryRepository _catRepo = catRepo
+        ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
+
+    private readonly IMapper _pieMapper = pieMapper
+                ?? throw new ArgumentNullException(nameof(pieMapper), GeneralValues.ArgumentNullError);
 }

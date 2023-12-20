@@ -17,12 +17,12 @@ public class DbInitializer(PieShopDbContext dbContext)
             {
                 var genresList = new Category[]
                 {
-                    new Category { Name = "Fruit Pies", DateAdded = DateTime.Today },
-                    new Category { Name = "Cheese Cakes", DateAdded = DateTime.Today },
-                    new Category { Name = "Seasonal Pies", DateAdded = DateTime.Today }
+                    new() { Name = "Fruit Pies", DateAdded = DateTime.Today },
+                    new() { Name = "Cheese Cakes", DateAdded = DateTime.Today },
+                    new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
                 };
 
-                _categories = new Dictionary<string, Category>();
+                _categories = [];
 
                 foreach (Category genre in genresList)
                     _categories.Add(genre.Name, genre);
@@ -62,9 +62,9 @@ public class DbInitializer(PieShopDbContext dbContext)
                     AllergyInformation = "",
                     Ingredients = new List<Ingredient>
                     {
-                        new Ingredient(){ Name = "Sugar", Amount = "100 grams" },
-                        new Ingredient(){ Name = "Fresh cream cheese", Amount = "300 grams" },
-                        new Ingredient(){ Name = "Popcorn", Amount = "1 cup" },
+                        new(){ Name = "Sugar", Amount = "100 grams" },
+                        new(){ Name = "Fresh cream cheese", Amount = "300 grams" },
+                        new(){ Name = "Popcorn", Amount = "1 cup" },
                     }
                 },
 
