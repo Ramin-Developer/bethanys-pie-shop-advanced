@@ -3,10 +3,10 @@
 [Produces("application/json")]
 public class PieController(
     ILogger<PieController> logger,
+    IPieModelErrorService errorService,
     IMapper mapper,
     IPieService pieService,
-    IPieHelperService pieHelperService,
-    IPieModelErrorService errorService) : BaseController<PieController>(logger, errorService)
+    IPieHelperService pieHelperService) : BaseController<PieController>(logger, errorService)
 {
     [HttpGet]
     public async Task<IActionResult> Index()

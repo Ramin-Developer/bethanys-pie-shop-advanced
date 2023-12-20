@@ -2,8 +2,8 @@
 
 public class CategoryController(
     ILogger<CategoryController> logger,
-    ICategoryService categoryService,
-    IPieModelErrorService errorService) : BaseController<CategoryController>(logger, errorService)
+    IPieModelErrorService errorService,
+    ICategoryService categoryService) : BaseController<CategoryController>(logger, errorService)
 {
     [HttpGet]
     public async Task<IActionResult> Index(string? successMessage)

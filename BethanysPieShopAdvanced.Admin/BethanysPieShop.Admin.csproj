@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BethanysPieShopAdvanced.BusinessLogic\BethanysPieShop.BusinessLogic.csproj" />
-    <ProjectReference Include="..\BethanysPieShopAdvanced.Common\BethanysPieShop.Common.csproj" />
     <ProjectReference Include="..\BethanysPieShopAdvanced.SharedConfiguration\BethanysPieShop.SharedConfiguration.csproj" />
   </ItemGroup>
 
