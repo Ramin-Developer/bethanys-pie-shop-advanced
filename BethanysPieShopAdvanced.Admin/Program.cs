@@ -1,4 +1,4 @@
-// Todo: Register a IWebApiClient interface and implement it in WebApiClient.
+// Todo: Register a IWebApiClient interface and implement it in WebApiClient. This should abstract away Http calls.
 // Todo: Use it in this project instead of BusinessLogic for CRUD operations.
 
 var builder = WebApplication.CreateBuilder(args);

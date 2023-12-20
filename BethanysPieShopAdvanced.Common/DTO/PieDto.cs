@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.Common.DTO;
+﻿namespace BethanysPieShop.Common.Dto;
 
 public class PieDto
 {

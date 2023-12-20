@@ -1,5 +1,5 @@
 ﻿global using BethanysPieShop.Common.Constant;
-global using BethanysPieShop.Common.DTO;
+global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.Interface;
 global using BethanysPieShop.DataAccess.Context;

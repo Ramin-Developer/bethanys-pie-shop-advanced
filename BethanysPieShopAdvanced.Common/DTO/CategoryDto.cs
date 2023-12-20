@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.Common.DTO;
+﻿namespace BethanysPieShop.Common.Dto;
 
 // Todo: In DTOs used for creation remove the Id property.
 // Todo: Consider creating several DTOs with descriptive names, e.g. AddCategoryDto.
