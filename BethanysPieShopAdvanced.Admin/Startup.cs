@@ -18,7 +18,7 @@ public static class Startup
         _ = builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         // Adding mappings
-        _ = builder.Services.AddAutoMapper(typeof(AdminMappingProfile));
+        _ = builder.Services.AddAutoMapper(typeof(AdminProfileMapping));
     }
 
     public static void Configure(this WebApplication app)

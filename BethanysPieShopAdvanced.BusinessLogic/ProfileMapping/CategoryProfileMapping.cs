@@ -1,8 +1,8 @@
 ﻿namespace BethanysPieShop.BusinessLogic.ProfileMapping;
 
-public class CategoryMappingProfile : Profile
+public class CategoryProfileMapping : Profile
 {
-    public CategoryMappingProfile()
+    public CategoryProfileMapping()
     {
         // Mapping from Category to CategoryDto
         CreateMap<Category, CategoryDto>()

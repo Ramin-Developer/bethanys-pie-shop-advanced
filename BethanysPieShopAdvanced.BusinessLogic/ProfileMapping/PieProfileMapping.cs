@@ -1,8 +1,8 @@
 ﻿namespace BethanysPieShop.BusinessLogic.ProfileMapping;
 
-public class PieMappingProfile : Profile
+public class PieProfileMapping : Profile
 {
-    public PieMappingProfile()
+    public PieProfileMapping()
     {
         // Mapping from Pie to PieDto
         CreateMap<Pie, PieDto>()
