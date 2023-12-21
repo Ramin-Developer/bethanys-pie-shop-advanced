@@ -40,6 +40,4 @@ public class PieDto
 
     [Display(Name = PieValues.CategoryNameDisplay)]
     public string CategoryName { get; set; } = string.Empty;
-
-    public byte[]? RowVersion { get; set; }
 }

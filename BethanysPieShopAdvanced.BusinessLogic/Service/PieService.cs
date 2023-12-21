@@ -87,35 +87,39 @@ public class PieService(
         return await _pieRepo.AddPieAsync(pie);
     }
 
-    public async Task<int> UpdatePieAsync(PieDto updatedPieDto)
+    public async Task<int> UpdatePieAsync(PieDto pieUpdate)
     {
-        if (updatedPieDto == null)
-            throw new ArgumentNullException(nameof(updatedPieDto), GeneralValues.ArgumentNullError);
+        if (pieUpdate == null)
+            throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
 
-        if (string.IsNullOrWhiteSpace(updatedPieDto.Name))
-            throw new ArgumentException(PieValues.NameInvalidError, nameof(updatedPieDto));
+        if (string.IsNullOrWhiteSpace(pieUpdate.Name))
+            throw new ArgumentException(PieValues.NameInvalidError, nameof(pieUpdate));
 
-        var existingPie = await _pieRepo.GetPieByIdAsync(updatedPieDto.Id);
-        if (existingPie != null && existingPie.Id != updatedPieDto.Id)
-            throw new ArgumentException(PieValues.NameDuplicatedError, nameof(updatedPieDto));
+        if (pieUpdate.CategoryId <= 0)
+            throw new ArgumentException(PieValues.InvalidCategoryId, nameof(pieUpdate));
+
+        var existingPie = await _pieRepo.GetPieByIdAsync(pieUpdate.Id);
+        if (existingPie != null && existingPie.Id != pieUpdate.Id)
+            throw new ArgumentException(PieValues.NameDuplicatedError, nameof(pieUpdate));
 
         var pieToUpdate = await _pieRepo
-            .GetPieByIdAsync(updatedPieDto.Id)
-            ?? throw new ArgumentException(PieValues.UpdateTargetNullError, nameof(updatedPieDto));
+            .GetPieByIdAsync(pieUpdate.Id)
+            ?? throw new ArgumentException(PieValues.UpdateTargetNullError, nameof(pieUpdate));
 
-        if (string.IsNullOrWhiteSpace(updatedPieDto.CategoryName) == false)
+        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName) == false)
         {
             var category = await _catRepo
-                .GetCategoryByNameAsync(updatedPieDto.CategoryName)
-                ?? throw new ArgumentException(CategoryValues.CategoryNotFoundError, nameof(updatedPieDto));
+                .GetCategoryByNameAsync(pieUpdate.CategoryName)
+                ?? throw new ArgumentException(CategoryValues.CategoryNotFoundError, nameof(pieUpdate));
 
             pieToUpdate.CategoryId = category.Id;
         }
 
-        if (updatedPieDto.RowVersion != null)
-            pieToUpdate.RowVersion = updatedPieDto.RowVersion;
+        //if (pieUpdate.RowVersion != null)
+        //    pieToUpdate.RowVersion = pieUpdate.RowVersion;
 
-        _pieMapper.Map(updatedPieDto, pieToUpdate);
+        // Todo: Update profile mapping from PieDto to Pie with regard to Timestamp/RowVersion. 
+        _pieMapper.Map(pieUpdate, pieToUpdate);
 
         var rowsAffected = await _pieRepo.UpdatePieAsync(pieToUpdate);
 

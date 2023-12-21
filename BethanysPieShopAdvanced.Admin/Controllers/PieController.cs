@@ -61,7 +61,7 @@ public class PieController(
 
         if (pieDto == null)
         {
-            _logger.LogError(PieValues.NotFoundIdError, id.Value);
+            _logger.LogError(PieValues.NotFoundIdError);
             viewModel.ErrorMessage = $"{PieValues.NotFoundIdError}";
 
             return View(viewModel);

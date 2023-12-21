@@ -28,5 +28,5 @@ public class Pie
 
     public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
-    public byte[]? RowVersion { get; set; }
+    public byte[]? RowVersion { get; set; } = null!;
 }

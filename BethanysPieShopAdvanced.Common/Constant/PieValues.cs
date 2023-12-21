@@ -5,6 +5,7 @@ public static class PieValues
     public const string NameDisplay = "Name";
     public const int MaxNameLength = 100;
     public const string InvalidName = "Pie name cannot be more than 100 characters.";
+    public const string InvalidCategoryId = "A pie's category ID must be a positive whole number.";
 
     public const string ShortDescDisplay = "Short Description";
     public const int MaxShortDescLength = 100;

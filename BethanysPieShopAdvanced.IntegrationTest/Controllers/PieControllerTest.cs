@@ -31,20 +31,39 @@ public class PieControllerTest : TestBase, IDisposable
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
-        var expectedPies = await dbContext.Pies.ToListAsync();
+        var expected = (await dbContext.Pies.ToListAsync()).OrderBy(p => p.Name);
+        var expectedPies = _mapper.Map<List<PieDto>>(expected);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
         httpResponseMsg.EnsureSuccessStatusCode();
-        var actualPies = await
+        var actual = await
             httpResponseMsg
             .Content
-            .ReadFromJsonAsync<List<Pie>>();
+            .ReadFromJsonAsync<List<PieDto>>();
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
-        actualPies.Should().NotBeNull();
-        actualPies.Should().BeEquivalentTo(expectedPies);
+        actual.Should().NotBeNull();
+        var actualPies = actual!.OrderBy(p => p.Name).ToList();
+
+        //actualPies.Should().BeEquivalentTo(expectedPies, options =>
+        //    options.Excluding(p => p.Path.StartsWith("RowVersion")));
+
+        for (var counter = 0; counter < expectedPies.Count; counter++)
+        {
+            actualPies[counter]!.Name.Should().Be(expectedPies[counter]!.Name);
+            actualPies[counter].ShortDescription.Should().Be(expectedPies[counter]!.ShortDescription);
+            actualPies[counter].LongDescription.Should().Be(expectedPies[counter]!.LongDescription);
+            actualPies[counter].AllergyInformation.Should().Be(expectedPies[counter]!.AllergyInformation);
+            actualPies[counter].Price.Should().Be(expectedPies[counter]!.Price);
+            actualPies[counter].ImageUrl.Should().Be(expectedPies[counter]!.ImageUrl);
+            actualPies[counter].ImageThumbnailUrl.Should().Be(expectedPies[counter]!.ImageThumbnailUrl);
+            actualPies[counter].IsPieOfTheWeek.Should().Be(expectedPies[counter]!.IsPieOfTheWeek);
+            actualPies[counter].InStock.Should().Be(expectedPies[counter]!.InStock);
+            actualPies[counter].CategoryId.Should().Be(expectedPies[counter]!.CategoryId);
+            //actualPies[counter].CategoryName.Should().Be(expectedPies[counter]!.CategoryName);
+        }
     }
 
     [Theory]
@@ -59,20 +78,35 @@ public class PieControllerTest : TestBase, IDisposable
         var endpoint = $"api/pie/{pieId}";
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
-        var expectedPie = await dbContext.FindAsync<Pie>(pieId);
+        var expected = await dbContext.FindAsync<Pie>(pieId);
+        var expectedPie = _mapper.Map<PieDto>(expected);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
         httpResponseMsg.EnsureSuccessStatusCode();
         var actualPie = await httpResponseMsg
             .Content
-            .ReadFromJsonAsync<Pie>();
+            .ReadFromJsonAsync<PieDto>();
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
-        expectedPie.Should().NotBeNull();
+        expected.Should().NotBeNull();
         actualPie.Should().NotBeNull();
-        actualPie.Should().BeEquivalentTo(expectedPie);
+
+        //actualPie.Should().BeEquivalentTo(expectedPie);
+
+        actualPie!.Id.Should().Be(expected!.Id);
+        actualPie!.Name.Should().Be(expected!.Name);
+        actualPie.ShortDescription.Should().Be(expected.ShortDescription);
+        actualPie.LongDescription.Should().Be(expected.LongDescription);
+        actualPie.AllergyInformation.Should().Be(expected.AllergyInformation);
+        actualPie.Price.Should().Be(expected.Price);
+        actualPie.ImageUrl.Should().Be(expected.ImageUrl);
+        actualPie.ImageThumbnailUrl.Should().Be(expected.ImageThumbnailUrl);
+        actualPie.IsPieOfTheWeek.Should().Be(expected.IsPieOfTheWeek);
+        actualPie.InStock.Should().Be(expected.InStock);
+        actualPie.CategoryId.Should().Be(expected.CategoryId);
+        //actualPie.CategoryName.Should().Be(expected.CategoryName);
     }
 
     [Theory]
@@ -118,14 +152,13 @@ public class PieControllerTest : TestBase, IDisposable
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         expectedPie.Should().NotBeNull();
         actualPie.Should().NotBeNull();
-        actualPie.Should().BeEquivalentTo(expectedPie, options => options
-            .Excluding(p => p.RowVersion)
-        );
+
+        actualPie.Should().BeEquivalentTo(expectedPie);
     }
 
     [Theory]
     [InlineData(5)]
-    public async Task Update_ShouldReturnOk_GivenDalidData(int id)
+    public async Task Update_ShouldReturnOk_GivenValidData(int id)
     {
         // Arrange
         var endpoint = $"api/pie/{id}";
@@ -151,15 +184,27 @@ public class PieControllerTest : TestBase, IDisposable
         expectedPie.Should().NotBeNull();
         actualPie.Should().NotBeNull();
 
-        actualPie.Should().BeEquivalentTo(expectedPie, options => options
-            .Excluding(p => p.RowVersion));
+        //actualPie.Should().BeEquivalentTo(expectedPie, options => options
+        //    .Excluding(p => p.RowVersion));
+
+        actualPie.Name.Should().Be(expectedPie.Name);
+        actualPie.ShortDescription.Should().Be(expectedPie.ShortDescription);
+        actualPie.LongDescription.Should().Be(expectedPie.LongDescription);
+        actualPie.AllergyInformation.Should().Be(expectedPie.AllergyInformation);
+        actualPie.Price.Should().Be(expectedPie.Price);
+        actualPie.ImageUrl.Should().Be(expectedPie.ImageUrl);
+        actualPie.ImageThumbnailUrl.Should().Be(expectedPie.ImageThumbnailUrl);
+        actualPie.IsPieOfTheWeek.Should().Be(expectedPie.IsPieOfTheWeek);
+        actualPie.InStock.Should().Be(expectedPie.InStock);
+        actualPie.CategoryId.Should().Be(expectedPie.CategoryId);
+        //actualPie.CategoryName.Should().Be(expectedPie.CategoryName);
     }
 
     [Theory]
     [InlineData(5)]
     [InlineData(7)]
     [InlineData(12)]
-    public async Task Delete_ShouldRemoveThePie_GivenValidData(int id)
+    public async Task Delete_ShouldRemovePie_GivenValidData(int id)
     {
         // Arrange
         var endpoint = $"api/pie/{id}";

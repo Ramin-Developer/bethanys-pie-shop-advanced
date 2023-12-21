@@ -7,8 +7,9 @@
 //          src => src.Pie!.CategoryName));
 public class AdminProfileMapping : Profile
 {
-    public AdminProfileMapping() =>
-        CreateMap<PieAddViewModel, PieDto>()
+    public AdminProfileMapping()
+    {
+        _ = CreateMap<PieAddViewModel, PieDto>()
             .ForMember(dest => dest.ShortDescription, opts => opts.MapFrom(
                 src => src.PieDto!.ShortDescription))
 
@@ -40,4 +41,19 @@ public class AdminProfileMapping : Profile
             //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(src => src.PieDto!.RowVersion));
             .ForMember(dest => dest.CategoryId, opts => opts.MapFrom(
                 src => src.PieDto!.CategoryId));
+
+        //_ = CreateMap<Pie, PieDto>()
+        //    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+        //    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+        //    .ForMember(dest => dest.ShortDescription, opt => opt.MapFrom(src => src.ShortDescription))
+        //    .ForMember(dest => dest.LongDescription, opt => opt.MapFrom(src => src.LongDescription))
+        //    .ForMember(dest => dest.AllergyInformation, opt => opt.MapFrom(src => src.AllergyInformation))
+        //    .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+        //    .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
+        //    .ForMember(dest => dest.ImageThumbnailUrl, opt => opt.MapFrom(src => src.ImageThumbnailUrl))
+        //    .ForMember(dest => dest.IsPieOfTheWeek, opt => opt.MapFrom(src => src.IsPieOfTheWeek))
+        //    .ForMember(dest => dest.InStock, opt => opt.MapFrom(src => src.InStock))
+        //    .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))       
+        //    .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.)       
+    }
 }
