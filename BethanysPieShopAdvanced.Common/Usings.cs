@@ -1,7 +1,9 @@
-﻿global using BethanysPieShop.Common.Constant;
+﻿global using AutoMapper;
+global using BethanysPieShop.Common.Constant;
 global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.EnumType;
 global using BethanysPieShop.Common.Pagination;
+global using BethanysPieShop.Common.Utility;
 global using System.ComponentModel.DataAnnotations;
 global using System.Reflection;

@@ -2,6 +2,7 @@ global using AutoMapper;
 global using BethanysPieShop.Common.Constant;
 global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
+global using BethanysPieShop.Common.Utility;
 global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.IntegrationTest.Configuration;
 global using BethanysPieShop.IntegrationTest.Utility;

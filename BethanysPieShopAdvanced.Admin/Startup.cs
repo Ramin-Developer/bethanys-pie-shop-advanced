@@ -4,7 +4,6 @@ public static class Startup
 {
     public static void ConfigureServices(this WebApplicationBuilder builder)
     {
-        // Call AddSharedSevices from SharedConfiguration project
         builder.AddServices();
 
         // Add the filter to the MVC service configuration.

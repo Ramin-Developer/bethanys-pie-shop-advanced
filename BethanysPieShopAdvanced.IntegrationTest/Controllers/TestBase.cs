@@ -19,10 +19,11 @@ public abstract class TestBase
             CategoryName = "Fruit Pies",
         };
 
-    protected PieDto GetCreatedPie() =>
-        new()
+    protected PieDto GetCreatedPie(string pieName, int categoryId)
+    {
+        var pie = new PieDto()
         {
-            Name = "Carrot Pie",
+            Name = pieName,
             ShortDescription = "Carrot Pie",
             LongDescription = PieValues.LongDescriptionValue,
             AllergyInformation = "No Allergy Reaction is expected",
@@ -31,7 +32,10 @@ public abstract class TestBase
             ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypiesmall.jpg",
             IsPieOfTheWeek = false,
             InStock = true,
-            CategoryId = 1,
-            CategoryName = "Fruit Pies",
+            CategoryId = categoryId,
+            CategoryName = CategoryHelper.GetCategoryName(categoryId),
         };
+
+        return pie;
+    }
 }

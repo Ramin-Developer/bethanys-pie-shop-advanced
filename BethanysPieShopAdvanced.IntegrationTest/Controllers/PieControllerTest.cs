@@ -2,6 +2,8 @@
 
 // Todo: Create and Update methods in WebApi.Controllers should return Created and NoContent, respectively.
 // Todo: Modify also the corresponding tests accordingly.
+// Todo: Fix the following problem with CreatePie() test: 
+//       CategoryName is empty because CategoryId is wrong.
 
 [Collection("Database Collection")]
 public class PieControllerTest : TestBase, IDisposable
@@ -27,7 +29,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
     {
         // Arrange
-        var endpoint = "api/pie";
+        var endPoint = ApiEndPoints.BaseEmployeeUrl;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
@@ -35,35 +37,17 @@ public class PieControllerTest : TestBase, IDisposable
         var expectedPies = _mapper.Map<List<PieDto>>(expected);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endPoint);
         httpResponseMsg.EnsureSuccessStatusCode();
         var actual = await
             httpResponseMsg
             .Content
-            .ReadFromJsonAsync<List<PieDto>>();
+            .ReadFromJsonAsync<List<Pie>>();
 
         // Assert
-        httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         actual.Should().NotBeNull();
-        var actualPies = actual!.OrderBy(p => p.Name).ToList();
-
-        //actualPies.Should().BeEquivalentTo(expectedPies, options =>
-        //    options.Excluding(p => p.Path.StartsWith("RowVersion")));
-
-        for (var counter = 0; counter < expectedPies.Count; counter++)
-        {
-            actualPies[counter]!.Name.Should().Be(expectedPies[counter]!.Name);
-            actualPies[counter].ShortDescription.Should().Be(expectedPies[counter]!.ShortDescription);
-            actualPies[counter].LongDescription.Should().Be(expectedPies[counter]!.LongDescription);
-            actualPies[counter].AllergyInformation.Should().Be(expectedPies[counter]!.AllergyInformation);
-            actualPies[counter].Price.Should().Be(expectedPies[counter]!.Price);
-            actualPies[counter].ImageUrl.Should().Be(expectedPies[counter]!.ImageUrl);
-            actualPies[counter].ImageThumbnailUrl.Should().Be(expectedPies[counter]!.ImageThumbnailUrl);
-            actualPies[counter].IsPieOfTheWeek.Should().Be(expectedPies[counter]!.IsPieOfTheWeek);
-            actualPies[counter].InStock.Should().Be(expectedPies[counter]!.InStock);
-            actualPies[counter].CategoryId.Should().Be(expectedPies[counter]!.CategoryId);
-            //actualPies[counter].CategoryName.Should().Be(expectedPies[counter]!.CategoryName);
-        }
+        var actualPies = actual!.OrderBy(p => p.Name).Select(p => _mapper.Map<PieDto>(p)).ToList();
+        actualPies.Should().BeEquivalentTo(expectedPies);
     }
 
     [Theory]
@@ -75,7 +59,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task GetById_ReturnsPie_GivenValidInputAsync(int pieId)
     {
         // Arrange
-        var endpoint = $"api/pie/{pieId}";
+        var endpoint = ApiEndPoints.SinglePieeUrl(pieId);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
         var expected = await dbContext.FindAsync<Pie>(pieId);
@@ -91,22 +75,7 @@ public class PieControllerTest : TestBase, IDisposable
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         expected.Should().NotBeNull();
-        actualPie.Should().NotBeNull();
-
-        //actualPie.Should().BeEquivalentTo(expectedPie);
-
-        actualPie!.Id.Should().Be(expected!.Id);
-        actualPie!.Name.Should().Be(expected!.Name);
-        actualPie.ShortDescription.Should().Be(expected.ShortDescription);
-        actualPie.LongDescription.Should().Be(expected.LongDescription);
-        actualPie.AllergyInformation.Should().Be(expected.AllergyInformation);
-        actualPie.Price.Should().Be(expected.Price);
-        actualPie.ImageUrl.Should().Be(expected.ImageUrl);
-        actualPie.ImageThumbnailUrl.Should().Be(expected.ImageThumbnailUrl);
-        actualPie.IsPieOfTheWeek.Should().Be(expected.IsPieOfTheWeek);
-        actualPie.InStock.Should().Be(expected.InStock);
-        actualPie.CategoryId.Should().Be(expected.CategoryId);
-        //actualPie.CategoryName.Should().Be(expected.CategoryName);
+        actualPie.Should().BeEquivalentTo(expectedPie);
     }
 
     [Theory]
@@ -115,7 +84,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task GetById_ReturnsNotFound_GivenInvalidIdAsync(int invalidId)
     {
         // Arrange
-        var endpoint = $"api/pie/{invalidId}";
+        var endpoint = ApiEndPoints.SinglePieeUrl(invalidId);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
@@ -124,27 +93,28 @@ public class PieControllerTest : TestBase, IDisposable
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    [Fact]
-    public async Task Create_ShouldReturnOk_WhenValidData()
+    [Theory]
+    [InlineData("My New Pie", 1)]
+    public async Task Create_ShouldReturnOk_WhenValidData(string pieName, int categoryId)
     {
         // Arrange
-        var endpoint = $"api/pie/";
+        var endPoint = ApiEndPoints.BaseEmployeeUrl;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
-        var expectedPie = GetCreatedPie();
-        var serializedPie = JsonSerializer.Serialize(expectedPie);
-        var httpContent = new StringContent(serializedPie, Encoding.UTF8, "application/json");
+        var expectedPie = GetCreatedPie(pieName, categoryId);
 
         // Act
-        var httpResponseMsg = await _client.PostAsync(endpoint, httpContent);
+        var serializedPie = JsonSerializer.Serialize(expectedPie);
+        var httpContent = new StringContent(serializedPie, Encoding.UTF8, "application/json");
+        var httpResponseMsg = await _client.PostAsync(endPoint, httpContent);
 
         // Fetch the updated pie from the database
         var createdPie = await dbContext
             .Pies
-            .FirstOrDefaultAsync(p => p.Name == expectedPie.Name);
+            .FirstOrDefaultAsync(p => p.Name == pieName);
+        expectedPie.Id = createdPie!.Id;
 
         var actualPie = _mapper.Map<PieDto>(createdPie);
-        expectedPie.Id = createdPie!.Id;
         actualPie.CategoryId = expectedPie.CategoryId;
         actualPie.CategoryName = expectedPie.CategoryName;
 
@@ -161,7 +131,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Update_ShouldReturnOk_GivenValidData(int id)
     {
         // Arrange
-        var endpoint = $"api/pie/{id}";
+        var endpoint = ApiEndPoints.SinglePieeUrl(id);
         using var dbContext = ScopedDbContext
             .Create(_scopeFactory)
             .DbContext;
@@ -184,20 +154,7 @@ public class PieControllerTest : TestBase, IDisposable
         expectedPie.Should().NotBeNull();
         actualPie.Should().NotBeNull();
 
-        //actualPie.Should().BeEquivalentTo(expectedPie, options => options
-        //    .Excluding(p => p.RowVersion));
-
-        actualPie.Name.Should().Be(expectedPie.Name);
-        actualPie.ShortDescription.Should().Be(expectedPie.ShortDescription);
-        actualPie.LongDescription.Should().Be(expectedPie.LongDescription);
-        actualPie.AllergyInformation.Should().Be(expectedPie.AllergyInformation);
-        actualPie.Price.Should().Be(expectedPie.Price);
-        actualPie.ImageUrl.Should().Be(expectedPie.ImageUrl);
-        actualPie.ImageThumbnailUrl.Should().Be(expectedPie.ImageThumbnailUrl);
-        actualPie.IsPieOfTheWeek.Should().Be(expectedPie.IsPieOfTheWeek);
-        actualPie.InStock.Should().Be(expectedPie.InStock);
-        actualPie.CategoryId.Should().Be(expectedPie.CategoryId);
-        //actualPie.CategoryName.Should().Be(expectedPie.CategoryName);
+        actualPie.Should().BeEquivalentTo(expectedPie);
     }
 
     [Theory]

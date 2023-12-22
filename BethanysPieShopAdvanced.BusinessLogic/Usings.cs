@@ -5,4 +5,5 @@ global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.EnumType;
 global using BethanysPieShop.Common.Interface;
 global using BethanysPieShop.Common.Pagination;
+global using BethanysPieShop.Common.Utility;
 global using Microsoft.EntityFrameworkCore;
