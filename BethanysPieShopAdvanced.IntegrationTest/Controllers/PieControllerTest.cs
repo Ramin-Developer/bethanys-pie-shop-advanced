@@ -104,7 +104,7 @@ public class PieControllerTest : TestBase, IDisposable
         var expectedPie = GetCreatedPie(pieName, categoryId);
 
         // Act
-        var serializedPie = JsonSerializer.Serialize(expectedPie);
+        var serializedPie = JsonSerializer.Serialize(expectedPie, JsonSettings.JsonOptions);
         var httpContent = new StringContent(serializedPie, Encoding.UTF8, "application/json");
         var httpResponseMsg = await _client.PostAsync(endPoint, httpContent);
 
