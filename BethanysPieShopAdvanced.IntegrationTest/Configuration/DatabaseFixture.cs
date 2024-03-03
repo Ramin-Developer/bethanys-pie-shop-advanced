@@ -5,7 +5,7 @@ public class DatabaseFixture : IDisposable
     public DatabaseFixture()
     {
         var options = new DbContextOptionsBuilder<PieShopDbContext>()
-            .UseInMemoryDatabase(DatabaseName)
+            .UseInMemoryDatabase(InMemoryDbName)
             .Options;
 
         DbContext = new PieShopDbContext(options);
@@ -15,6 +15,6 @@ public class DatabaseFixture : IDisposable
 
     public PieShopDbContext DbContext { get; }
 
-    private string DatabaseName =>
+    private string InMemoryDbName =>
         GeneralValues.DatabaseName + "_" + Guid.NewGuid().ToString();
 }
