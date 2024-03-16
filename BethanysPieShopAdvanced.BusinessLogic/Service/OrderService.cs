@@ -23,6 +23,7 @@ public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderSe
 
     private readonly IOrderRepository _orderRepo = orderRepo
             ?? throw new ArgumentNullException(nameof(orderRepo), GeneralValues.ArgumentNullError);
+
     private readonly IMapper _mapper = mapper
             ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
 }

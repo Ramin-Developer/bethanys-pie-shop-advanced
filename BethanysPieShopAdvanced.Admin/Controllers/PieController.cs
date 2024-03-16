@@ -198,8 +198,10 @@ public class PieController(
 
     private readonly IPieService _pieService = pieService
             ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
+
     private readonly IMapper _mapper = mapper
             ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);
+
     private readonly IPieHelperService _pieHelperService = pieHelperService
             ?? throw new ArgumentNullException(nameof(pieHelperService), GeneralValues.ArgumentNullError);
 }
