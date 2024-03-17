@@ -335,7 +335,6 @@ public class DbInitializer(PieShopDbContext dbContext)
     {
         if (_dbContext.Orders.Any() == false)
         {
-
             _dbContext.Orders.AddRange(
                 new Order()
                 {
