@@ -8,7 +8,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
         _dbContext.Database.Migrate();
 
         // Seed the database only if it's empty
-        if (DatabaseIsSeeded() == false)
+        if (DatabaseIsSeeded == false)
             SeedDatabase();
     }
 
@@ -21,6 +21,10 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
         // Seed pies
         if (_dbContext.Pies.Any() == false)
             _dbContext.Pies.AddRange(AllPies());
+
+        // Seed pies
+        if (_dbContext.Orders.Any() == false)
+            _dbContext.Orders.AddRange(AllOrders());
 
         _dbContext.SaveChanges();
     }
@@ -48,7 +52,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
         }
     }
 
-    private bool DatabaseIsSeeded() => _dbContext.Pies.Any();
+    private bool DatabaseIsSeeded => _dbContext.Pies.Any() && _dbContext.Categories.Any();
 
     private List<Pie> AllPies()
     {
@@ -305,38 +309,35 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
     ];
     }
 
-    private void SeedOrders()
+    private List<Order> AllOrders()
     {
-        if (_dbContext.Orders.Any() == false)
-        {
-            _dbContext.Orders.AddRange(
-                new Order()
+        return
+        [
+            new Order()
+            {
+                FirstName = "Gill",
+                LastName = "Cleeren",
+                AddressLine1 = "Some street 123",
+                City = "Brussels",
+                Country = "Belgium",
+                Email = "test@test.com",
+                PhoneNumber = "555-123456",
+                State = "NA",
+                ZipCode = "1111",
+                OrderPlaced = DateTime.Now,
+                OrderStatus = OrderStatus.OutForDelivery,
+                OrderTotal = 1235,
+                OrderLines = new List<OrderLine>()
                 {
-                    FirstName = "Gill",
-                    LastName = "Cleeren",
-                    AddressLine1 = "Some street 123",
-                    City = "Brussels",
-                    Country = "Belgium",
-                    Email = "test@test.com",
-                    PhoneNumber = "555-123456",
-                    State = "NA",
-                    ZipCode = "1111",
-                    OrderPlaced = DateTime.Now,
-                    OrderStatus = OrderStatus.OutForDelivery,
-                    OrderTotal = 1235,
-                    OrderLines = new List<OrderLine>()
+                    new OrderLine()
                     {
-                        new OrderLine()
-                        {
-                            Amount = 1,
-                            PieId = 1,
-                            Price = 22.95M
-                        }
+                        Amount = 1,
+                        PieId = 1,
+                        Price = 22.95M
                     }
-                });
-        }
-
-        _dbContext.SaveChanges();
+                }
+            },
+        ];
     }
 
     private Dictionary<string, Category>? _categories;
