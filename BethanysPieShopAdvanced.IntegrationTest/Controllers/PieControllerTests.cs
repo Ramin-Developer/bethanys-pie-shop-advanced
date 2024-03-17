@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
-// Todo: Create and Update methods in WebApi.Controllers should return Created and NoContent, respectively.
+// Todo: Create() and Update() methods in WebApi.Controllers should return Created and NoContent, respectively.
 // Todo: Modify also the corresponding tests accordingly.
 // Todo: Fix the following problem with CreatePie() test: 
 //       CategoryName is empty because CategoryId is wrong.

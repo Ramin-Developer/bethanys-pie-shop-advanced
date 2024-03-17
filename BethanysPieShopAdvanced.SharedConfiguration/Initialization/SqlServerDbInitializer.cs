@@ -1,7 +1,4 @@
-﻿
-using System.Runtime.CompilerServices;
-
-namespace BethanysPieShop.SharedConfiguration.Initialization;
+﻿namespace BethanysPieShop.SharedConfiguration.Initialization;
 
 public class SqlServerDbInitializer(PieShopDbContext dbContext)
 {
@@ -17,6 +14,9 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
 
     private void SeedDatabase()
     {
+        // Perform migrations if targeting SQL Server
+        _dbContext.Database.Migrate();
+
         // Seed categories
         if (_dbContext.Categories.Any() == false)
             _dbContext.Categories.AddRange(CategoryList);

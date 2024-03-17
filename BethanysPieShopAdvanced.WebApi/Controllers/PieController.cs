@@ -1,5 +1,4 @@
-﻿
-namespace BethanysPieShop.WebApi.Controllers;
+﻿namespace BethanysPieShop.WebApi.Controllers;
 
 // Todo: Fix the issue of "CategoryName is required" when adding or updating a pie.
 // Todo: In the Admin: Under adding a new, choosing the category from the drop-down-menu doesn't have any effect.
