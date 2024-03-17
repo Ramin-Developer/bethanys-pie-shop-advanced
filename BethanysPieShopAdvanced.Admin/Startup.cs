@@ -34,8 +34,6 @@ public static class Startup
             app.UseHsts();
         }
 
-        using var scope = app.Services.CreateScope();
-        var services = scope.ServiceProvider;
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
@@ -49,5 +47,20 @@ public static class Startup
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        // Initialize the SQL Server database
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+        try
+        {
+            var dbContext = services.GetRequiredService<PieShopDbContext>();
+            var sqlServerInitializer = new SqlServerDbInitializer(dbContext);
+            sqlServerInitializer.Initialize();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred initializing the SQL Server database.");
+        }
     }
 }

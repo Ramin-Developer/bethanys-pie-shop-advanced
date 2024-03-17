@@ -1,35 +1,12 @@
 ﻿namespace BethanysPieShop.SharedConfiguration.Initialization;
 
-public class DbInitializer(PieShopDbContext dbContext)
+public class InMemoryDbInitializer(PieShopDbContext dbContext)
 {
     public void SeedInMemoryDb()
     {
-        SeedCategoriesForInMemory();
-        SeedPiesInMemory();
-        SeedOrders();
-    }
-
-    public Dictionary<string, Category> CategoriesForSqlServer
-    {
-        get
-        {
-            if (_categories == null)
-            {
-                var categoryList = new Category[]
-                {
-                    new() { Name = "Fruit Pies", DateAdded = DateTime.Today },
-                    new() { Name = "Cheese Cakes", DateAdded = DateTime.Today },
-                    new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
-                };
-
-                _categories = [];
-
-                foreach (var category in categoryList)
-                    _categories.Add(category.Name, category);
-            }
-
-            return _categories;
-        }
+        SeedCategories();
+        SeedPies();
+        SeedOrdersInMemory();
     }
 
     public Dictionary<string, Category> CategoriesForInMemory
@@ -55,7 +32,7 @@ public class DbInitializer(PieShopDbContext dbContext)
         }
     }
 
-    private void SeedCategoriesForSqlServer()
+    private void SeedCategories()
     {
         if (_dbContext.Categories.Any() == false)
             _dbContext.Categories.AddRange(CategoriesForInMemory.Select(c => c.Value));
@@ -63,15 +40,7 @@ public class DbInitializer(PieShopDbContext dbContext)
         _dbContext.SaveChanges();
     }
 
-    private void SeedCategoriesForInMemory()
-    {
-        if (_dbContext.Categories.Any() == false)
-            _dbContext.Categories.AddRange(CategoriesForInMemory.Select(c => c.Value));
-
-        _dbContext.SaveChanges();
-    }
-
-    private void SeedPiesInMemory()
+    private void SeedPies()
     {
         if (_dbContext.Pies.Any() == false)
         {
@@ -331,13 +300,14 @@ public class DbInitializer(PieShopDbContext dbContext)
         _dbContext.SaveChanges();
     }
 
-    private void SeedOrders()
+    private void SeedOrdersInMemory()
     {
         if (_dbContext.Orders.Any() == false)
         {
             _dbContext.Orders.AddRange(
                 new Order()
                 {
+                    Id = 1,
                     FirstName = "Gill",
                     LastName = "Cleeren",
                     AddressLine1 = "Some street 123",

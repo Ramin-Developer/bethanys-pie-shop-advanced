@@ -29,7 +29,7 @@ public class PieControllerTests : TestBase, IDisposable
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
     {
         // Arrange
-        var endPoint = ApiEndPoints.AllPiesEndpoint;
+        var endPoint = ApiEndPoints.BasePieEndpoint;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 

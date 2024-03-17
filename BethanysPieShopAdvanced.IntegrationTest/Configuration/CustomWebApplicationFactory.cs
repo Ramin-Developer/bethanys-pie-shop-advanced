@@ -38,7 +38,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.Database.EnsureDeleted();
         dbContext.Database.EnsureCreated();
 
-        var dbInitializer = new DbInitializer(dbContext);
+        var dbInitializer = new InMemoryDbInitializer(dbContext);
         dbInitializer.SeedInMemoryDb();
     }
 
