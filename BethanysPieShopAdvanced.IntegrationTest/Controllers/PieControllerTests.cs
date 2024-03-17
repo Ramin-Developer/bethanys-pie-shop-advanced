@@ -6,9 +6,9 @@
 //       CategoryName is empty because CategoryId is wrong.
 
 [Collection("Database Collection")]
-public class PieControllerTest : TestBase, IDisposable
+public class PieControllerTests : TestBase, IDisposable
 {
-    public PieControllerTest()
+    public PieControllerTests()
     {
         _factory = new CustomWebApplicationFactory();
         _factory.SeedData();
@@ -29,9 +29,12 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
     {
         // Arrange
-        var endPoint = ApiEndPoints.BaseEmployeeUrl;
+
+        var endPoint = ApiEndPoints.BasePieUrl;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
+        var databaseProvider = dbContext.Database.ProviderName;
+        Console.WriteLine($"Database Provider: {databaseProvider}"); // Or use ILogger to log this information
 
         var expected = (await dbContext.Pies.ToListAsync()).OrderBy(p => p.Name);
         var expectedPies = _mapper.Map<List<PieDto>>(expected);
@@ -59,7 +62,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task GetById_ReturnsPie_GivenValidInputAsync(int pieId)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieeUrl(pieId);
+        var endpoint = ApiEndPoints.SinglePieUrl(pieId);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
         var expected = await dbContext.FindAsync<Pie>(pieId);
@@ -84,7 +87,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task GetById_ReturnsNotFound_GivenInvalidIdAsync(int invalidId)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieeUrl(invalidId);
+        var endpoint = ApiEndPoints.SinglePieUrl(invalidId);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
@@ -98,7 +101,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Create_ShouldReturnOk_WhenValidData(string pieName, int categoryId)
     {
         // Arrange
-        var endPoint = ApiEndPoints.BaseEmployeeUrl;
+        var endPoint = ApiEndPoints.BasePieUrl;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
         var expectedPie = GetCreatedPie(pieName, categoryId);
@@ -131,7 +134,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Update_ShouldReturnOk_GivenValidData(int id)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieeUrl(id);
+        var endpoint = ApiEndPoints.SinglePieUrl(id);
         using var dbContext = ScopedDbContext
             .Create(_scopeFactory)
             .DbContext;
@@ -164,7 +167,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Delete_ShouldRemovePie_GivenValidData(int id)
     {
         // Arrange
-        var endpoint = $"api/pie/{id}";
+        var endpoint = ApiEndPoints.SinglePieUrl(id);
         using var dbContext = ScopedDbContext
             .Create(_scopeFactory)
             .DbContext;
@@ -189,7 +192,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Delete_ShouldReturnBadRequest_GivenInvalidData(int id)
     {
         // Arrange
-        var endpoint = $"api/pie/{id}";
+        var endpoint = ApiEndPoints.SinglePieUrl(id);
 
         // Act
         var httpResponseMsg = await _client.DeleteAsync(endpoint);
@@ -204,7 +207,7 @@ public class PieControllerTest : TestBase, IDisposable
     public async Task Delete_ShouldReturnNotFound_GivenInvalidData(int id)
     {
         // Arrange
-        var endpoint = $"api/pie/{id}";
+        var endpoint = ApiEndPoints.SinglePieUrl(id);
 
         // Act
         var httpResponseMsg = await _client.DeleteAsync(endpoint);

@@ -4,13 +4,27 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+            // Explicitly set the environment name for the application during testing
+            // Or "Test" if you have specific configurations for tests
+            context.HostingEnvironment.EnvironmentName = "Development"; 
+        });
+
         builder.ConfigureServices(services =>
         {
-            var serviceProvider = services.BuildServiceProvider();
+            // Remove any existing DbContextOptions configured for PieShopDbContext
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(DbContextOptions<PieShopDbContext>));
 
-            using var scope = serviceProvider.CreateScope();
-            var scopedService = scope.ServiceProvider;
-            var dbcontext = scopedService.GetRequiredService<PieShopDbContext>();
+            if (descriptor != null)
+                services.Remove(descriptor);
+
+            // Configure your DbContext to use an in-memory database
+            services.AddDbContext<PieShopDbContext>(options =>
+            {
+                options.UseInMemoryDatabase($"InMemoryDbForTesting_{DynamicDbName}");
+            });
         });
     }
 
@@ -27,4 +41,6 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         var dbInitializer = new DbInitializer(dbContext);
         dbInitializer.Seed();
     }
+
+    private readonly string DynamicDbName = Guid.NewGuid().ToString();
 }

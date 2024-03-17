@@ -2,7 +2,9 @@
 
 public static class ApiEndPoints
 {
-    public static string BaseEmployeeUrl = "api/pie";
+    public static string BasePieUrl = "api/pie";
 
-    public static string SinglePieeUrl(int pieId) => $"api/pie/{pieId}";
+    public static string AllPiesUrl = "api/pie";
+
+    public static string SinglePieUrl(int pieId) => $"api/pie/{pieId}";
 }

@@ -36,13 +36,6 @@ public static class Startup
 
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
-
-        var context = services.GetRequiredService<PieShopDbContext>();
-
-        // Seed the database
-        var dbInitializer = new DbInitializer(context);
-        dbInitializer.Seed();
-
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 

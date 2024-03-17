@@ -17,9 +17,9 @@ public class DbInitializer(PieShopDbContext dbContext)
             {
                 var categoryList = new Category[]
                 {
-                    new() { Id = 1, Name = "Fruit Pies", DateAdded = DateTime.Today },
-                    new() { Id = 2, Name = "Cheese Cakes", DateAdded = DateTime.Today },
-                    new() { Id = 3, Name = "Seasonal Pies", DateAdded = DateTime.Today }
+                    new() { Name = "Fruit Pies", DateAdded = DateTime.Today },
+                    new() { Name = "Cheese Cakes", DateAdded = DateTime.Today },
+                    new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
                 };
 
                 _categories = [];
@@ -40,9 +40,9 @@ public class DbInitializer(PieShopDbContext dbContext)
             {
                 var categoryList = new Category[]
                 {
-                    new() { Name = "Fruit Pies", DateAdded = DateTime.Today },
-                    new() { Name = "Cheese Cakes", DateAdded = DateTime.Today },
-                    new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
+                    new() { Id = 1, Name = "Fruit Pies", DateAdded = DateTime.Today },
+                    new() { Id = 2, Name = "Cheese Cakes", DateAdded = DateTime.Today },
+                    new() { Id = 3, Name = "Seasonal Pies", DateAdded = DateTime.Today }
                 };
 
                 _categories = [];

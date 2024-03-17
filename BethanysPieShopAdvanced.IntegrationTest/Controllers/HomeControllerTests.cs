@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
-public class HomeControllerTest(CustomWebApplicationFactory factory)
+public class HomeControllerTests(CustomWebApplicationFactory factory)
     : IClassFixture<CustomWebApplicationFactory>
 {
     [Fact]
