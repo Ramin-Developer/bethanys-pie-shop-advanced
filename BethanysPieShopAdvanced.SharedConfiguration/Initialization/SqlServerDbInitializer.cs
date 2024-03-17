@@ -1,4 +1,6 @@
 ﻿
+using System.Runtime.CompilerServices;
+
 namespace BethanysPieShop.SharedConfiguration.Initialization;
 
 public class SqlServerDbInitializer(PieShopDbContext dbContext)
@@ -59,251 +61,211 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
     [
         new Pie
         {
-            Name = "Caramel Popcorn Cheese Cake",
-            Price = 22.95M,
-            ShortDescription = "The Ultimate Cheese Cake",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/caramelpopcorncheesecake.jpg",
+            Name = PieValues.CaramelPopcornCheeseCake,
+            Price = 263.92M,
+            ShortDescription = PieValues.CaramelPopcornCheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = true,
             IsPieOfTheWeek = true,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/caramelpopcorncheesecakesmall.jpg",
-            AllergyInformation = "",
-            Ingredients =
-            [
-                new(){ Name = "Sugar", Amount = "100 grams" },
-                new(){ Name = "Fresh cream cheese", Amount = "300 grams" },
-                new(){ Name = "Popcorn", Amount = "1 cup" },
-            ]
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.CaramelPopcornCheeseCakeImage,
+            ImageThumbnailUrl = PieValues.CaramelPopcornCheeseCakeImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Chocolate Cheese Cake",
-            Price = 19.95M,
-            ShortDescription = "The Chocolate Lover's Dream",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/chocolatecheesecake.jpg",
+            Name = PieValues.ChocolateCheeseCake,
+            Price = 229.43M,
+            ShortDescription = PieValues.ChocolateCheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = true,
             IsPieOfTheWeek = true,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/chocolatecheesecakesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.ChocolateCheeseCakeImage,
+            ImageThumbnailUrl = PieValues.ChocolateCheeseCakeImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Pistache Cheese Cake",
-            Price = 21.95M,
-            ShortDescription = "We're Going Nuts over This One",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/pistachecheesecake.jpg",
+            Name = PieValues.PistacheCheeseCake,
+            Price = 252.43M,
+            ShortDescription = PieValues.PistacheCheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = true,
             IsPieOfTheWeek = true,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/pistachecheesecakesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.PistacheCheeseCakeImage,
+            ImageThumbnailUrl = PieValues.PistacheCheeseCakeImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Pecan Pie",
-            Price = 21.95M,
-            ShortDescription = "More Pecan than You Can Handle!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/fruitpies/pecanpie.jpg",
+            Name = PieValues.PecanPie,
+            Price = 252.43M,
+            ShortDescription = PieValues.PecanPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/fruitpies/pecanpiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.PecanPieImage,
+            ImageThumbnailUrl = PieValues.PecanPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Birthday Pie",
-            Price = 29.95M,
-            ShortDescription = "A Happy Birthday with This Pie!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Seasonal Pies"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypie.jpg",
+            Name = PieValues.BirthdayPie,
+            Price = 344.43M,
+            ShortDescription = PieValues.BirthdayPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 3,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.BirthdayPieImage,
+            ImageThumbnailUrl = PieValues.BirthdayPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Apple Pie",
-            Price = 12.95M,
-            ShortDescription = "Our Famous Apple Pies!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg",
+            Name = PieValues.ApplePie,
+            Price = 148.93M,
+            ShortDescription = PieValues.ApplePieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/applepiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.ApplePieImage,
+            ImageThumbnailUrl = PieValues.ApplePieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Blueberry Cheese Cake",
-            Price = 18.95M,
-            ShortDescription = "You'll Love It!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/blueberrycheesecake.jpg",
+            Name = PieValues.BlueBerryCheeseCake,
+            Price = 217.93M,
+            ShortDescription = PieValues.BlueBerryCheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/blueberrycheesecakesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.BlueBerryCheeseCakeImage,
+            ImageThumbnailUrl = PieValues.BlueBerryCheeseCakeImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Cheese Cake",
-            Price = 18.95M,
-            ShortDescription = "Plain Cheese Cake. Plain Pleasure.",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/cheesecake.jpg",
+            Name = PieValues.CheeseCake,
+            Price = 217.93M,
+            ShortDescription = PieValues.CheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/cheesecakesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.CheeseCakeImage,
+            ImageThumbnailUrl = PieValues.CheeseCakeImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Cherry Pie",
-            Price = 15.95M,
-            ShortDescription = "A Summer Classic!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
+            Name = PieValues.CherryPie,
+            Price = 183.43M,
+            ShortDescription = PieValues.CherryPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.CherryPieImage,
+            ImageThumbnailUrl = PieValues.CherryPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Christmas Apple Pie",
-            Price = 13.95M,
-            ShortDescription = "Happy Holidays with This Pie!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Seasonal Pies"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
+            Name = PieValues.ChristmasApplePie,
+            Price = 163.43M,
+            ShortDescription = PieValues.ChristmasApplePieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 3,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.ChristmasApplePieImage,
+            ImageThumbnailUrl = PieValues.ChristmasApplePieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Cranberry Pie",
-            Price = 17.95M,
-            ShortDescription = "A Christmas Favorite",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Seasonal Pies"],
-            ImageUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
+            Name = PieValues.CranberryPie,
+            Price = 206.43M,
+            ShortDescription = PieValues.CranberryPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 3,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.CranberryPieImage,
+            ImageThumbnailUrl = PieValues.CranberryPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Peach Pie",
-            Price = 15.95M,
-            ShortDescription = "Sweet as Peach",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
+            Name = PieValues.PeachPie,
+            Price = 183.43M,
+            ShortDescription = PieValues.PeachPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = false,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.PeachPieImage,
+            ImageThumbnailUrl = PieValues.PeachPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Pumpkin Pie",
-            Price = 12.95M,
-            ShortDescription = "Our Halloween Favorite",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Seasonal Pies"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
+            Name = PieValues.PumpkinPie,
+            Price = 148.93M,
+            ShortDescription = PieValues.PumpkinPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 3,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.PumpkinPieImage,
+            ImageThumbnailUrl = PieValues.PumpkinPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Rhubarb Pie",
-            Price = 15.95M,
-            ShortDescription = "My God, So Sweet!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/rhubarbpie.jpg",
+            Name = PieValues.RhubarbPie,
+            Price = 183.43M,
+            ShortDescription = PieValues.RhubarbPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/rhubarbpiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.RhubarbPieImage,
+            ImageThumbnailUrl = PieValues.RhubarbPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Strawberry Pie",
-            Price = 15.95M,
-            ShortDescription = "Our Delicious Strawberry Pie!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Fruit Pies"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrypie.jpg",
+            Name = PieValues.StrawberryPie,
+            Price = 183.43M,
+            ShortDescription = PieValues.StrawberryPieShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 1,
             InStock = true,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrypiesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.StrawberryPieImage,
+            ImageThumbnailUrl = PieValues.StrawberryPieImageThumbnail,
         },
-
         new Pie
         {
-            Name = "Strawberry Cheese Cake",
-            Price = 18.95M,
-            ShortDescription = "You'll Love It!",
-            LongDescription = PieValues.LongDescriptionValue,
-            Category = GetCategoryDict["Cheese Cakes"],
-            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecake.jpg",
+            Name = PieValues.StrawberryCheeseCake,
+            Price = 217.93M,
+            ShortDescription = PieValues.StrawberryCheeseCakeShortDesc,
+            LongDescription = PieValues.LongDescription,
+            CategoryId = 2,
             InStock = false,
             IsPieOfTheWeek = false,
-            ImageThumbnailUrl =
-                "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecakesmall.jpg",
-            AllergyInformation = ""
+            AllergyInformation = string.Empty,
+            ImageUrl = PieValues.StrawberryCheeseCakeImage,
+            ImageThumbnailUrl = PieValues.StrawberryCheeseCakeImageThumbnail,
         }
     ];
 

@@ -9,7 +9,7 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
         SeedOrdersInMemory();
     }
 
-    public Dictionary<string, Category> CategoriesForInMemory
+    public Dictionary<string, Category> GetCategoryDict
     {
         get
         {
@@ -22,10 +22,7 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     new() { Id = 3, Name = "Seasonal Pies", DateAdded = DateTime.Today }
                 };
 
-                _categories = [];
-
-                foreach (var category in categoryList)
-                    _categories.Add(category.Name, category);
+                _categories = categoryList.ToDictionary(c => c.Name);
             }
 
             return _categories;
@@ -35,7 +32,7 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
     private void SeedCategories()
     {
         if (_dbContext.Categories.Any() == false)
-            _dbContext.Categories.AddRange(CategoriesForInMemory.Select(c => c.Value));
+            _dbContext.Categories.AddRange(GetCategoryDict.Select(c => c.Value));
 
         _dbContext.SaveChanges();
     }
@@ -51,8 +48,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Caramel Popcorn Cheese Cake",
                     Price = 22.95M,
                     ShortDescription = "The Ultimate Cheese Cake",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/caramelpopcorncheesecake.jpg",
                     InStock = true,
@@ -73,8 +70,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Chocolate Cheese Cake",
                     Price = 19.95M,
                     ShortDescription = "The Chocolate Lover's Dream",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/chocolatecheesecake.jpg",
                     InStock = true,
                     IsPieOfTheWeek = true,
@@ -87,8 +84,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Pistache Cheese Cake",
                     Price = 21.95M,
                     ShortDescription = "We're Going Nuts over This One",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/pistachecheesecake.jpg",
                     InStock = true,
@@ -103,8 +100,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Pecan Pie",
                     Price = 21.95M,
                     ShortDescription = "More Pecan than You Can Handle!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/fruitpies/pecanpie.jpg",
                     InStock = true,
@@ -119,8 +116,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Birthday Pie",
                     Price = 29.95M,
                     ShortDescription = "A Happy Birthday with This Pie!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Seasonal Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Seasonal Pies"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypie.jpg",
                     InStock = true,
@@ -135,8 +132,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Apple Pie",
                     Price = 12.95M,
                     ShortDescription = "Our Famous Apple Pies!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg",
                     InStock = true,
@@ -151,8 +148,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Blueberry Cheese Cake",
                     Price = 18.95M,
                     ShortDescription = "You'll Love It!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/blueberrycheesecake.jpg",
                     InStock = true,
@@ -167,8 +164,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Cheese Cake",
                     Price = 18.95M,
                     ShortDescription = "Plain Cheese Cake. Plain Pleasure.",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/cheesecake.jpg",
                     InStock = true,
@@ -183,8 +180,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Cherry Pie",
                     Price = 15.95M,
                     ShortDescription = "A Summer Classic!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
                     InStock = true,
                     IsPieOfTheWeek = false,
@@ -197,8 +194,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Christmas Apple Pie",
                     Price = 13.95M,
                     ShortDescription = "Happy Holidays with This Pie!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Seasonal Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Seasonal Pies"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
                     InStock = true,
@@ -213,8 +210,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Cranberry Pie",
                     Price = 17.95M,
                     ShortDescription = "A Christmas Favorite",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Seasonal Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Seasonal Pies"],
                     ImageUrl =
                         "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
                     InStock = true,
@@ -229,8 +226,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Peach Pie",
                     Price = 15.95M,
                     ShortDescription = "Sweet as Peach",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
                     InStock = false,
                     IsPieOfTheWeek = false,
@@ -243,8 +240,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Pumpkin Pie",
                     Price = 12.95M,
                     ShortDescription = "Our Halloween Favorite",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Seasonal Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Seasonal Pies"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
                     InStock = true,
                     IsPieOfTheWeek = false,
@@ -257,8 +254,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Rhubarb Pie",
                     Price = 15.95M,
                     ShortDescription = "My God, So Sweet!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/rhubarbpie.jpg",
                     InStock = true,
                     IsPieOfTheWeek = false,
@@ -271,8 +268,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Strawberry Pie",
                     Price = 15.95M,
                     ShortDescription = "Our Delicious Strawberry Pie!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Fruit Pies"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Fruit Pies"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrypie.jpg",
                     InStock = true,
                     IsPieOfTheWeek = false,
@@ -285,8 +282,8 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                     Name = "Strawberry Cheese Cake",
                     Price = 18.95M,
                     ShortDescription = "You'll Love It!",
-                    LongDescription = PieValues.LongDescriptionValue,
-                    Category = CategoriesForInMemory["Cheese Cakes"],
+                    LongDescription = PieValues.LongDescription,
+                    Category = GetCategoryDict["Cheese Cakes"],
                     ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecake.jpg",
                     InStock = false,
                     IsPieOfTheWeek = false,

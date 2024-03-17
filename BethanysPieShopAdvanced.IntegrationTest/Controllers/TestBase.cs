@@ -8,7 +8,7 @@ public abstract class TestBase
             Id = pieId,
             Name = "Birthday Pie Upgraded",
             ShortDescription = "A Happy Birthday with This Pie!",
-            LongDescription = PieValues.LongDescriptionValue,
+            LongDescription = PieValues.LongDescription,
             AllergyInformation = "No Allergy Reaction is expected",
             Price = 21.95m,
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypie.jpg",
@@ -25,7 +25,7 @@ public abstract class TestBase
         {
             Name = pieName,
             ShortDescription = "Carrot Pie",
-            LongDescription = PieValues.LongDescriptionValue,
+            LongDescription = PieValues.LongDescription,
             AllergyInformation = "No Allergy Reaction is expected",
             Price = 21.95m,
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypie.jpg",
