@@ -15,6 +15,6 @@ public class DatabaseFixture : IDisposable
 
     public PieShopDbContext DbContext { get; }
 
-    private string InMemoryDbName =>
+    private static string InMemoryDbName =>
         GeneralValues.DatabaseName + "_" + Guid.NewGuid().ToString();
 }
