@@ -1,4 +1,5 @@
-﻿namespace BethanysPieShop.SharedConfiguration.Initialization;
+﻿
+namespace BethanysPieShop.SharedConfiguration.Initialization;
 
 public class SqlServerDbInitializer(PieShopDbContext dbContext)
 {
@@ -16,20 +17,23 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
     {
         // Seed categories
         if (_dbContext.Categories.Any() == false)
-            _dbContext.Categories.AddRange(CategoriesForSqlServer.Select(c => c.Value));
+            _dbContext.Categories.AddRange(CategoryList);
 
         // Seed pies
         if (_dbContext.Pies.Any() == false)
-            _dbContext.Pies.AddRange(AllPies());
+            _dbContext.Pies.AddRange(GetPies);
 
         // Seed pies
         if (_dbContext.Orders.Any() == false)
-            _dbContext.Orders.AddRange(AllOrders());
+            _dbContext.Orders.AddRange(GetOrders);
 
         _dbContext.SaveChanges();
     }
 
-    private Dictionary<string, Category> CategoriesForSqlServer
+    private List<Category> CategoryList =>
+        GetCategoryDict.Select(c => c.Value).ToList();
+
+    private Dictionary<string, Category> GetCategoryDict
     {
         get
         {
@@ -42,29 +46,24 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
                     new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
                 };
 
-                _categories = [];
-
-                foreach (var category in categoryList)
-                    _categories.Add(category.Name, category);
+                _categories = categoryList.ToDictionary(c => c.Name);
             }
 
             return _categories;
         }
     }
 
-    private bool DatabaseIsSeeded => _dbContext.Pies.Any() && _dbContext.Categories.Any();
+    private bool DatabaseIsSeeded => _dbContext.Pies.Any();
 
-    private List<Pie> AllPies()
-    {
-        return
-        [
-            new Pie
-            {
-                Name = "Caramel Popcorn Cheese Cake",
+    private List<Pie> GetPies =>
+    [
+        new Pie
+        {
+            Name = "Caramel Popcorn Cheese Cake",
             Price = 22.95M,
             ShortDescription = "The Ultimate Cheese Cake",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/caramelpopcorncheesecake.jpg",
             InStock = true,
@@ -72,12 +71,12 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             ImageThumbnailUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/caramelpopcorncheesecakesmall.jpg",
             AllergyInformation = "",
-            Ingredients = new List<Ingredient>
-            {
+            Ingredients =
+            [
                 new(){ Name = "Sugar", Amount = "100 grams" },
                 new(){ Name = "Fresh cream cheese", Amount = "300 grams" },
                 new(){ Name = "Popcorn", Amount = "1 cup" },
-            }
+            ]
         },
 
         new Pie
@@ -86,7 +85,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 19.95M,
             ShortDescription = "The Chocolate Lover's Dream",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/chocolatecheesecake.jpg",
             InStock = true,
             IsPieOfTheWeek = true,
@@ -100,7 +99,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 21.95M,
             ShortDescription = "We're Going Nuts over This One",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/pistachecheesecake.jpg",
             InStock = true,
@@ -116,7 +115,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 21.95M,
             ShortDescription = "More Pecan than You Can Handle!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/fruitpies/pecanpie.jpg",
             InStock = true,
@@ -132,7 +131,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 29.95M,
             ShortDescription = "A Happy Birthday with This Pie!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Seasonal Pies"],
+            Category = GetCategoryDict["Seasonal Pies"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/seasonal/birthdaypie.jpg",
             InStock = true,
@@ -148,7 +147,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 12.95M,
             ShortDescription = "Our Famous Apple Pies!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg",
             InStock = true,
@@ -164,7 +163,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 18.95M,
             ShortDescription = "You'll Love It!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/blueberrycheesecake.jpg",
             InStock = true,
@@ -180,7 +179,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 18.95M,
             ShortDescription = "Plain Cheese Cake. Plain Pleasure.",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/bethanyspieshop/cheesecakes/cheesecake.jpg",
             InStock = true,
@@ -196,7 +195,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 15.95M,
             ShortDescription = "A Summer Classic!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
             InStock = true,
             IsPieOfTheWeek = false,
@@ -210,7 +209,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 13.95M,
             ShortDescription = "Happy Holidays with This Pie!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Seasonal Pies"],
+            Category = GetCategoryDict["Seasonal Pies"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
             InStock = true,
@@ -226,7 +225,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 17.95M,
             ShortDescription = "A Christmas Favorite",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Seasonal Pies"],
+            Category = GetCategoryDict["Seasonal Pies"],
             ImageUrl =
                 "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
             InStock = true,
@@ -242,7 +241,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 15.95M,
             ShortDescription = "Sweet as Peach",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
             InStock = false,
             IsPieOfTheWeek = false,
@@ -256,7 +255,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 12.95M,
             ShortDescription = "Our Halloween Favorite",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Seasonal Pies"],
+            Category = GetCategoryDict["Seasonal Pies"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
             InStock = true,
             IsPieOfTheWeek = false,
@@ -270,7 +269,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 15.95M,
             ShortDescription = "My God, So Sweet!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/rhubarbpie.jpg",
             InStock = true,
             IsPieOfTheWeek = false,
@@ -284,7 +283,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 15.95M,
             ShortDescription = "Our Delicious Strawberry Pie!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Fruit Pies"],
+            Category = GetCategoryDict["Fruit Pies"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrypie.jpg",
             InStock = true,
             IsPieOfTheWeek = false,
@@ -298,7 +297,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             Price = 18.95M,
             ShortDescription = "You'll Love It!",
             LongDescription = PieValues.LongDescriptionValue,
-            Category = CategoriesForSqlServer["Cheese Cakes"],
+            Category = GetCategoryDict["Cheese Cakes"],
             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecake.jpg",
             InStock = false,
             IsPieOfTheWeek = false,
@@ -307,38 +306,34 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             AllergyInformation = ""
         }
     ];
-    }
 
-    private List<Order> AllOrders()
-    {
-        return
-        [
-            new Order()
+    private List<Order> GetOrders =>
+    [
+        new Order()
+        {
+            FirstName = "Gill",
+            LastName = "Cleeren",
+            AddressLine1 = "Some street 123",
+            City = "Brussels",
+            Country = "Belgium",
+            Email = "test@test.com",
+            PhoneNumber = "555-123456",
+            State = "NA",
+            ZipCode = "1111",
+            OrderPlaced = DateTime.Now,
+            OrderStatus = OrderStatus.OutForDelivery,
+            OrderTotal = 1235,
+            OrderLines = new List<OrderLine>()
             {
-                FirstName = "Gill",
-                LastName = "Cleeren",
-                AddressLine1 = "Some street 123",
-                City = "Brussels",
-                Country = "Belgium",
-                Email = "test@test.com",
-                PhoneNumber = "555-123456",
-                State = "NA",
-                ZipCode = "1111",
-                OrderPlaced = DateTime.Now,
-                OrderStatus = OrderStatus.OutForDelivery,
-                OrderTotal = 1235,
-                OrderLines = new List<OrderLine>()
+                new()
                 {
-                    new OrderLine()
-                    {
-                        Amount = 1,
-                        PieId = 1,
-                        Price = 22.95M
-                    }
+                    Amount = 1,
+                    PieId = 1,
+                    Price = 22.95M
                 }
-            },
-        ];
-    }
+            }
+        },
+    ];
 
     private Dictionary<string, Category>? _categories;
     private readonly PieShopDbContext _dbContext = dbContext
