@@ -39,7 +39,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         dbContext.Database.EnsureCreated();
 
         var dbInitializer = new DbInitializer(dbContext);
-        dbInitializer.Seed();
+        dbInitializer.SeedInMemoryDb();
     }
 
     private readonly string DynamicDbName = Guid.NewGuid().ToString();

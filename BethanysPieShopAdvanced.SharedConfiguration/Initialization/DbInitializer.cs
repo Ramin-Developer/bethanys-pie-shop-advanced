@@ -2,10 +2,10 @@
 
 public class DbInitializer(PieShopDbContext dbContext)
 {
-    public void Seed()
+    public void SeedInMemoryDb()
     {
         SeedCategoriesForInMemory();
-        SeedPies();
+        SeedPiesInMemory();
         SeedOrders();
     }
 
@@ -71,7 +71,7 @@ public class DbInitializer(PieShopDbContext dbContext)
         _dbContext.SaveChanges();
     }
 
-    private void SeedPies()
+    private void SeedPiesInMemory()
     {
         if (_dbContext.Pies.Any() == false)
         {
