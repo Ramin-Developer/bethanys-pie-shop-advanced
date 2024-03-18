@@ -14,7 +14,7 @@ public static class GeneralValues
         "There was a problem validating the pie details. " +
         "Please check the inputs and try again.";
 
-    public const string DatabaseName = "BethanysPieShopAdminDb";
+    public const string DatabaseName = "BethanysPieShopAdvancedDb";
 
     public const string ConnectionStringKey = "PieShopDbContextConnection";
 }

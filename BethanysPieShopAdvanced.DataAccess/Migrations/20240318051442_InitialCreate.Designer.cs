@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BethanysPieShop.DataAccess.Migrations
 {
     [DbContext(typeof(PieShopDbContext))]
-    [Migration("20240317224534_InitialCreate")]
+    [Migration("20240318051442_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
