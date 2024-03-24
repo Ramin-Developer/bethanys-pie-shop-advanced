@@ -1,4 +1,4 @@
-global using AutoMapper;
+﻿global using AutoMapper;
 global using BethanysPieShop.Common.Constant;
 global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
@@ -16,4 +16,3 @@ global using System.Net;
 global using System.Net.Http.Json;
 global using System.Text;
 global using System.Text.Json;
-global using Xunit;

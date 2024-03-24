@@ -15,5 +15,6 @@ public class HomeControllerTests(CustomWebApplicationFactory factory)
         response.EnsureSuccessStatusCode();
     }
 
+    private readonly CustomWebApplicationFactory _factory = factory;
     private readonly HttpClient _client = factory.CreateClient();
 }

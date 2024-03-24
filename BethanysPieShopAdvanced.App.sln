@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.SharedConfi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.WebApi", "BethanysPieShopAdvanced.WebApi\BethanysPieShop.WebApi.csproj", "{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.IntegrationTest", "BethanysPieShopAdvanced.IntegrationTest\BethanysPieShop.IntegrationTest.csproj", "{F1638EC7-8641-43BB-8490-B30845BB4669}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BethanysPieShop.IntegrationTests", "BethanysPieShop.IntegrationTests\BethanysPieShop.IntegrationTests.csproj", "{8740CE43-A376-4A4D-9083-485807FD6672}"
 EndProject
 Global
@@ -49,10 +47,6 @@ Global
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1638EC7-8641-43BB-8490-B30845BB4669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1638EC7-8641-43BB-8490-B30845BB4669}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1638EC7-8641-43BB-8490-B30845BB4669}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1638EC7-8641-43BB-8490-B30845BB4669}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8740CE43-A376-4A4D-9083-485807FD6672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8740CE43-A376-4A4D-9083-485807FD6672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8740CE43-A376-4A4D-9083-485807FD6672}.Release|Any CPU.ActiveCfg = Release|Any CPU

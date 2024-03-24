@@ -6,7 +6,7 @@
 //       CategoryName is empty because CategoryId is wrong.
 
 [Collection("Database Collection")]
-public class PieControllerTests : TestBase, IDisposable
+public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
     public PieControllerTests()
     {
