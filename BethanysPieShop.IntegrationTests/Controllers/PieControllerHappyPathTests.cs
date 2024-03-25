@@ -1,9 +1,9 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
 [Collection("Database Collection")]
-public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
+public class PieControllerHappyPathTests : TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public PieControllerTests(CustomWebApplicationFactory factory)
+    public PieControllerHappyPathTests(CustomWebApplicationFactory factory)
     {
         _factory = factory;
         _factory.SeedData();
@@ -64,21 +64,6 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         expected.Should().NotBeNull();
         actualPie.Should().BeEquivalentTo(expectedPie);
-    }
-
-    [Theory]
-    [InlineData(-1)]
-    [InlineData(0)]
-    public async Task GetById_ReturnsNotFound_GivenInvalidIdAsync(int invalidId)
-    {
-        // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(invalidId);
-
-        // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
-
-        // Assert
-        httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Theory]
@@ -168,36 +153,6 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         Assert.Equal(HttpStatusCode.OK, httpResponseMsg.StatusCode);
         Assert.Null(pie);
         Assert.Equal(expectedPiesCount, actualPiesCount);
-    }
-
-    [Theory]
-    [InlineData(-1)]
-    [InlineData(0)]
-    public async Task Delete_ShouldReturnBadRequest_GivenInvalidData(int id)
-    {
-        // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
-
-        // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
-
-        // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, httpResponseMsg.StatusCode);
-    }
-
-    [Theory]
-    [InlineData(100)]
-    [InlineData(1000)]
-    public async Task Delete_ShouldReturnNotFound_GivenInvalidData(int id)
-    {
-        // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
-
-        // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
-
-        // Assert
-        Assert.Equal(HttpStatusCode.NotFound, httpResponseMsg.StatusCode);
     }
 
     public void Dispose() => _testScope.Dispose();
