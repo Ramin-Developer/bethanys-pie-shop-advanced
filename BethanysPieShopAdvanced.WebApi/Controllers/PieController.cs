@@ -5,7 +5,7 @@
 
 [Route("api/[controller]")]
 [ApiController]
-[Produces("application/json")]
+[Produces(GeneralValues.JsonMediaType)]
 public class PieController(ILogger<Pie> logger, IPieService pieService) : ControllerBase
 {
     // Get: /api/pie
@@ -41,7 +41,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Post: api/pie
     [HttpPost]
-    public async Task<ActionResult<int>> Create([FromBody] PieDto pieDto)
+    public async Task<ActionResult> Create([FromBody] PieDto pieDto)
     {
         var existingPie = await _pieService
             .GetPieByNameAsync(pieDto.Name);
@@ -57,7 +57,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         int affectedRows = await _pieService
             .AddPieAsync(pieDto);
 
-        return Ok(affectedRows);
+        return Ok();
     }
 
     // Put: api/pie/5
@@ -84,26 +84,27 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Delete: api/pie/5
     [HttpDelete("{id}")]
-    public async Task<ActionResult<int>> Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
         if (id <= 0)
             return BadRequest(GeneralValues.InvalidIdError);
 
-        var affectedRows = await _pieService
-                .DeletePieAsync(id);
+        var pieDto = await _pieService
+            .GetPieByIdAsync(id);
 
-        if (affectedRows == 0)
+        if (pieDto == null)
         {
             var errorMsg = PieValues.NotFoundIdError.Replace("{pieId}", id.ToString());
 
             return NotFound(errorMsg);
         }
+        await _pieService.DeletePieAsync(id);
 
-        return Ok(affectedRows);
+        return Ok();
     }
 
     private readonly ILogger<Pie> _logger = logger
-        ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
+            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
     
     private readonly IPieService _pieService = pieService
         ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
