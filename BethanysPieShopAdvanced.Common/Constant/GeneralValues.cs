@@ -1,4 +1,6 @@
-﻿namespace BethanysPieShop.Common.Constant;
+﻿using System.Net.Http.Headers;
+
+namespace BethanysPieShop.Common.Constant;
 
 public static class GeneralValues
 {
@@ -17,4 +19,6 @@ public static class GeneralValues
     public const string DatabaseName = "BethanysPieShopAdvancedDb";
 
     public const string ConnectionStringKey = "PieShopDbContextConnection";
+
+    public const string JsonMediaType = "application/json";
 }

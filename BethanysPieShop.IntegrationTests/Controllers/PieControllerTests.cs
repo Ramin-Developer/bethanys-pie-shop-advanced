@@ -1,28 +1,17 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
-// Todo: Create() and Update() methods in WebApi.Controllers should return Created and NoContent, respectively.
-// Todo: Modify also the corresponding tests accordingly.
-// Todo: Fix the following problem with CreatePie() test: 
-//       CategoryName is empty because CategoryId is wrong.
-
 [Collection("Database Collection")]
 public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public PieControllerTests()
+    public PieControllerTests(CustomWebApplicationFactory factory)
     {
-        _factory = new CustomWebApplicationFactory();
+        _factory = factory;
         _factory.SeedData();
         _client = _factory.CreateClient();
 
-        using var scope = _factory.Services.CreateScope();
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
-        _mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
-    }
-
-    public void Dispose()
-    {
-        _client.Dispose();
-        _factory.Dispose();
+        _testScope = _factory.Services.CreateScope();
+        _scopeFactory = _testScope.ServiceProvider.GetRequiredService<IServiceScopeFactory>();
+        _mapper = _testScope.ServiceProvider.GetRequiredService<IMapper>();
     }
 
     [Fact]
@@ -62,15 +51,14 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         var endpoint = ApiEndPoints.SinglePieEndpoint(pieId);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
+        
         var expected = await dbContext.FindAsync<Pie>(pieId);
         var expectedPie = _mapper.Map<PieDto>(expected);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
         httpResponseMsg.EnsureSuccessStatusCode();
-        var actualPie = await httpResponseMsg
-            .Content
-            .ReadFromJsonAsync<PieDto>();
+        var actualPie = await httpResponseMsg.Content.ReadFromJsonAsync<PieDto>();
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -101,11 +89,12 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         var endPoint = ApiEndPoints.CreatePieEndpoint;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
+        
         var expectedPie = GetCreatedPie(pieName, categoryId);
 
         // Act
         var serializedPie = JsonSerializer.Serialize(expectedPie, JsonSettings.JsonOptions);
-        var httpContent = new StringContent(serializedPie, Encoding.UTF8, "application/json");
+        var httpContent = new StringContent(serializedPie, Encoding.UTF8, GeneralValues.JsonMediaType);
         var httpResponseMsg = await _client.PostAsync(endPoint, httpContent);
 
         // Fetch the updated pie from the database
@@ -132,13 +121,12 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
     {
         // Arrange
         var endpoint = ApiEndPoints.SinglePieEndpoint(id);
-        using var dbContext = ScopedDbContext
-            .Create(_scopeFactory)
-            .DbContext;
+        using var scopedDb = ScopedDbContext.Create(_scopeFactory);
+        var dbContext = scopedDb.DbContext;
 
         var expectedPie = GetUpdatedPie(id);
         var serializedPie = JsonSerializer.Serialize(expectedPie);
-        var httpContent = new StringContent(serializedPie, Encoding.UTF8, "application/json");
+        var httpContent = new StringContent(serializedPie, Encoding.UTF8, GeneralValues.JsonMediaType);
 
         // Act
         var httpResponseMsg = await _client.PutAsync(endpoint, httpContent);
@@ -153,7 +141,6 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         expectedPie.Should().NotBeNull();
         actualPie.Should().NotBeNull();
-
         actualPie.Should().BeEquivalentTo(expectedPie);
     }
 
@@ -165,9 +152,9 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
     {
         // Arrange
         var endpoint = ApiEndPoints.SinglePieEndpoint(id);
-        using var dbContext = ScopedDbContext
-            .Create(_scopeFactory)
-            .DbContext;
+        using var scopedDb = ScopedDbContext.Create(_scopeFactory);
+        var dbContext = scopedDb.DbContext;
+
         var originalPiesCount = await dbContext.Pies.CountAsync();
         var expectedPiesCount = originalPiesCount - 1;
 
@@ -213,8 +200,11 @@ public class PieControllerTests : TestBase, IClassFixture<CustomWebApplicationFa
         Assert.Equal(HttpStatusCode.NotFound, httpResponseMsg.StatusCode);
     }
 
+    public void Dispose() => _testScope.Dispose();
+
     private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _client;
+    private readonly IServiceScope _testScope;
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IMapper _mapper;
 }
