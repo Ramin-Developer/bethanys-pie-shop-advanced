@@ -35,7 +35,7 @@ public abstract class BaseController<T>(ILogger logger, IPieModelErrorService er
 
     protected ValidationResult ValidateId(int? id) =>
         id.HasValue == false || id.Value <= 0
-        ? ValidationResult.Fail(GeneralValues.IdInValidError)
+        ? ValidationResult.Fail(GeneralValues.InvalidIdError)
         : ValidationResult.Success();
 
     public bool IsIdValid(int? id) => id.HasValue && id.Value > 0;

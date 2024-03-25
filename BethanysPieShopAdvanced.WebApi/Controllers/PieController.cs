@@ -22,6 +22,9 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     [HttpGet("{id}")]
     public async Task<ActionResult<PieDto>> GetById(int id)
     {
+        if (id <= 0)
+            return BadRequest(GeneralValues.InvalidIdError);
+
         var pieDto = await _pieService
                 .GetPieByIdAsync(id);
 
@@ -84,7 +87,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     public async Task<ActionResult<int>> Delete(int id)
     {
         if (id <= 0)
-            return BadRequest(GeneralValues.IdInValidError);
+            return BadRequest(GeneralValues.InvalidIdError);
 
         var affectedRows = await _pieService
                 .DeletePieAsync(id);

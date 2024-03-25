@@ -1,11 +1,10 @@
-﻿using System.Net.Http.Headers;
-
-namespace BethanysPieShop.Common.Constant;
+﻿namespace BethanysPieShop.Common.Constant;
 
 public static class GeneralValues
 {
     public const string DynamicLogEventMessage = "Dynamic log event occurred: {Details}";
-    public const string IdInValidError = "The ID parameter must have a value and it must be a positive integer.";
+    public const string InvalidIdError = "The ID parameter must be a positive integer.";
+    public const string NotFoundIdError = "The ID parameter was not found.";
     public const string OccurredError = "An error occurred.";
     public const string ArgumentNullError = "Argument cannot be null.";
     public const string OperationError = "Operation type must be: 'Create', 'Update' or 'Delete'.";
