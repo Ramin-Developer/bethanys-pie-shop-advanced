@@ -133,7 +133,7 @@ public class PieControllerHappyPathTests : TestBase, IClassFixture<CustomWebAppl
     [InlineData(5)]
     [InlineData(7)]
     [InlineData(12)]
-    public async Task Delete_ShouldRemovePie_GivenValidData(int id)
+    public async Task Delete_ShouldRemovePie_GivenValidData(int id) 
     {
         // Arrange
         var endpoint = ApiEndPoints.SinglePieEndpoint(id);
