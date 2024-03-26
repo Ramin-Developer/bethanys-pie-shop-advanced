@@ -2,6 +2,16 @@
 
 public static class CategoryValues
 {
+    public const string FruitPies = "Fruit Pies";
+    public const string CheeseCakes = "Cheese Cakes";
+    public const string SeasonalPies = "Seasonal Pies";
+
+    public const string FruitPiesDecription = "All-Fruity Pies";
+    public const string CheeseCakesDecription = "Cheesy all the way";
+    public const string SeasonalPiesDecription = "Get in the Mood for a Seasonal Pie";
+    public const string CategoryNotFound = "Category Not Found";
+    public const string NotSpecified = "Category: Not Specified";
+
     public const string NameDisplay = "Name";
     public const int MaxNameLength = 100;
     public const string InvalidNameLength = "Category name cannot be more than 100 characters.";

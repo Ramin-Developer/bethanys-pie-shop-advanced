@@ -12,9 +12,27 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
     public Dictionary<string, Category> GetCategoryDict =>
         new List<Category>
         {
-            new() { Id = 1, Name = "Fruit Pies", DateAdded = DateTime.Today },
-            new() { Id = 2, Name = "Cheese Cakes", DateAdded = DateTime.Today },
-            new() { Id = 3, Name = "Seasonal Pies", DateAdded = DateTime.Today }
+            new()
+            {
+                Id = 1,
+                Name = CategoryValues.FruitPies,
+                Description = CategoryValues.FruitPiesDecription,
+                DateAdded = DateTime.Today
+            },
+            new()
+            {
+                Id = 2,
+                Name = CategoryValues.CheeseCakes,
+                Description = CategoryValues.CheeseCakesDecription,
+                DateAdded = DateTime.Today
+            },
+            new()
+            {
+                Id = 3,
+                Name = CategoryValues.SeasonalPies,
+                Description = CategoryValues.SeasonalPiesDecription,
+                DateAdded = DateTime.Today
+            }
         }.ToDictionary(c => c.Name);
 
     private void SeedCategories()

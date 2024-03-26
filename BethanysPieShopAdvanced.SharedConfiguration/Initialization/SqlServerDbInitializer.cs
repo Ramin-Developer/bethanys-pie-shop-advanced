@@ -43,9 +43,24 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             {
                 var categoryList = new Category[]
                 {
-                    new() { Name = "Fruit Pies", DateAdded = DateTime.Today },
-                    new() { Name = "Cheese Cakes", DateAdded = DateTime.Today },
-                    new() { Name = "Seasonal Pies", DateAdded = DateTime.Today }
+                    new()
+                    {
+                        Name = CategoryValues.FruitPies,
+                        Description = CategoryValues.FruitPiesDecription,
+                        DateAdded = DateTime.Today
+                    },
+                    new()
+                    {
+                        Name = CategoryValues.CheeseCakes,
+                        Description = CategoryValues.CheeseCakesDecription,
+                        DateAdded = DateTime.Today
+                    },
+                    new()
+                    {
+                        Name = CategoryValues.SeasonalPies,
+                        Description = CategoryValues.SeasonalPiesDecription,
+                        DateAdded = DateTime.Today
+                    }
                 };
 
                 _categories = categoryList.ToDictionary(c => c.Name);
