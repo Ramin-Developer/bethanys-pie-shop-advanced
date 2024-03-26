@@ -10,13 +10,15 @@ public class CategoryController(
     {
         var viewModel = new CategoryListViewModel
         {
-            Categories = (await _catService
-                .GetCategoriesAsync())
-                .ToList()
+            Categories = [.. (await _categoryService
+                .GetCategoriesAsync())]
         };
 
         if (string.IsNullOrEmpty(successMessage) == false)
-            viewModel.Categories.FirstOrDefault()!.SuccessMessage = successMessage;
+            viewModel
+                .Categories
+                .FirstOrDefault()
+                !.SuccessMessage = successMessage;
 
         return View(viewModel);
     }
@@ -27,7 +29,7 @@ public class CategoryController(
         if (IsIdValid(id) == false)
             return HandleCategoryNotFound(nameof(Details), id);
 
-        var selectedCategory = await _catService
+        var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id);
 
         if (selectedCategory == null)
@@ -43,11 +45,12 @@ public class CategoryController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add([Bind("Name", "Description", "DateAdded")] CategoryDto catDto)
+    public async Task<IActionResult> Add(
+        [Bind("Name", "Description", "DateAdded")] CategoryDto catDto)
     {
         if (ModelState.IsValid)
         {
-            await _catService
+            await _categoryService
                 .AddCategoryAsync(catDto);
 
             return RedirectToAction(nameof(Index));
@@ -62,7 +65,7 @@ public class CategoryController(
         if (IsIdValid(id) == false)
             return HandleCategoryNotFound(nameof(Edit), id);
 
-        var selectedCategory = await _catService
+        var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id!.Value);
 
         if (selectedCategory == null)
@@ -79,7 +82,7 @@ public class CategoryController(
             if (ModelState.IsValid == false)
                 return View(catDto);
 
-            await _catService
+            await _categoryService
                 .UpdateCategoryAsync(catDto);
 
             return RedirectToAction(nameof(Index));
@@ -95,7 +98,7 @@ public class CategoryController(
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        var selectedCatDto = await _catService
+        var selectedCatDto = await _categoryService
             .GetCategoryByIdAsync(id);
 
         selectedCatDto ??= new CategoryDto
@@ -119,7 +122,7 @@ public class CategoryController(
             return View(errorDto);
         }
 
-        var selectedCat = await _catService
+        var selectedCat = await _categoryService
             .GetCategoryByIdAsync(id!.Value);
 
         if (selectedCat == null)
@@ -132,7 +135,7 @@ public class CategoryController(
             return View(errorDto);
         }
 
-        await _catService
+        await _categoryService
             .DeleteCategoryAsync(id.Value);
 
         return RedirectToAction(nameof(Index),
@@ -156,6 +159,6 @@ public class CategoryController(
         return View("Delete", catErrorDto);
     }
 
-    private readonly ICategoryService _catService = categoryService
+    private readonly ICategoryService _categoryService = categoryService
             ?? throw new ArgumentNullException(nameof(categoryService), GeneralValues.ArgumentNullError);
 }

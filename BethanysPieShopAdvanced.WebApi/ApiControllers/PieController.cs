@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.WebApi.Controllers;
+﻿namespace BethanysPieShop.ApiControllers;
 
 // Todo: Fix the issue of "CategoryName is required" when adding or updating a pie.
 // Todo: In the Admin: Under adding a new, choosing the category from the drop-down-menu doesn't have any effect.
@@ -103,7 +103,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     private readonly ILogger<Pie> _logger = logger
             ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
-    
+
     private readonly IPieService _pieService = pieService
         ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
 }
