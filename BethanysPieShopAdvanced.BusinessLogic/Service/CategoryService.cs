@@ -11,7 +11,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
 
         return _mapper
             .Map<List<CategoryDto>>(cat)
-            ?? new List<CategoryDto>();
+            ?? [];
     }
 
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
@@ -109,7 +109,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
         var existingCategory = await GetCategoryByIdAsync(id);
 
         return existingCategory != null &&
-               (existingCategory.PieDtoList?.All(p => p.CategoryId != id) ?? true);
+               (existingCategory.PieList?.All(p => p.CategoryId != id) ?? true);
     }
 
     private void ValidateCategory(CategoryDto catDto)

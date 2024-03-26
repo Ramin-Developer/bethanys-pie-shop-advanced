@@ -19,7 +19,7 @@ public class CategoryDto
     [DisplayFormat(DataFormatString = CategoryValues.DateFormatString, ApplyFormatInEditMode = true)]
     public DateTime DateAdded { get; set; }
 
-    public ICollection<PieDto> PieDtoList { get; set; } = [];
+    public ICollection<PieDto> PieList { get; set; } = [];
 
     public string? ErrorMessage { get; set; } = string.Empty;
 
