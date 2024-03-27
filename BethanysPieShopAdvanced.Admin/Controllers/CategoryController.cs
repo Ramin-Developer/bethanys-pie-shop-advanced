@@ -3,7 +3,8 @@
 public class CategoryController(
     ILogger<CategoryController> logger,
     IPieModelErrorService errorService,
-    ICategoryService categoryService) : BaseController<CategoryController>(logger, errorService)
+    ICategoryService categoryService,
+    IMapper mapper) : BaseController<CategoryController>(logger, errorService)
 {
     [HttpGet]
     public async Task<IActionResult> Index(string? successMessage)
@@ -35,7 +36,10 @@ public class CategoryController(
         if (selectedCategory == null)
             return HandleCategoryNotFound(nameof(Details), id);
 
-        return View(selectedCategory);
+        var result = _mapper
+            .Map<DetailsCategoryDto>(selectedCategory);
+
+        return View(result);
     }
 
     [HttpGet]
@@ -161,4 +165,5 @@ public class CategoryController(
 
     private readonly ICategoryService _categoryService = categoryService
             ?? throw new ArgumentNullException(nameof(categoryService), GeneralValues.ArgumentNullError);
+    private readonly IMapper _mapper = mapper;
 }

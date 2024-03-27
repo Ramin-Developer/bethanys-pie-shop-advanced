@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.Common.Dto;
 
-
 public class OrderLineDto
 {
     [Display(Name = OrderLineValues.OrderLineIdDisplay)]

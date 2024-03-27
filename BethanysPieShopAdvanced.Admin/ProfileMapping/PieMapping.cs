@@ -5,9 +5,9 @@
 // Todo: Include this code snippet at the end of CreateMap to add category name of the relevant pie to the mapping
 //      .ForMember(dest => dest.Category.Name, opts => opts.MapFrom(
 //          src => src.Pie!.CategoryName));
-public class AdminProfileMapping : Profile
+public class PieMapping : Profile
 {
-    public AdminProfileMapping()
+    public PieMapping()
     {
         _ = CreateMap<PieAddViewModel, PieDto>()
             .ForMember(dest => dest.ShortDescription, opts => opts.MapFrom(
