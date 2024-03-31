@@ -1,5 +1,6 @@
 ﻿global using AutoMapper;
 global using BethanysPieShop.Common.Constant;
+global using BethanysPieShop.Common.CustomException;
 global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.EnumType;
