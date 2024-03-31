@@ -17,7 +17,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
     {
         if (id <= 0)
-            throw new ArgumentException(CategoryValues.IdInvalidError, nameof(id));
+            throw new InvalidCategoryIdException(id);
 
         var cat = await _catRepo
             .GetCategoryByIdAsync(id);
