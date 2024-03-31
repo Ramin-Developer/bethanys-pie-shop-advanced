@@ -3,6 +3,7 @@ global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.EnumType;
 global using BethanysPieShop.Common.Pagination;
+global using System;
 global using System.ComponentModel.DataAnnotations;
 global using System.Reflection;
 global using System.Text.Json;
