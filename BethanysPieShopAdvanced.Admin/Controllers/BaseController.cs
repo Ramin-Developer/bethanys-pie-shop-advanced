@@ -17,7 +17,7 @@ public abstract class BaseController<T>(ILogger logger, IPieModelErrorService er
 
         return ex switch
         {
-            PieNotFoundException notFoundEx => NotFound(notFoundEx.UserFriendlyMessage),
+            NotFoundPieException notFoundEx => NotFound(notFoundEx.UserFriendlyMessage),
             InvalidPieException invalidEx => HandleInvalidException(invalidEx),
             CustomHandledException customEx => RedirectToAction("Error", nameof(HomeController), new
             {

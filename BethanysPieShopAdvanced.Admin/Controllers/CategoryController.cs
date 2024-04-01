@@ -133,7 +133,7 @@ public class CategoryController(
         {
             var errorDto = new CategoryDto
             {
-                ErrorMessage = $"{CategoryValues.NonExistantCategoryIdError} {id.Value}"
+                ErrorMessage = $"{CategoryValues.NonFoundCategoryIdError} {id.Value}"
             };
 
             return View(errorDto);
@@ -152,8 +152,8 @@ public class CategoryController(
     private IActionResult HandleCategoryNotFound(string methodName, int? categoryId)
     {
         var details = (categoryId.HasValue == false || categoryId.Value <= 0)
-            ? CategoryValues.InvalidCategoryId
-            : CategoryValues.NonExistantCategoryIdError.Replace("{categoryId}", categoryId.Value.ToString());
+            ? CategoryValues.InvalidCategoryIdError
+            : CategoryValues.NonFoundCategoryIdError.Replace("{categoryId}", categoryId.Value.ToString());
 
         var catErrorDto = new CategoryDto
         {

@@ -22,17 +22,23 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
         var cat = await _catRepo
             .GetCategoryByIdAsync(id);
 
+        if (cat == null)
+            throw new NotFoundCategoryIdException(id);
+
         return _mapper
             .Map<CategoryDto>(cat);
     }
 
-    public async Task<CategoryDto?> GetCategoryByNameAsync(string name)
+    public async Task<CategoryDto?> GetCategoryByNameAsync(string categoryName)
     {
-        var cat = await _catRepo
-            .GetCategoryByNameAsync(name);
+        var category = await _catRepo
+            .GetCategoryByNameAsync(categoryName);
+
+        if (category == null)
+            throw new NotFoundCategoryIdException(categoryName);
 
         return _mapper
-            .Map<CategoryDto>(cat);
+            .Map<CategoryDto>(category);
     }
 
     public async Task<int> AddCategoryAsync(CategoryDto catDto)
@@ -66,7 +72,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new ArgumentException(CategoryValues.NonExistantCategoryIdError, nameof(id));
+            ?? throw new ArgumentException(CategoryValues.NonFoundCategoryIdError, nameof(id));
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)
@@ -89,19 +95,19 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
             _ => throw new NotImplementedException()
         };
 
-    private async Task<bool> CanCreateCategory(CategoryDto catDto)
+    private async Task<bool> CanCreateCategory(CategoryDto categoryDto)
     {
-        var existingCategory = await GetCategoryByNameAsync(catDto.Name);
+        var existingCategory = await GetCategoryByNameAsync(categoryDto.Name);
 
         return existingCategory == null;
     }
 
-    private async Task<bool> CanUpdateCategory(CategoryDto catDto)
+    private async Task<bool> CanUpdateCategory(CategoryDto categoryDto)
     {
-        var existingCategory = await GetCategoryByNameAsync(catDto.Name);
+        var existingCategory = await GetCategoryByNameAsync(categoryDto.Name);
 
         return existingCategory == null ||
-               (existingCategory.Name == catDto.Name && existingCategory.Id == catDto.Id);
+               (existingCategory.Name == categoryDto.Name && existingCategory.Id == categoryDto.Id);
     }
 
     private async Task<bool> CanDeleteCategory(int id)
