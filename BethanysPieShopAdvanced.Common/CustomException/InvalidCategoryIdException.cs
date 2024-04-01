@@ -18,7 +18,7 @@ public class InvalidCategoryIdException : Exception
 
     // Constructor with a message and the invalid category ID
     public InvalidCategoryIdException(int? categoryId)
-        : base(string.Format(CategoryValues.InvalidCategoryId, categoryId))
+        : base(string.Format(CategoryValues.InvalidCategoryIdError, categoryId))
     {
         CategoryId = categoryId;
     }

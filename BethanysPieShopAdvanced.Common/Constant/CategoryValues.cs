@@ -25,14 +25,13 @@ public static class CategoryValues
 
     public const string InvalidRequestError = "Invalid Request.";
     public const string IdNullError = "ID is required for delete operation.";
-    public static readonly string InvalidIdError = "Invalid Category ID: {0}";
     public const string NameDuplicatedError = "Another category with the given name already exists.";
     public const string UpdateTargetNullError = "Category to update is null.";
     public const string UpdateLogError = "There was a problem updating the category. Please try again.";
 
-    public const string InvalidCategoryId = "Category ID was not provided or is invalid.";
+    public static readonly string InvalidCategoryIdError = "Invalid Category ID: {categoryId}";
 
-    public const string NonExistantCategoryIdError = "The following category ID was not found: {categoryId}";
+    public const string NonFoundCategoryIdError = "The following category ID was not found: {categoryId}";
 
     public const string NonEmptyError =
         "There are some pies in this category. Delete all of them before deleting the category.";
