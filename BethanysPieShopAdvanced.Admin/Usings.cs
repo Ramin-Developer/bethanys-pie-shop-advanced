@@ -10,6 +10,7 @@ global using BethanysPieShop.Admin.ViewModels.Order;
 global using BethanysPieShop.Admin.ViewModels.Pie;
 global using BethanysPieShop.BusinessLogic.Validation;
 global using BethanysPieShop.Common.Constant;
+global using BethanysPieShop.Common.CustomException;
 global using BethanysPieShop.Common.Dto;
 global using BethanysPieShop.Common.Entity;
 global using BethanysPieShop.Common.EnumType;

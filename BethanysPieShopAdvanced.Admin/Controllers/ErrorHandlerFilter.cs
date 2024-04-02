@@ -25,5 +25,6 @@ public class ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) : IExcept
         };
     }
 
-    private readonly ILogger<ErrorHandlerAttribute> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    private readonly ILogger<ErrorHandlerAttribute> _logger =
+        logger ?? throw new ArgumentNullException(nameof(logger));
 }

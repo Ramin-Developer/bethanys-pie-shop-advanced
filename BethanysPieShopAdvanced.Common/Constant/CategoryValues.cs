@@ -30,8 +30,9 @@ public static class CategoryValues
     public const string UpdateLogError = "There was a problem updating the category. Please try again.";
 
     public static readonly string InvalidCategoryIdError = "Invalid Category ID: {categoryId}";
+    public static readonly string InvalidCategoryNameError = "Invalid Category Name: {categoryName}";
 
-    public const string NonFoundCategoryIdError = "The following category ID was not found: {categoryId}";
+    public const string NotFoundCategoryIdError = "The following category ID was not found: {categoryId}";
 
     public const string NonEmptyError =
         "There are some pies in this category. Delete all of them before deleting the category.";

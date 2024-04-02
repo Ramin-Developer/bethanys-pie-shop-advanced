@@ -2,26 +2,19 @@
 
 public class InvalidCategoryIdException : Exception
 {
-    // Constructor without parameters
-    public InvalidCategoryIdException()
-    { }
-
-    // Constructor with just a message
-    public InvalidCategoryIdException(string message)
-        : base(message)
-    { }
-
-    // Constructor with a message and inner exception
-    public InvalidCategoryIdException(string message, Exception inner)
-        : base(message, inner)
-    { }
-
     // Constructor with a message and the invalid category ID
-    public InvalidCategoryIdException(int? categoryId)
-        : base(string.Format(CategoryValues.InvalidCategoryIdError, categoryId))
+    public InvalidCategoryIdException(int invalidId)
+        : base(string.Format(CategoryValues.InvalidCategoryIdError, invalidId))
     {
-        CategoryId = categoryId;
+        InvalidId = invalidId;
     }
 
-    public int? CategoryId { get; }
+    // Constructor with a message and inner exception
+    public InvalidCategoryIdException(string message, Exception inner = null!)
+        : base(message, inner)
+    {
+        InvalidId = -1;
+    }
+
+    public int InvalidId { get; }
 }

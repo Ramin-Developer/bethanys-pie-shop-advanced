@@ -72,7 +72,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new ArgumentException(CategoryValues.NonFoundCategoryIdError, nameof(id));
+            ?? throw new ArgumentException(CategoryValues.NotFoundCategoryIdError, nameof(id));
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)
