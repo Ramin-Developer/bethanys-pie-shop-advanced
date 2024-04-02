@@ -55,13 +55,16 @@ public class PieService(
             .Map<PieDto?>(pie);
     }
 
-    public async Task<PieDto?> GetPieByNameAsync(string name)
+    public async Task<PieDto?> GetPieByNameAsync(string pieName)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException(PieValues.NameInvalidError, nameof(name));
+        if (string.IsNullOrWhiteSpace(pieName))
+            throw new EntityNotFoundException("Pie", pieName);
 
         var pie = await _pieRepo
-            .GetPieByNameAsync(name);
+            .GetPieByNameAsync(pieName);
+
+        if (pie == null)
+            throw new EntityNotFoundException("Pie", pieName);
 
         return _pieMapper
             ?.Map<PieDto?>(pie);
