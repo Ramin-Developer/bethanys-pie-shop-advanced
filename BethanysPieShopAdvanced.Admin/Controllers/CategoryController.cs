@@ -60,14 +60,8 @@ public class CategoryController(
     [HttpGet]
     public async Task<IActionResult> Edit(int? id)
     {
-        if (IsIdValid(id) == false)
-            return HandleCategoryNotFound(nameof(Edit), id);
-
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id!.Value);
-
-        if (selectedCategory == null)
-            return HandleCategoryNotFound(nameof(Edit), id);
 
         return View(selectedCategory);
     }
@@ -96,65 +90,17 @@ public class CategoryController(
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        var selectedCatDto = await _categoryService
-            .GetCategoryByIdAsync(id);
-
-        selectedCatDto ??= new CategoryDto
-        {
-            ErrorMessage = CategoryValues.CategoryNotFoundError
-        };
+        var selectedCatDto = await _categoryService.GetCategoryByIdAsync(id);
 
         return View(selectedCatDto);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (IsIdValid(id) == false)
-        {
-            var errorDto = new CategoryDto
-            {
-                ErrorMessage = CategoryValues.CategoryNotFoundError
-            };
-
-            return View(errorDto);
-        }
-
-        var selectedCat = await _categoryService
-            .GetCategoryByIdAsync(id!.Value);
-
-        if (selectedCat == null)
-        {
-            var errorDto = new CategoryDto
-            {
-                ErrorMessage = $"{CategoryValues.NotFoundCategoryIdError} {id.Value}"
-            };
-
-            return View(errorDto);
-        }
-
-        await _categoryService
-            .DeleteCategoryAsync(id.Value);
-
-        return RedirectToAction(nameof(Index),
-            new
-            {
-                SuccessMessage = CategoryValues.DeleteSuccessMessage
-            });
-    }
-
-    private IActionResult HandleCategoryNotFound(string methodName, int? categoryId)
-    {
-        var details = (categoryId.HasValue == false || categoryId.Value <= 0)
-            ? CategoryValues.InvalidCategoryIdError
-            : CategoryValues.NotFoundCategoryIdError.Replace("{categoryId}", categoryId.Value.ToString());
-
-        var catErrorDto = new CategoryDto
-        {
-            ErrorMessage = $"Error in {methodName}: {details}",
-        };
-
-        return View("Delete", catErrorDto);
+        await _categoryService.DeleteCategoryAsync(id);
+        
+        return RedirectToAction(nameof(Index), new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
     }
 
     private readonly ICategoryService _categoryService = categoryService
