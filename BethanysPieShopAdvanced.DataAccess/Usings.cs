@@ -1,7 +1,7 @@
-﻿global using BethanysPieShop.Common.Constant;
-global using BethanysPieShop.Common.Entity;
-global using BethanysPieShop.Common.EnumType;
-global using BethanysPieShop.Common.Interface;
+﻿global using BethanysPieShop.Common.Constants;
+global using BethanysPieShop.Common.Entities;
+global using BethanysPieShop.Common.EnumTypes;
+global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.Common.Pagination;
 global using BethanysPieShop.DataAccess.Context;
 global using Microsoft.EntityFrameworkCore;

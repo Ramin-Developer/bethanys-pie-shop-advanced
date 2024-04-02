@@ -1,7 +1,8 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
 [Collection("Database Collection")]
-public class PieControllerHappyPathTests : TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
+public class PieControllerHappyPathTests :
+    TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
     public PieControllerHappyPathTests(CustomWebApplicationFactory factory)
     {

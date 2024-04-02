@@ -1,11 +1,11 @@
 ﻿global using BethanysPieShop.BusinessLogic.ProfileMapping;
-global using BethanysPieShop.BusinessLogic.Service;
-global using BethanysPieShop.Common.Constant;
-global using BethanysPieShop.Common.Entity;
-global using BethanysPieShop.Common.EnumType;
-global using BethanysPieShop.Common.Interface;
+global using BethanysPieShop.BusinessLogic.Services;
+global using BethanysPieShop.Common.Constants;
+global using BethanysPieShop.Common.Entities;
+global using BethanysPieShop.Common.EnumTypes;
+global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.DataAccess.Context;
-global using BethanysPieShop.DataAccess.Repository;
+global using BethanysPieShop.DataAccess.Repositories;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
