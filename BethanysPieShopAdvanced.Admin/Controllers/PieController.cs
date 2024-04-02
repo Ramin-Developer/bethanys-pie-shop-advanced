@@ -29,8 +29,8 @@ public class PieController(
     [HttpGet]
     public async Task<IActionResult> IndexPagingSorting(int? pageNumber, PieSortOption sortOption)
     {
-        var paginatedList = await _pieHelperService.CreatePaginatedSortedViewModel(
-                pageNumber, PieGroupOption.PagingSorting, sortOption);
+        var paginatedList = await _pieHelperService
+            .CreatePaginatedSortedViewModel(pageNumber, PieGroupOption.PagingSorting, sortOption);
 
         return View(paginatedList);
     }
@@ -38,7 +38,8 @@ public class PieController(
     [HttpGet]
     public async Task<IActionResult> Search(int? searchCategory, string? searchQuery)
     {
-        var viewModel = await _pieHelperService.CreatePieSearchViewModelAsync(searchQuery, searchCategory);
+        var viewModel = await _pieHelperService
+            .CreatePieSearchViewModelAsync(searchQuery, searchCategory);
 
         return View(viewModel);
     }

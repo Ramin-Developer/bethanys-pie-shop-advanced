@@ -17,13 +17,13 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
     {
         if (id <= 0)
-            throw new InvalidCategoryIdException(id);
+            throw new InvalidEntityIdException("Category", id);
 
         var cat = await _catRepo
             .GetCategoryByIdAsync(id);
 
         if (cat == null)
-            throw new CategoryNotFoundException(id);
+            throw new EntityNotFoundException("Category", id);
 
         return _mapper
             .Map<CategoryDto>(cat);
@@ -35,7 +35,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
             .GetCategoryByNameAsync(categoryName);
 
         if (category == null)
-            throw new CategoryNotFoundException(categoryName);
+            throw new EntityNotFoundException("Category", categoryName);
 
         return _mapper
             .Map<CategoryDto>(category);
@@ -72,7 +72,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new ArgumentException(CategoryValues.NotFoundCategoryIdError, nameof(id));
+            ?? throw new InvalidEntityIdException("Category", id);
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)
