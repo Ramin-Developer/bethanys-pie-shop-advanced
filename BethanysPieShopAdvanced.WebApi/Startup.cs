@@ -8,7 +8,6 @@ public static class Startup
         builder.AddServices();
 
         // Add services to the container.
-        builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddMemoryCache();
@@ -32,20 +31,31 @@ public static class Startup
                         errorNumbersToAdd: null);
                 });
         });
-
     }
 
     public static void Configure(this WebApplication app)
     {
+        // ExceptionMiddleware must be at the top to catch exceptions thrown by any subsequent middleware
+        // or MVC actions.
+        app.UseMiddleware<ExceptionMiddleware>();
+
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+        else
+        {
+            app.UseHsts();
+        }
 
         app.UseHttpsRedirection();
+
+        app.UseAuthentication();
         app.UseAuthorization();
+        
         app.MapControllers();
 
         // Add health checks
