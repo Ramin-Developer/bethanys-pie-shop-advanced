@@ -27,14 +27,8 @@ public class CategoryController(
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if (IsIdValid(id) == false)
-            return HandleCategoryNotFound(nameof(Details), id);
-
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id);
-
-        if (selectedCategory == null)
-            return HandleCategoryNotFound(nameof(Details), id);
 
         var result = _mapper
             .Map<DetailsCategoryDto>(selectedCategory);
@@ -133,7 +127,7 @@ public class CategoryController(
         {
             var errorDto = new CategoryDto
             {
-                ErrorMessage = $"{CategoryValues.NonFoundCategoryIdError} {id.Value}"
+                ErrorMessage = $"{CategoryValues.NotFoundCategoryIdError} {id.Value}"
             };
 
             return View(errorDto);
@@ -153,7 +147,7 @@ public class CategoryController(
     {
         var details = (categoryId.HasValue == false || categoryId.Value <= 0)
             ? CategoryValues.InvalidCategoryIdError
-            : CategoryValues.NonFoundCategoryIdError.Replace("{categoryId}", categoryId.Value.ToString());
+            : CategoryValues.NotFoundCategoryIdError.Replace("{categoryId}", categoryId.Value.ToString());
 
         var catErrorDto = new CategoryDto
         {

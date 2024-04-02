@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-public class ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) : IExceptionFilter
+public class ErrorHandlerFilter(ILogger<ErrorHandlerFilter> logger) : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
@@ -11,7 +11,8 @@ public class ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) : IExcept
         var actionName = actionValue?.ToString() ?? string.Empty;
 
         // Log the exception
-        _logger.LogError(exception, GeneralValues.GenericLogFormatError, actionName);
+        _logger
+            .LogError(exception, GeneralValues.GenericLogFormatError, actionName);
 
         var errorViewModel = new ErrorViewModel
         {
@@ -25,5 +26,6 @@ public class ErrorHandlerFilter(ILogger<ErrorHandlerAttribute> logger) : IExcept
         };
     }
 
-    private readonly ILogger<ErrorHandlerAttribute> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    private readonly ILogger<ErrorHandlerFilter> _logger =
+        logger ?? throw new ArgumentNullException(nameof(logger));
 }
