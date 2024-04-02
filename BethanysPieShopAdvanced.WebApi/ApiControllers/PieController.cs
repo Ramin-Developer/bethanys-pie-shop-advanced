@@ -22,19 +22,8 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     [HttpGet("{id}")]
     public async Task<ActionResult<PieDto>> GetById(int id)
     {
-        if (id <= 0)
-            return BadRequest(GeneralValues.InvalidIdError);
-
         var pieDto = await _pieService
             .GetPieByIdAsync(id);
-
-        if (pieDto == null)
-        {
-            _logger.LogWarning(PieValues.NotFoundIdError);
-            var warningMsg = PieValues.NotFoundIdError.Replace("{pieId}", id.ToString());
-
-            return NotFound(warningMsg);
-        }
 
         return Ok(pieDto);
     }
@@ -54,7 +43,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
             return NotFound(errorMsg);
         }
 
-        int affectedRows = await _pieService
+        _ = await _pieService
             .AddPieAsync(pieDto);
 
         return Ok();
