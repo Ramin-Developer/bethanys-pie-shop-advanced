@@ -1,10 +1,10 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMapping;
+﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
 
 public class CategoryProfileMapping : Profile
 {
     public CategoryProfileMapping()
     {
-        // Mapping from Category to CategoryDto
+        // Category -> CategoryDto
         CreateMap<Category, CategoryDto>()
             .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
@@ -12,7 +12,7 @@ public class CategoryProfileMapping : Profile
             .ForMember(dest => dest.DateAdded, opts => opts.MapFrom(src => src.DateAdded))
             .ForMember(dest => dest.PieList, opts => opts.MapFrom(src => src.Pies));
 
-        // Mapping from CategoryDto to Category
+        // CategoryDto -> Category
         CreateMap<CategoryDto, Category>()
             .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))

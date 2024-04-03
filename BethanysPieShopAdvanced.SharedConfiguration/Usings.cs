@@ -1,4 +1,4 @@
-﻿global using BethanysPieShop.BusinessLogic.ProfileMapping;
+﻿global using BethanysPieShop.BusinessLogic.ProfileMappings;
 global using BethanysPieShop.BusinessLogic.Services;
 global using BethanysPieShop.Common.Constants;
 global using BethanysPieShop.Common.Entities;

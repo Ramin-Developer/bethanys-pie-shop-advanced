@@ -1,10 +1,10 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMapping;
+﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
 
 public class OrderLineProfileMapping : Profile
 {
     public OrderLineProfileMapping()
     {
-        // Mapping from OrderLine to OrderLineDto:
+        // OrderLine -> OrderLineDto:
         CreateMap<OrderLine, OrderLineDto>()
             .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
             .ForMember(dest => dest.OrderId, opts => opts.MapFrom(src => src.OrderId))
@@ -14,7 +14,7 @@ public class OrderLineProfileMapping : Profile
             .ForMember(dest => dest.OrderDto, opts => opts.MapFrom(src => src.Order))
             .ForMember(dest => dest.PieDto, opts => opts.MapFrom(src => src.Pie));
 
-        // Mapping from OrderLineDto to OrderLine:
+        // OrderLineDto -> OrderLine:
         CreateMap<OrderLineDto, OrderLine>()
             .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
             .ForMember(dest => dest.OrderId, opts => opts.MapFrom(src => src.OrderId))

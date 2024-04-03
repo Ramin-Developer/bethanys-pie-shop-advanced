@@ -9,6 +9,7 @@ public class PieMapping : Profile
 {
     public PieMapping()
     {
+        // PieAddViewModel -> PieDto
         _ = CreateMap<PieAddViewModel, PieDto>()
             .ForMember(dest => dest.ShortDescription, opts => opts.MapFrom(
                 src => src.PieDto!.ShortDescription))

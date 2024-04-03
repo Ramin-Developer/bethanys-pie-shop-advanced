@@ -1,10 +1,10 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMapping;
+﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
 
 public class PieProfileMapping : Profile
 {
     public PieProfileMapping()
     {
-        // Mapping from Pie to PieDto
+        // Pie -> PieDto
         _ = CreateMap<Pie, PieDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -20,7 +20,7 @@ public class PieProfileMapping : Profile
             .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src =>
                 CategoryHelper.GetCategoryName(src.CategoryId)));
 
-        // Mapping from PieDto to Pie (Reverse Mapping)
+        // PieDto -> Pie
         _ = CreateMap<PieDto, Pie>()
             .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
             .ForMember(dest => dest.CategoryId, opts => opts.MapFrom(src => src.CategoryId))
