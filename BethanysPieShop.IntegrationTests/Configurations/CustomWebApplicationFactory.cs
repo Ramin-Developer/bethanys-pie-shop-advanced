@@ -8,7 +8,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         {
             // Explicitly set the environment name for the application during testing
             // Or "Test" if you have specific configurations for tests
-            context.HostingEnvironment.EnvironmentName = "Development"; 
+            context.HostingEnvironment.EnvironmentName = "Test"; 
         });
 
         builder.ConfigureServices(services =>

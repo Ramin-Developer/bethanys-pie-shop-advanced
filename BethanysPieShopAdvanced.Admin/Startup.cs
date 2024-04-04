@@ -44,8 +44,6 @@ public static class Startup
         // Healthy Check
         app.UseHealthChecks("/health");
 
-        app.UseRouting();
-
         app.UseAuthorization();
 
         app.MapControllerRoute(

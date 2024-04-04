@@ -18,9 +18,9 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         return Ok(pieDtoList);
     }
 
-    // Get: api/pie/5
+    // Get: /api/pie/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<PieDto>> GetById(int id)
+    public async Task<ActionResult<PieDto>> GetPieByIdAsync(int id)
     {
         var pieDto = await _pieService
             .GetPieByIdAsync(id);

@@ -1,6 +1,4 @@
-﻿using BethanysPieShop.Common.EnumTypes;
-
-namespace BethanysPieShop.Admin.Controllers;
+﻿namespace BethanysPieShop.Admin.Controllers;
 
 [Produces("application/json")]
 public class PieController(

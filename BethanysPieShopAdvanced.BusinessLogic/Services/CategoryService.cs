@@ -1,11 +1,11 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Services;
 
 // Todo: Add other validation rules to the methods.
-public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICategoryService
+public class CategoryService(ICategoryRepository categoryRepository, IMapper mapper) : ICategoryService
 {
     public async Task<List<CategoryDto>> GetCategoriesAsync()
     {
-        var cat = (await _catRepo
+        var cat = (await _categoryRepository
             .GetCategoriesAsync())
             .ToList();
 
@@ -19,53 +19,49 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
         if (id <= 0)
             throw new InvalidEntityIdException("Category", id);
 
-        var cat = await _catRepo
+        var category = await _categoryRepository
             .GetCategoryByIdAsync(id);
 
-        if (cat == null)
-            throw new EntityNotFoundException("Category", id);
-
-        return _mapper
-            .Map<CategoryDto>(cat);
+        return category == null
+            ? throw new EntityNotFoundException("Category", id)
+            : _mapper.Map<CategoryDto>(category);
     }
 
     public async Task<CategoryDto?> GetCategoryByNameAsync(string categoryName)
     {
-        var category = await _catRepo
+        var category = await _categoryRepository
             .GetCategoryByNameAsync(categoryName);
 
-        if (category == null)
-            throw new EntityNotFoundException("Category", categoryName);
-
-        return _mapper
-            .Map<CategoryDto>(category);
+        return category == null
+            ? throw new EntityNotFoundException("Category", categoryName)
+            : _mapper.Map<CategoryDto>(category);
     }
 
-    public async Task<int> AddCategoryAsync(CategoryDto catDto)
+    public async Task<int> AddCategoryAsync(CategoryDto categoryDto)
     {
-        ValidateCategory(catDto);
+        ValidateCategory(categoryDto);
 
-        var isPerformable = await CanPerformOperation(CrudOperation.Create, catDto);
+        var isPerformable = await CanPerformOperation(CrudOperation.Create, categoryDto);
         if (isPerformable == false)
-            throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(catDto));
+            throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(categoryDto));
 
-        var cat = _mapper.Map<Category>(catDto);
+        var category = _mapper.Map<Category>(categoryDto);
 
-        return await _catRepo
-            .AddCategoryAsync(cat);
+        return await _categoryRepository
+            .AddCategoryAsync(category);
     }
 
-    public async Task<int> UpdateCategoryAsync(CategoryDto updatedCatDto)
+    public async Task<int> UpdateCategoryAsync(CategoryDto updatedCategoryDto)
     {
-        ValidateCategory(updatedCatDto);
+        ValidateCategory(updatedCategoryDto);
 
-        var isPerformable = await CanPerformOperation(CrudOperation.Update, updatedCatDto);
+        var isPerformable = await CanPerformOperation(CrudOperation.Update, updatedCategoryDto);
         if (isPerformable == false)
-            throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(updatedCatDto));
+            throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
 
-        var cat = _mapper.Map<Category>(updatedCatDto);
+        var cat = _mapper.Map<Category>(updatedCategoryDto);
 
-        return await _catRepo
+        return await _categoryRepository
             .UpdateCategoryAsync(cat);
     }
 
@@ -78,15 +74,19 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
         if (isPerformable == false)
             throw new Exception(CategoryValues.NonEmptyError);
 
-        return await _catRepo
+        return await _categoryRepository
             .DeleteCategoryAsync(id);
     }
 
-    private async Task<bool> CanPerformOperation(CrudOperation operation, CategoryDto catDto, int? id = null) =>
-        operation switch
+    private async Task<bool> CanPerformOperation(
+        CrudOperation operation,
+        CategoryDto categoryDto,
+        int? id = null)
+    {
+        return operation switch
         {
-            CrudOperation.Create => await CanCreateCategory(catDto),
-            CrudOperation.Update => await CanUpdateCategory(catDto),
+            CrudOperation.Create => await CanCreateCategory(categoryDto),
+            CrudOperation.Update => await CanUpdateCategory(categoryDto),
             CrudOperation.Delete =>
                 id != null
                 ? await CanDeleteCategory(id.Value)
@@ -94,6 +94,7 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
 
             _ => throw new NotImplementedException()
         };
+    }
 
     private async Task<bool> CanCreateCategory(CategoryDto categoryDto)
     {
@@ -118,14 +119,14 @@ public class CategoryService(ICategoryRepository catRepo, IMapper mapper) : ICat
                (existingCategory.PieList?.All(p => p.CategoryId != id) ?? true);
     }
 
-    private void ValidateCategory(CategoryDto catDto)
+    private void ValidateCategory(CategoryDto categoryDto)
     {
-        if (catDto == null)
-            throw new ArgumentNullException(nameof(catDto), GeneralValues.ArgumentNullError);
+        if (categoryDto == null)
+            throw new ArgumentNullException(nameof(categoryDto), GeneralValues.ArgumentNullError);
     }
 
-    private readonly ICategoryRepository _catRepo = catRepo
-        ?? throw new ArgumentNullException(nameof(catRepo), GeneralValues.ArgumentNullError);
+    private readonly ICategoryRepository _categoryRepository = categoryRepository
+        ?? throw new ArgumentNullException(nameof(categoryRepository), GeneralValues.ArgumentNullError);
 
     private readonly IMapper _mapper = mapper
             ?? throw new ArgumentNullException(nameof(mapper), GeneralValues.ArgumentNullError);

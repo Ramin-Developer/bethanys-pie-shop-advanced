@@ -1,6 +1,4 @@
-﻿
-
-namespace BethanysPieShop.IntegrationTest.Controllers;
+﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
 public abstract class TestBase
 {

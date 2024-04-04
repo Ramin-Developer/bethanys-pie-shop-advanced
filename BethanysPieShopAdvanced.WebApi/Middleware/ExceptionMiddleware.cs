@@ -2,7 +2,7 @@
 
 public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
-    public async Task Invoke(HttpContext context)
+    public async Task InvokeAsync(HttpContext context)
     {
         try
         {
@@ -18,7 +18,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         // Code 500 if unexpected
-        var code = HttpStatusCode.InternalServerError; 
+        var code = HttpStatusCode.InternalServerError;
 
         // Below, add more exception types as needed
         if (exception is InvalidEntityIdException)
@@ -31,10 +31,11 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
 
         context.Response.ContentType = GeneralValues.JsonMediaType;
         context.Response.StatusCode = (int)code;
-        
+
         return context.Response.WriteAsync(result);
     }
 
     private readonly RequestDelegate _next = next;
     private readonly ILogger<ExceptionMiddleware> _logger = logger;
 }
+

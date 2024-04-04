@@ -18,7 +18,7 @@ public class PieControllerSadPathTests :
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
-    public async Task GetById_ReturnsBadRequest_GivenInvalidIdAsync(int invalidId)
+    public async Task GetPieByIdAsync_ReturnsBadRequest_GivenInvalidIdAsync(int invalidId)
     {
         // Arrange
         var endpoint = ApiEndPoints.SinglePieEndpoint(invalidId);
@@ -34,7 +34,7 @@ public class PieControllerSadPathTests :
     [InlineData(100)]
     [InlineData(1000)]
     [InlineData(10000)]
-    public async Task GetById_ReturnsNotFound_GivenNonExistentIdAsync(int invalidId)
+    public async Task GetPieByIdAsync_ReturnsNotFound_GivenNonExistentIdAsync(int invalidId)
     {
         // Arrange
         var endpoint = ApiEndPoints.SinglePieEndpoint(invalidId);

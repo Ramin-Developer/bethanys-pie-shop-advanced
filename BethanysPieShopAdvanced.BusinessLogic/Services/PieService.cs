@@ -49,10 +49,14 @@ public class PieService(
 
     public async Task<PieDto?> GetPieByIdAsync(int id)
     {
+        if (id <= 0)
+            throw new InvalidEntityIdException("Pie", id);
+
         var pie = await _pieRepo.GetPieByIdAsync(id);
 
-        return _pieMapper
-            .Map<PieDto?>(pie);
+        return pie == null
+            ? throw new EntityNotFoundException("Pie", id)
+            : _pieMapper.Map<PieDto?>(pie);
     }
 
     public async Task<PieDto?> GetPieByNameAsync(string pieName)
@@ -117,9 +121,6 @@ public class PieService(
 
             pieToUpdate.CategoryId = category.Id;
         }
-
-        //if (pieUpdate.RowVersion != null)
-        //    pieToUpdate.RowVersion = pieUpdate.RowVersion;
 
         // Todo: Update profile mapping from PieDto to Pie with regard to Timestamp/RowVersion. 
         _pieMapper.Map(pieUpdate, pieToUpdate);

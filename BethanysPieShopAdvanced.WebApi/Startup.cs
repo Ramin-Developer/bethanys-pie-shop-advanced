@@ -37,22 +37,29 @@ public static class Startup
 
     public static void Configure(this WebApplication app)
     {
-        // ExceptionMiddleware must be at the top to catch exceptions thrown by any subsequent middleware
-        // or MVC actions.
-        app.UseMiddleware<ExceptionMiddleware>();
-
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        // Adjust the middleware based on the environment.
+        // For testing, you might want to ensure the ExceptionMiddleware is always used.
+        if (app.Environment.IsEnvironment("Test"))
         {
-            app.UseDeveloperExceptionPage();
-            app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseMiddleware<ExceptionMiddleware>();
         }
         else
         {
-            app.UseHsts();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            else
+            {
+                // Use a generic exception handler in production.
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
         }
 
+        app.UseRouting();
         app.UseHttpsRedirection();
 
         app.UseAuthentication();
