@@ -18,9 +18,6 @@ public class OrderController(
     [HttpGet]
     public async Task<IActionResult> Details(int orderId)
     {
-        if (IsIdValid(orderId) == false)
-            return BadRequest(OrderValues.NullIdError);
-
         var order = await _orderService
             .GetOrderDetailsAsync(orderId);
 

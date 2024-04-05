@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Services;
 
-// Todo: Add validation rules to the methods.
 public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderService
 {
     public async Task<List<OrderDto>> GetOrdersWithOrderLinesAsync()
@@ -14,11 +13,17 @@ public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderSe
             .Map<List<OrderDto>>(result);
     }
 
-    public async Task<OrderDto?> GetOrderDetailsAsync(int? orderId)
+    public async Task<OrderDto?> GetOrderDetailsAsync(int orderId)
     {
-        var result = await _orderRepo.GetOrderDetailsAsync(orderId);
+        if (orderId <= 0)
+            throw new InvalidEntityIdException("Order", orderId);
 
-        return _mapper.Map<OrderDto>(result);
+        var result = await _orderRepo
+            .GetOrderDetailsAsync(orderId);
+
+        return result == null
+            ? throw new EntityNotFoundException("Order", orderId)
+            : _mapper.Map<OrderDto>(result);
     }
 
     private readonly IOrderRepository _orderRepo = orderRepo
