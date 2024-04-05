@@ -2,16 +2,12 @@
 
 public class EntityValues
 {
-    public static readonly string InvalidEntityIdError =
-        //"{entityType} ID '{invalidId}' is invalid.";
-        "Entity Type {0} with ID {1} is invalid.";
+    public static string InvalidEntityIdError(string entityType, int entityId) =>
+        $"Entity Type '{entityType}' with ID '{entityId}' is invalid.";
 
-    public static readonly string NotFoundEntityIdError =
-        //"{entityType} with ID '{entityId}' was not found.";
-        "Entity Type {0} with ID {1} not found.";
+    public static string NotFoundEntityIdError(string entityType, int entityId) =>
+        $"Entity Type '{entityType}' with ID '{entityId}' not found.";
 
-    public static readonly string InvalidEntityNameError =
-        //"{entityType} with name '{entityName}' was not found.";
-        "Entity type {0} with name {1} not found.";
-
+    public static string InvalidEntityNameError(string entityType, string entityName) =>
+        $"Entity type '{entityType}' with name '{entityName}' not found.";
 }
