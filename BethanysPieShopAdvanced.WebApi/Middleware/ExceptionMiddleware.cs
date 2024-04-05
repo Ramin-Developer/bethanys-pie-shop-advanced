@@ -17,20 +17,20 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
 
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        // Code 500 if unexpected
-        var code = HttpStatusCode.InternalServerError;
-
         // Below, add more exception types as needed
-        if (exception is InvalidEntityIdException)
-            code = HttpStatusCode.BadRequest;
-        else if (exception is EntityNotFoundException)
-            code = HttpStatusCode.NotFound;
+        var statusCode = exception switch
+        {
+            ArgumentNullException => HttpStatusCode.BadRequest,
+            InvalidEntityIdException => HttpStatusCode.BadRequest,
+            EntityNotFoundException => HttpStatusCode.NotFound,
+            _ => HttpStatusCode.InternalServerError,
+        };
 
         var result = JsonSerializer
             .Serialize(new { error = exception.Message });
 
         context.Response.ContentType = GeneralValues.JsonMediaType;
-        context.Response.StatusCode = (int)code;
+        context.Response.StatusCode = (int)statusCode;
 
         return context.Response.WriteAsync(result);
     }
@@ -38,4 +38,3 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     private readonly RequestDelegate _next = next;
     private readonly ILogger<ExceptionMiddleware> _logger = logger;
 }
-
