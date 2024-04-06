@@ -9,7 +9,7 @@
 public class PieController(ILogger<Pie> logger, IPieService pieService) : ControllerBase
 {
     // Get: /api/pie
-    [HttpGet("/api/pie")]
+    [HttpGet]
     public async Task<ActionResult<List<PieDto>>> GetAll()
     {
         var pieDtoList = await _pieService
