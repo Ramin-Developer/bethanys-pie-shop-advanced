@@ -21,7 +21,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         var statusCode = exception switch
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
+            ArgumentException => HttpStatusCode.BadRequest,
             InvalidEntityIdException => HttpStatusCode.BadRequest,
+            InvalidEntityNameException => HttpStatusCode.NotFound,
             EntityNotFoundException => HttpStatusCode.NotFound,
             _ => HttpStatusCode.InternalServerError,
         };
