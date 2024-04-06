@@ -52,7 +52,8 @@ public class PieService(
         if (id <= 0)
             throw new InvalidEntityIdException("Pie", id);
 
-        var pie = await _pieRepo.GetPieByIdAsync(id);
+        var pie = await _pieRepo
+            .GetPieByIdAsync(id);
 
         return pie == null
             ? throw new EntityNotFoundException("Pie", id)
@@ -62,7 +63,7 @@ public class PieService(
     public async Task<PieDto?> GetPieByNameAsync(string pieName)
     {
         if (string.IsNullOrWhiteSpace(pieName))
-            throw new EntityNotFoundException("Pie", pieName);
+            throw new InvalidEntityNameException("Pie", pieName);
 
         var pie = await _pieRepo
             .GetPieByNameAsync(pieName);
