@@ -68,11 +68,10 @@ public class PieService(
         var pie = await _pieRepo
             .GetPieByNameAsync(pieName);
 
-        if (pie == null)
-            throw new EntityNotFoundException("Pie", pieName);
-
-        return _pieMapper
-            ?.Map<PieDto?>(pie);
+        return pie == null
+            ? throw new EntityNotFoundException("Pie", pieName)
+            : (_pieMapper
+            ?.Map<PieDto?>(pie));
     }
 
     public async Task<int> GetPiesCountAsync() =>
@@ -101,18 +100,18 @@ public class PieService(
             throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
 
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
-            throw new ArgumentException(PieValues.NameInvalidError, nameof(pieUpdate));
+            throw new InvalidEntityNameException("Pie", pieUpdate.Name);
 
         if (pieUpdate.CategoryId <= 0)
-            throw new ArgumentException(PieValues.InvalidCategoryId, nameof(pieUpdate));
+            throw new InvalidEntityIdException("Cayegory", pieUpdate.CategoryId);
 
         var existingPie = await _pieRepo.GetPieByIdAsync(pieUpdate.Id);
         if (existingPie != null && existingPie.Id != pieUpdate.Id)
-            throw new ArgumentException(PieValues.NameDuplicatedError, nameof(pieUpdate));
+            throw new EntityNotFoundException("Pie", pieUpdate.Name);
 
         var pieToUpdate = await _pieRepo
             .GetPieByIdAsync(pieUpdate.Id)
-            ?? throw new ArgumentException(PieValues.UpdateTargetNullError, nameof(pieUpdate));
+            ?? throw new EntityNotFoundException("Pie", pieUpdate.Id);
 
         if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName) == false)
         {
@@ -123,7 +122,6 @@ public class PieService(
             pieToUpdate.CategoryId = category.Id;
         }
 
-        // Todo: Update profile mapping from PieDto to Pie with regard to Timestamp/RowVersion. 
         _pieMapper.Map(pieUpdate, pieToUpdate);
 
         var rowsAffected = await _pieRepo.UpdatePieAsync(pieToUpdate);
@@ -131,8 +129,24 @@ public class PieService(
         return rowsAffected;
     }
 
-    public async Task<int> DeletePieAsync(int id) =>
-        await _pieRepo.DeletePieAsync(id);
+    public async Task<int> DeletePieAsync(int id)
+    {
+        var pieExists = await PieExistsAsync(id);
+        if (pieExists == false)
+            throw new EntityNotFoundException("Pie", id);
+
+        return await _pieRepo.DeletePieAsync(id);
+    }
+
+    private async Task<bool> PieExistsAsync(int id)
+    {
+        if (id <= 0)
+            throw new InvalidEntityIdException("Pie", id);
+
+        return await _pieRepo
+            .GetPies()
+            .AnyAsync(Pie => Pie.Id == id);
+    }
 
     private readonly IPieRepository _pieRepo = pieRepo
         ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
