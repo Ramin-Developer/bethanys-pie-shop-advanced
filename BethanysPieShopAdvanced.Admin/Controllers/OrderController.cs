@@ -1,7 +1,5 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-// Todo: Use ValidateId() to check the item IDs. 
-
 public class OrderController(
     ILogger<OrderController> logger,
     IOrderService orderService,

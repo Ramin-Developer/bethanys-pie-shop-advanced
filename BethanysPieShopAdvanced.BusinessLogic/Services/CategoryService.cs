@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.BusinessLogic.Services;
 
-// Todo: Add other validation rules to the methods.
 public class CategoryService(ICategoryRepository categoryRepository, IMapper mapper) : ICategoryService
 {
     public async Task<List<CategoryDto>> GetCategoriesAsync()
