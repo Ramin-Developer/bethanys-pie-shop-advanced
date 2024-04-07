@@ -10,4 +10,7 @@ public class EntityValues
 
     public static string InvalidEntityNameError(string entityType, string entityName) =>
         $"Entity type '{entityType}' with name '{entityName}' not found.";
+
+    public static string DuplicateEntityError(string entityType, string Property, string PropertyValue) =>
+    $"Entity property '{Property}' with value '{PropertyValue}' already exists in '{entityType}'.";
 }

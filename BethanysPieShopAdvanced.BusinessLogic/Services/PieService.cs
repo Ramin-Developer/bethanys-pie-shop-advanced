@@ -83,11 +83,11 @@ public class PieService(
             throw new ArgumentNullException(nameof(pieDto), GeneralValues.ArgumentNullError);
 
         if (string.IsNullOrWhiteSpace(pieDto.Name))
-            throw new ArgumentException(PieValues.NameInvalidError, nameof(pieDto));
+            throw new InvalidEntityNameException("Pie", pieDto.Name);
 
         var existingPie = await _pieRepo.GetPieByNameAsync(pieDto.Name);
         if (existingPie != null)
-            throw new ArgumentException(PieValues.NameDuplicatedError, nameof(pieDto));
+            throw new EntityDuplicateException("Pie", "Name", pieDto.Name);
 
         var pie = _pieMapper.Map<Pie>(pieDto);
 
@@ -96,37 +96,24 @@ public class PieService(
 
     public async Task<int> UpdatePieAsync(PieDto pieUpdate)
     {
-        if (pieUpdate == null)
-            throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
+        ValidatePieUpdate(pieUpdate);
 
-        if (string.IsNullOrWhiteSpace(pieUpdate.Name))
-            throw new InvalidEntityNameException("Pie", pieUpdate.Name);
+        var existingPie = await _pieRepo
+            .GetPieByIdAsync(pieUpdate.Id);
 
-        if (pieUpdate.CategoryId <= 0)
-            throw new InvalidEntityIdException("Cayegory", pieUpdate.CategoryId);
-
-        var existingPie = await _pieRepo.GetPieByIdAsync(pieUpdate.Id);
         if (existingPie != null && existingPie.Id != pieUpdate.Id)
-            throw new EntityNotFoundException("Pie", pieUpdate.Name);
+            throw new EntityNotFoundException("Pie", pieUpdate.Id);
 
         var pieToUpdate = await _pieRepo
             .GetPieByIdAsync(pieUpdate.Id)
             ?? throw new EntityNotFoundException("Pie", pieUpdate.Id);
 
-        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName) == false)
-        {
-            var category = await _catRepo
-                .GetCategoryByNameAsync(pieUpdate.CategoryName)
-                ?? throw new ArgumentException(CategoryValues.CategoryNotFoundError, nameof(pieUpdate));
-
-            pieToUpdate.CategoryId = category.Id;
-        }
+        await UpdateCategory(pieUpdate, pieToUpdate);
 
         _pieMapper.Map(pieUpdate, pieToUpdate);
 
-        var rowsAffected = await _pieRepo.UpdatePieAsync(pieToUpdate);
-
-        return rowsAffected;
+        return await _pieRepo
+            .UpdatePieAsync(pieToUpdate);
     }
 
     public async Task<int> DeletePieAsync(int id)
@@ -136,6 +123,30 @@ public class PieService(
             throw new EntityNotFoundException("Pie", id);
 
         return await _pieRepo.DeletePieAsync(id);
+    }
+
+    private void ValidatePieUpdate(PieDto pieUpdate)
+    {
+        if (pieUpdate == null)
+            throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
+
+        if (string.IsNullOrWhiteSpace(pieUpdate.Name))
+            throw new InvalidEntityNameException("Pie", pieUpdate.Name);
+
+        if (pieUpdate.CategoryId <= 0)
+            throw new InvalidEntityIdException("Category", pieUpdate.CategoryId);
+    }
+
+    private async Task UpdateCategory(PieDto pieUpdate, Pie existingPie)
+    {
+        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName))
+            return;
+
+        var category = await _catRepo
+            .GetCategoryByNameAsync(pieUpdate.CategoryName)
+            ?? throw new InvalidEntityNameException("Category", pieUpdate.CategoryName);
+
+        existingPie.CategoryId = category.Id;
     }
 
     private async Task<bool> PieExistsAsync(int id)
