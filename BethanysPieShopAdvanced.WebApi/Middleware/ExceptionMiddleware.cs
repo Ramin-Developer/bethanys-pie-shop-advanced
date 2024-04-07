@@ -22,8 +22,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
             ArgumentException => HttpStatusCode.BadRequest,
+            EntityDuplicateException => HttpStatusCode.BadRequest,
             InvalidEntityIdException => HttpStatusCode.BadRequest,
-            InvalidEntityNameException => HttpStatusCode.NotFound,
+            InvalidEntityNameException => HttpStatusCode.BadRequest,
             EntityNotFoundException => HttpStatusCode.NotFound,
             _ => HttpStatusCode.InternalServerError,
         };
@@ -40,3 +41,4 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     private readonly RequestDelegate _next = next;
     private readonly ILogger<ExceptionMiddleware> _logger = logger;
 }
+

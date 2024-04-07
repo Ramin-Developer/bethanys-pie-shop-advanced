@@ -1,9 +1,9 @@
 ﻿namespace BethanysPieShop.Common.CustomExceptions;
 
-public class InvalidEntityIdException(string entityType, int invalidId) :
-    Exception(EntityValues.InvalidEntityIdError(entityType, invalidId))
+public class InvalidEntityIdException(string entityType, int entityId) :
+    Exception(EntityValues.InvalidEntityIdError(entityType, entityId))
 {
     public string EntityType { get; } = entityType;
 
-    public int InvalidId { get; } = invalidId;
+    public int EntityId { get; } = entityId;
 }
