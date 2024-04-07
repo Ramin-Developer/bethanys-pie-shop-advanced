@@ -1,6 +1,4 @@
-﻿using BethanysPieShop.Common.EnumTypes;
-
-namespace BethanysPieShop.Admin.Helpers;
+﻿namespace BethanysPieShop.Admin.Helpers;
 
 public class PieHelperService(ICategoryService catService, IPieService pieService) : IPieHelperService
 {
@@ -44,7 +42,7 @@ public class PieHelperService(ICategoryService catService, IPieService pieServic
 
         return new PieSearchViewModel()
         {
-            Pies = new List<PieDto>(),
+            Pies = [],
             SearchCategory = null,
             Categories = selectListItems,
             SearchQuery = string.Empty

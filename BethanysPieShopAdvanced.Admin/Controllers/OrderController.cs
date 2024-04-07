@@ -26,9 +26,8 @@ public class OrderController(
     {
         var orderIndexVm = new OrderIndexViewModel
         {
-            OrderDtoList = (await _orderService
-            .GetOrdersWithOrderLinesAsync())
-            .ToList()
+            OrderDtoList = [.. (await _orderService
+            .GetOrdersWithOrderLinesAsync())]
         };
 
         if (IsIdValid(orderId))
@@ -58,11 +57,11 @@ public class OrderController(
         var selectedOrderLine = orderIndexVm.OrderLines.SingleOrDefault(ol => ol.Id == orderLineId);
         if (selectedOrderLine != null)
         {
-            orderIndexVm.Pies = new List<PieDto> { selectedOrderLine.PieDto };
+            orderIndexVm.Pies = [selectedOrderLine.PieDto];
             orderIndexVm.SelectedOrderLineId = orderLineId;
         }
     }
 
     private readonly IOrderService _orderService = orderService
-            ?? throw new ArgumentNullException(nameof(orderService), GeneralValues.ArgumentNullError);
+        ?? throw new ArgumentNullException(nameof(orderService), GeneralValues.ArgumentNullError);
 }
