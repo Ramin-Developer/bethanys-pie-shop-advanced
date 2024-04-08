@@ -11,21 +11,26 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         catch (Exception ex)
         {
             _logger.LogError(ex, "Unhandled exception.");
-            await HandleExceptionAsync(context, ex);
+            await HandlesExceptionAsync(context, ex);
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private static Task HandlesExceptionAsync(HttpContext context, Exception exception)
     {
         // Below, add more exception types as needed
         var statusCode = exception switch
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
             ArgumentException => HttpStatusCode.BadRequest,
-            EntityDuplicateException => HttpStatusCode.BadRequest,
-            InvalidEntityIdException => HttpStatusCode.BadRequest,
-            InvalidEntityNameException => HttpStatusCode.BadRequest,
-            EntityNotFoundException => HttpStatusCode.NotFound,
+            CategoryNotEmptyException => HttpStatusCode.BadRequest,
+            EntityDuplicateException<Pie> => HttpStatusCode.BadRequest,
+            EntityDuplicateException<Category> => HttpStatusCode.BadRequest,
+            InvalidEntityIdException<Pie> => HttpStatusCode.BadRequest,
+            InvalidEntityNameException<Pie> => HttpStatusCode.BadRequest,
+            InvalidEntityNameException<Category> => HttpStatusCode.BadRequest,
+            EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
+            EntityNotFoundException<Category> => HttpStatusCode.NotFound,
+            InvalidEntityIdException<Category> => HttpStatusCode.BadRequest,
             _ => HttpStatusCode.InternalServerError,
         };
 

@@ -16,13 +16,15 @@ public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderSe
     public async Task<OrderDto?> GetOrderDetailsAsync(int orderId)
     {
         if (orderId <= 0)
-            throw new InvalidEntityIdException("Order", orderId);
+
+            throw new InvalidEntityIdException<Order>(orderId);
 
         var result = await _orderRepo
             .GetOrderDetailsAsync(orderId);
 
         return result == null
-            ? throw new EntityNotFoundException("Order", orderId)
+
+            ? throw new EntityNotFoundException<Order>(orderId)
             : _mapper.Map<OrderDto>(result);
     }
 

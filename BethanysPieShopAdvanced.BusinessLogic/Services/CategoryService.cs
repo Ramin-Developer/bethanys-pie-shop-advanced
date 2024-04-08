@@ -16,13 +16,15 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
     {
         if (id <= 0)
-            throw new InvalidEntityIdException("Category", id);
+
+            throw new InvalidEntityIdException<Category>(id);
 
         var category = await _categoryRepository
             .GetCategoryByIdAsync(id);
 
         return category == null
-            ? throw new EntityNotFoundException("Category", id)
+
+            ? throw new EntityNotFoundException<Category>(id)
             : _mapper.Map<CategoryDto>(category);
     }
 
@@ -32,7 +34,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
             .GetCategoryByNameAsync(categoryName);
 
         return category == null
-            ? throw new EntityNotFoundException("Category", categoryName)
+            ? throw new EntityNotFoundException<Category>(categoryName)
             : _mapper.Map<CategoryDto>(category);
     }
 
@@ -56,7 +58,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
         var isPerformable = await CanPerformOperation(CrudOperation.Update, updatedCategoryDto);
         if (isPerformable == false)
-            throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
+            throw new EntityDuplicateException<Category>(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
 
         var cat = _mapper.Map<Category>(updatedCategoryDto);
 
@@ -67,11 +69,11 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new InvalidEntityIdException("Category", id);
+            ?? throw new InvalidEntityIdException<Category>(id);
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)
-            throw new Exception(CategoryValues.NonEmptyError);
+            throw new CategoryNotEmptyException();
 
         return await _categoryRepository
             .DeleteCategoryAsync(id);
