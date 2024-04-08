@@ -22,10 +22,14 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
             ArgumentException => HttpStatusCode.BadRequest,
-            EntityDuplicateException => HttpStatusCode.BadRequest,
-            InvalidEntityIdException => HttpStatusCode.BadRequest,
-            InvalidEntityNameException => HttpStatusCode.BadRequest,
-            EntityNotFoundException => HttpStatusCode.NotFound,
+            EntityDuplicateException<Pie> => HttpStatusCode.BadRequest,
+            EntityDuplicateException<Category> => HttpStatusCode.BadRequest,
+            InvalidEntityIdException<Pie> => HttpStatusCode.BadRequest,
+            InvalidEntityNameException<Pie> => HttpStatusCode.BadRequest,
+            InvalidEntityNameException<Category> => HttpStatusCode.BadRequest,
+            EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
+            EntityNotFoundException<Category> => HttpStatusCode.NotFound,
+            InvalidEntityIdException<Category> => HttpStatusCode.BadRequest,
             _ => HttpStatusCode.InternalServerError,
         };
 

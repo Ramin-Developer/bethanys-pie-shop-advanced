@@ -1,26 +1,24 @@
 ﻿namespace BethanysPieShop.Common.CustomExceptions;
 
-public class EntityNotFoundException : Exception
+public class EntityNotFoundException<TEntity> : Exception where TEntity : class
 {
-    public EntityNotFoundException(string entityType, int entityId)
-        : base(EntityValues.NotFoundEntityIdError(entityType, entityId))
+    public EntityNotFoundException(int entityId)
+        : base(EntityValues.NotFoundEntityIdError(typeof(TEntity).Name, entityId))
     {
-        EntityType = entityType;
-        EntityName = string.Empty;
+        EntityType = typeof(TEntity).Name;
         EntityId = entityId;
     }
 
-    public EntityNotFoundException(string entityType, string entityName)
-        : base(EntityValues.InvalidEntityNameError(entityType, entityName))
+    public EntityNotFoundException(string entityName)
+        : base(EntityValues.InvalidEntityNameError(typeof(TEntity).Name, entityName))
     {
-        EntityType = entityType;
+        EntityType = typeof(TEntity).Name;
         EntityName = entityName;
-        EntityId = null;
     }
 
     public string EntityType { get; set; }
 
-    public string EntityName { get; }
+    public string EntityName { get; } = string.Empty;
 
     public int? EntityId { get; }
 }
