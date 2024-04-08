@@ -2,15 +2,15 @@
 
 public class EntityValues
 {
-    public static string InvalidEntityIdError(string entityType, int entityId) =>
-        $"Entity Type '{entityType}' with ID '{entityId}' is invalid.";
+    public static string EntityIdFormatError(string entityType, int entityId) =>
+        $"The ID '{entityId}' in entity Type '{entityType}' is not correctly farmatted.";
 
-    public static string NotFoundEntityIdError(string entityType, int entityId) =>
-        $"Entity Type '{entityType}' with ID '{entityId}' not found.";
+    public static string EntityNameFormatError(string entityType, string entityName) =>
+        $"The name '{entityName}' in entity type '{entityType}' is not correctly farmatted.";
 
-    public static string InvalidEntityNameError(string entityType, string entityName) =>
-        $"Entity type '{entityType}' with name '{entityName}' not found.";
+    public static string EntityIdNotFoundError(string entityType, int entityId) =>
+        $"The ID '{entityId}' of entity type '{entityType}' was not found.";
 
     public static string DuplicateEntityError(string entityType, string Property, string PropertyValue) =>
-    $"Entity property '{Property}' with value '{PropertyValue}' already exists in '{entityType}'.";
+    $"The value '{PropertyValue}' of property '{Property}' already exists in '{entityType}'.";
 }

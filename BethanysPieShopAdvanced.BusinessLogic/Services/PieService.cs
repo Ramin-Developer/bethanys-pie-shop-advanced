@@ -51,7 +51,7 @@ public class PieService(
     {
         if (id <= 0)
 
-            throw new InvalidEntityIdException<Pie>(id);
+            throw new EntityIdFormatException<Pie>(id);
 
         var pie = await _pieRepo
             .GetPieByIdAsync(id);
@@ -67,7 +67,7 @@ public class PieService(
     {
         if (string.IsNullOrWhiteSpace(pieName))
             //throw new InvalidEntityNameException("Pie", pieName);
-            throw new InvalidEntityNameException<Pie>(pieName);
+            throw new EntityNameFormatException<Pie>(pieName);
 
         var pie = await _pieRepo
             .GetPieByNameAsync(pieName);
@@ -89,13 +89,13 @@ public class PieService(
 
         if (string.IsNullOrWhiteSpace(pieDto.Name))
             //throw new InvalidEntityNameException("Pie", pieDto.Name);
-            throw new InvalidEntityNameException<Pie>(pieDto.Name);
+            throw new EntityNameFormatException<Pie>(pieDto.Name);
 
         var existingPie = await _pieRepo
             .GetPieByNameAsync(pieDto.Name);
         if (existingPie != null)
             //throw new EntityDuplicateException("Pie", "Name", pieDto.Name);
-            throw new EntityDuplicateException<Pie>(nameof(Pie.Name), pieDto.Name);
+            throw new EntityDuplicationException<Pie>(nameof(Pie.Name), pieDto.Name);
 
         var pie = _pieMapper.Map<Pie>(pieDto);
 
@@ -142,11 +142,11 @@ public class PieService(
             throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
 
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
-            throw new InvalidEntityNameException<Pie>(pieUpdate.Name);
+            throw new EntityNameFormatException<Pie>(pieUpdate.Name);
 
         if (pieUpdate.CategoryId <= 0)
             //throw new InvalidEntityIdException("Category", pieUpdate.CategoryId);
-            throw new InvalidEntityIdException<Category>(pieUpdate.CategoryId);
+            throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
     }
 
     private async Task UpdateCategory(PieDto pieUpdate, Pie existingPie)
@@ -157,7 +157,7 @@ public class PieService(
         var category = await _catRepo
             .GetCategoryByNameAsync(pieUpdate.CategoryName)
             //?? throw new InvalidEntityNameException("Category", pieUpdate.CategoryName);
-            ?? throw new InvalidEntityNameException<Category>(pieUpdate.CategoryName);
+            ?? throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
 
         existingPie.CategoryId = category.Id;
     }
@@ -166,7 +166,7 @@ public class PieService(
     {
         if (id <= 0)
             //throw new InvalidEntityIdException("Pie", id);
-            throw new InvalidEntityIdException<Pie>(id);
+            throw new EntityIdFormatException<Pie>(id);
 
         return await _pieRepo
             .GetPies()

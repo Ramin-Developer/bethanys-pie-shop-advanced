@@ -1,10 +1,7 @@
 ﻿namespace BethanysPieShop.Common.CustomExceptions;
 
-public class CategoryNotEmptyException : Exception
+public class CategoryNotEmptyException(int id) :
+    Exception(CategoryValues.CategoryToDeleteNotEmpty(id))
 {
-    public CategoryNotEmptyException() : base(CategoryValues.CategoryToDeleteNotEmpty)
-    {
-    }
-
-    public int CategoryId { get; }
+    public int CategoryId { get; } = id;
 }

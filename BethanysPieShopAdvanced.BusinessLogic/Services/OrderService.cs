@@ -17,7 +17,7 @@ public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderSe
     {
         if (orderId <= 0)
 
-            throw new InvalidEntityIdException<Order>(orderId);
+            throw new EntityIdFormatException<Order>(orderId);
 
         var result = await _orderRepo
             .GetOrderDetailsAsync(orderId);

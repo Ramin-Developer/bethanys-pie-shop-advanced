@@ -28,8 +28,8 @@ public static class CategoryValues
     public const string NameDuplicatedError = "Another category with the given name already exists.";
     public const string UpdateTargetNullError = "Category to update is null.";
     public const string UpdateLogError = "There was a problem updating the category. Please try again.";
-    public static string CategoryToDeleteNotEmpty =>
-        $"Category is not empty. Please delete all pies in the category before deleting it.";
+    public static string CategoryToDeleteNotEmpty(int id) =>
+        $"Category with {id} is not empty. Please delete all pies in the category before deleting the category.";
 
     public const string NonEmptyError =
         "There are some pies in this category. Delete all of them before deleting the category.";

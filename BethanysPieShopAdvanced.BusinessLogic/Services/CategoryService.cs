@@ -17,7 +17,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     {
         if (id <= 0)
 
-            throw new InvalidEntityIdException<Category>(id);
+            throw new EntityIdFormatException<Category>(id);
 
         var category = await _categoryRepository
             .GetCategoryByIdAsync(id);
@@ -58,7 +58,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
         var isPerformable = await CanPerformOperation(CrudOperation.Update, updatedCategoryDto);
         if (isPerformable == false)
-            throw new EntityDuplicateException<Category>(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
+            throw new EntityDuplicationException<Category>(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
 
         var cat = _mapper.Map<Category>(updatedCategoryDto);
 
@@ -69,11 +69,11 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new InvalidEntityIdException<Category>(id);
+            ?? throw new EntityIdFormatException<Category>(id);
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)
-            throw new CategoryNotEmptyException();
+            throw new CategoryNotEmptyException(id);
 
         return await _categoryRepository
             .DeleteCategoryAsync(id);

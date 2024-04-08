@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.Common.CustomExceptions;
 
-public class EntityDuplicateException<TEntity>(string propertyName, string propertyValue) :
+public class EntityDuplicationException<TEntity>(string propertyName, string propertyValue) :
     Exception(EntityValues.DuplicateEntityError(typeof(TEntity).Name, propertyName, propertyValue))
     where TEntity : class
 {
