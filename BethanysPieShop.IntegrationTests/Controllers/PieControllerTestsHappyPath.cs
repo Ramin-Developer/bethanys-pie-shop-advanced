@@ -1,10 +1,10 @@
 ﻿namespace BethanysPieShop.IntegrationTest.Controllers;
 
 [Collection("Database Collection")]
-public class PieControllerHappyPathTests :
+public class PieControllerTestsHappyPath :
     TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public PieControllerHappyPathTests(CustomWebApplicationFactory factory)
+    public PieControllerTestsHappyPath(CustomWebApplicationFactory factory)
     {
         _factory = factory;
         _factory.SeedData();
@@ -90,7 +90,6 @@ public class PieControllerHappyPathTests :
         expectedPie.Id = createdPie!.Id;
 
         var actualPie = _mapper.Map<PieDto>(createdPie);
-        actualPie.CategoryId = expectedPie.CategoryId;
         actualPie.CategoryName = expectedPie.CategoryName;
 
         // Assert

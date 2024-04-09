@@ -33,17 +33,6 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] PieDto pieDto)
     {
-        var existingPie = await _pieService
-            .GetPieByNameAsync(pieDto.Name);
-
-        if (existingPie != null)
-        {
-            _logger.LogWarning(PieValues.NotFoundIdError);
-            var errorMsg = PieValues.FoundNameFormatError.Replace("{pieId}", pieDto.Name);
-
-            return NotFound(errorMsg);
-        }
-
         _ = await _pieService
             .AddPieAsync(pieDto);
 

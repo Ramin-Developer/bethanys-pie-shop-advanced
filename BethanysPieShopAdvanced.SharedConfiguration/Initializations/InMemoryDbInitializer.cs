@@ -292,15 +292,15 @@ public class InMemoryDbInitializer(PieShopDbContext dbContext)
                 OrderPlaced = DateTime.Now,
                 OrderStatus = OrderStatus.OutForDelivery,
                 OrderTotal = 1235,
-                OrderLines = new List<OrderLine>()
-                {
+                OrderLines =
+                [
                     new OrderLine()
                     {
                         Amount = 1,
                         PieId = 1,
                         Price = 22.95M
                     }
-                }
+                ]
             });
 
         _dbContext.SaveChanges();

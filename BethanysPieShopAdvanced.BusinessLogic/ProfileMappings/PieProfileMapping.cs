@@ -32,21 +32,9 @@ public class PieProfileMapping : Profile
             .ForMember(dest => dest.ImageThumbnailUrl, opts => opts.MapFrom(src => src.ImageThumbnailUrl))
             .ForMember(dest => dest.InStock, opts => opts.MapFrom(src => src.InStock))
             .ForMember(dest => dest.IsPieOfTheWeek, opts => opts.MapFrom(src => src.IsPieOfTheWeek))
-            .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name));
 
             // Todo: Here implement the logic for adding a time stamp to the PieObject
             //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(src => src.RowVersion))
-            
-            .AfterMap((src, dest) =>
-            {
-                if (string.IsNullOrEmpty(src.CategoryName) == false)
-                {
-                    if (dest.Category == null)
-                    {
-                        dest.Category = new Category();
-                    }
-                    dest.Category.Name = src.CategoryName;
-                }
-            });
     }
 }

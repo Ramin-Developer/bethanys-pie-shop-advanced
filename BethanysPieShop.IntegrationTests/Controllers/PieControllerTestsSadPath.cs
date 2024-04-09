@@ -1,10 +1,10 @@
 ﻿namespace BethanysPieShop.IntegrationTests.Controllers;
 
 [Collection("Database Collection")]
-public class PieControllerSadPathTests :
+public class PieControllerTestsSadPath :
     TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public PieControllerSadPathTests(CustomWebApplicationFactory factory)
+    public PieControllerTestsSadPath(CustomWebApplicationFactory factory)
     {
         _factory = factory;
         _factory.SeedData();
