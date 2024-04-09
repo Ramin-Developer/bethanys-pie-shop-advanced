@@ -313,6 +313,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
     ];
 
     private Dictionary<string, Category>? _categories;
+
     private readonly PieShopDbContext _dbContext = dbContext
-            ?? throw new ArgumentException(GeneralValues.ArgumentNullError, nameof(dbContext));
+        ?? throw new ArgumentException(GeneralValues.ArgumentNullError, nameof(dbContext));
 }

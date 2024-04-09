@@ -1,10 +1,6 @@
 ﻿namespace BethanysPieShop.Admin.ProfileMappings;
 
 // Todo: Move installation of AutoMapper and folder ProfileMapping to BethanysPieShop.WebApi.
-
-// Todo: Include this code snippet at the end of CreateMap to add category name of the relevant pie to the mapping
-//      .ForMember(dest => dest.Category.Name, opts => opts.MapFrom(
-//          src => src.Pie!.CategoryName));
 public class PieMapping : Profile
 {
     public PieMapping()
