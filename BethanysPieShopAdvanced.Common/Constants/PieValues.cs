@@ -215,6 +215,4 @@ public static class PieValues
         "drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin " +
         "jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. " +
         "Brownie cupcake dragee gummies.";
-
-    public const string LongDesc = "Long Desc";
 }
