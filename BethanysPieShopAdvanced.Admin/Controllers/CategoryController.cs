@@ -1,5 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
+[Produces("application/json")]
+[Route("/[controller]/[action]/")]
 public class CategoryController(
     ILogger<CategoryController> logger,
     IPieModelErrorService errorService,

@@ -1,5 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
+[Produces("application/json")]
+[Route("/[controller]/[action]/")]
 public class OrderController(
     ILogger<OrderController> logger,
     IOrderService orderService,
