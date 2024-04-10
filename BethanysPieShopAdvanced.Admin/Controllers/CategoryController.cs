@@ -9,7 +9,7 @@ public class CategoryController(
     IMapper mapper) : BaseController<CategoryController>(logger, errorService)
 {
     [HttpGet]
-    public async Task<IActionResult> Index(string? successMessage)
+    public async Task<IActionResult> IndexAsync(string? successMessage)
     {
         var viewModel = new CategoryListViewModel
         {
@@ -27,7 +27,7 @@ public class CategoryController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> DetailsAsync(int id)
     {
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id);
@@ -45,7 +45,7 @@ public class CategoryController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(
+    public async Task<IActionResult> AddAsync(
         [Bind("Name", "Description", "DateAdded")] CategoryDto catDto)
     {
         if (ModelState.IsValid)
@@ -53,14 +53,14 @@ public class CategoryController(
             await _categoryService
                 .AddCategoryAsync(catDto);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
 
         return View(catDto);
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> EditAsync(int? id)
     {
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id!.Value);
@@ -69,7 +69,7 @@ public class CategoryController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(CategoryDto catDto)
+    public async Task<IActionResult> EditAsync(CategoryDto catDto)
     {
         try
         {
@@ -79,7 +79,7 @@ public class CategoryController(
             await _categoryService
                 .UpdateCategoryAsync(catDto);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
         catch
         {
@@ -90,7 +90,7 @@ public class CategoryController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<IActionResult> DeleteAsync(int id)
     {
         var selectedCatDto = await _categoryService.GetCategoryByIdAsync(id);
 
@@ -98,11 +98,11 @@ public class CategoryController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> DeleteConfirmedAsync(int id)
     {
         await _categoryService.DeleteCategoryAsync(id);
         
-        return RedirectToAction(nameof(Index), new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
+        return RedirectToAction(nameof(IndexAsync), new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
     }
 
     private readonly ICategoryService _categoryService = categoryService

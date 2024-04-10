@@ -19,7 +19,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> IndexPaging(int? pageNumber)
+    public async Task<IActionResult> IndexPagingAsync(int? pageNumber)
     {
         var paginatedList = await _pieHelperService
             .CreatePaginatedSortedViewModel(pageNumber, PieGroupOption.Paging, PieSortOption.IdAsc);
@@ -28,7 +28,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> IndexPagingSorting(int? pageNumber, PieSortOption sortOption)
+    public async Task<IActionResult> IndexPagingSortingAsync(int? pageNumber, PieSortOption sortOption)
     {
         var paginatedList = await _pieHelperService
             .CreatePaginatedSortedViewModel(pageNumber, PieGroupOption.PagingSorting, sortOption);
@@ -37,7 +37,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Search(int? searchCategory, string? searchQuery)
+    public async Task<IActionResult> SearchAsync(int? searchCategory, string? searchQuery)
     {
         var viewModel = await _pieHelperService
             .CreatePieSearchViewModelAsync(searchQuery, searchCategory);
@@ -46,7 +46,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Details(int? id)
+    public async Task<IActionResult> DetailsAsync(int? id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -73,7 +73,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Add()
+    public async Task<IActionResult> AddAsync()
     {
         var pieAddViewModel = await _pieHelperService
             .CreatePieAddViewModelAsync();
@@ -82,7 +82,7 @@ public class PieController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(PieAddViewModel pieAddViewModel)
+    public async Task<IActionResult> AddAsync(PieAddViewModel pieAddViewModel)
     {
         if (ModelState.IsValid)
         {
@@ -103,7 +103,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit(int? id)
+    public async Task<IActionResult> EditAsync(int? id)
     {
         var validationResult = ValidateId(id);
         if (validationResult.IsValid == false)
@@ -132,7 +132,7 @@ public class PieController(
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(PieEditViewModel pieEditViewModel)
+    public async Task<IActionResult> EditAsync(PieEditViewModel pieEditViewModel)
     {
         if (ModelState.IsValid)
         {
@@ -145,7 +145,7 @@ public class PieController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> DeleteAsync(int? id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -167,7 +167,7 @@ public class PieController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? id)
+    public async Task<IActionResult> DeleteConfirmedAsync(int? id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);

@@ -11,7 +11,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 {
     // Get: /api/pie
     [HttpGet]
-    public async Task<ActionResult<List<PieDto>>> GetAll()
+    public async Task<ActionResult<List<PieDto>>> GetAllAsync()
     {
         var pieDtoList = await _pieService
             .GetPiesAsync();
@@ -31,7 +31,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Post: api/pie
     [HttpPost]
-    public async Task<ActionResult> Create([FromBody] PieDto pieDto)
+    public async Task<ActionResult> CreateAsync([FromBody] PieDto pieDto)
     {
         _ = await _pieService
             .AddPieAsync(pieDto);
@@ -41,7 +41,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Put: api/pie/5
     [HttpPut("{id}")]
-    public async Task<ActionResult<int>> Update(int id, [FromBody] PieDto updatedPieDto)
+    public async Task<ActionResult<int>> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
     {
         if (id != updatedPieDto.Id)
             return BadRequest(PieValues.IdMismatchError);
@@ -61,7 +61,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Delete: api/pie/5
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
+    public async Task<ActionResult> DeleteAsync(int id)
     {
         if (id <= 0)
             return BadRequest(GeneralValues.InvalidIdError);

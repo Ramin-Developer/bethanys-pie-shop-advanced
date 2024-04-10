@@ -8,15 +8,15 @@ public class OrderController(
     IPieModelErrorService errorService) : BaseController<OrderController>(logger, errorService)
 {
     [HttpGet]
-    public async Task<IActionResult> Index(int? orderId, int? orderLineId)
+    public async Task<IActionResult> IndexAsync(int? orderId, int? orderLineId)
     {
-        var orderIndexVm = await BuildOrderIndexViewModel(orderId, orderLineId);
+        var orderIndexVm = await BuildOrderIndexViewModelAsync(orderId, orderLineId);
 
         return View(orderIndexVm);
     }
 
     [HttpGet]
-    public async Task<IActionResult> Details(int orderId)
+    public async Task<IActionResult> DetailsAsync(int orderId)
     {
         var order = await _orderService
             .GetOrderDetailsAsync(orderId);
@@ -24,7 +24,7 @@ public class OrderController(
         return View(order);
     }
 
-    private async Task<OrderIndexViewModel> BuildOrderIndexViewModel(int? orderId, int? orderLineId)
+    private async Task<OrderIndexViewModel> BuildOrderIndexViewModelAsync(int? orderId, int? orderLineId)
     {
         var orderIndexVm = new OrderIndexViewModel
         {

@@ -7,7 +7,7 @@ public class CategoryController(ILogger<Category> logger, ICategoryService categ
 {
     // Get: /api/category
     [HttpGet]
-    public async Task<ActionResult<List<CategoryDto>>> GetAll()
+    public async Task<ActionResult<List<CategoryDto>>> GetAllAsync()
     {
         var categoryDtoList = await _categoryService
             .GetCategoriesAsync();
