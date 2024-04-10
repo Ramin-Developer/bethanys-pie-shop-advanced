@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
+﻿namespace BethanysPieShop.SharedConfiguration.ProfileMappings;
 
 public class PieProfileMapping : Profile
 {
@@ -34,7 +34,7 @@ public class PieProfileMapping : Profile
             .ForMember(dest => dest.IsPieOfTheWeek, opts => opts.MapFrom(src => src.IsPieOfTheWeek))
             .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name));
 
-            // Todo: Here implement the logic for adding a time stamp to the PieObject
-            //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(src => src.RowVersion))
+        // Todo: Here implement the logic for adding a time stamp to the PieObject
+        //.ForMember(dest => dest.RowVersion, opts => opts.MapFrom(src => src.RowVersion))
     }
 }

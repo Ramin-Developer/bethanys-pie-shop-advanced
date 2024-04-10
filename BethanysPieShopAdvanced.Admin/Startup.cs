@@ -19,7 +19,7 @@ public static class Startup
         // Adding mappings
         _ = builder.Services.AddAutoMapper(cfg =>
         {
-            cfg.AddProfile<CategoryMapping>();
+            cfg.AddProfile<CategoryProfileMapping>();
             cfg.AddProfile<PieMapping>();
         });
     }

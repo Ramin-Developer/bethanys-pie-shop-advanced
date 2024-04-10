@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
+﻿namespace BethanysPieShop.SharedConfiguration.ProfileMappings;
 
 public class CategoryProfileMapping : Profile
 {
@@ -19,5 +19,8 @@ public class CategoryProfileMapping : Profile
             .ForMember(dest => dest.Description, opts => opts.MapFrom(src => src.Description))
             .ForMember(dest => dest.DateAdded, opts => opts.MapFrom(src => src.DateAdded))
             .ForMember(dest => dest.Pies, opts => opts.MapFrom(src => src.PieList));
+
+        // CategoryDto -> DetailsCategoryDto
+        _ = CreateMap<CategoryDto, DetailsCategoryDto>();
     }
 }

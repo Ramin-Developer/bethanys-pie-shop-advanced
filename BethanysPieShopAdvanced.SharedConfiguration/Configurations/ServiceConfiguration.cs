@@ -24,7 +24,13 @@ public static class ServiceConfiguration
         _ = builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
         _ = builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-        _ = builder.Services.AddAutoMapper(typeof(PieProfileMapping));
+        _ = builder.Services.AddAutoMapper(cfg =>
+        {
+            cfg.AddProfile<CategoryProfileMapping>();
+            cfg.AddProfile<PieProfileMapping>();
+            cfg.AddProfile<OrderLineProfileMapping>();
+            cfg.AddProfile<OrderProfileMapping>();
+        });
 
         builder.Services.AddHealthChecks();
     }

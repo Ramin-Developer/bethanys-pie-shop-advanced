@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.BusinessLogic.ProfileMappings;
+﻿namespace BethanysPieShop.SharedConfiguration.ProfileMappings;
 
 public class OrderLineProfileMapping : Profile
 {
