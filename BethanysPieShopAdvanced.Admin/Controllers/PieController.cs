@@ -1,6 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
 [Produces("application/json")]
+[Route("/[controller]/[action]/")]
 public class PieController(
     ILogger<PieController> logger,
     IPieModelErrorService errorService,
@@ -130,7 +131,7 @@ public class PieController(
         return View(pieEditViewModel);
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> Edit(PieEditViewModel pieEditViewModel)
     {
         if (ModelState.IsValid)
@@ -164,7 +165,8 @@ public class PieController(
         return View(viewModel);
     }
 
-    [HttpDelete]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var validationResult = ValidateId(id);
