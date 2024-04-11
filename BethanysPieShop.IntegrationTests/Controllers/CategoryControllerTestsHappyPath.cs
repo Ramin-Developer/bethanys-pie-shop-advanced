@@ -8,6 +8,7 @@ public class CategoryControllerTestsHappyPath :
     {
         _factory = factory;
         _factory.SeedData();
+
         _client = _factory
             .CreateClient();
 
@@ -29,31 +30,10 @@ public class CategoryControllerTestsHappyPath :
     {
         // Arrange
         var endpoint = ApiEndPoints.BaseCategoryEndpoint;
-        using var dbContext = ScopedDbContext
-            .Create(_scopeFactory)
-            .DbContext;
-
-        var expected = await dbContext
-            .Categories
-            .ToListAsync();
-
-        var expectedCategories = _mapper
-            .Map<List<CategoryDto>>(expected);
+        var expectedCategories = await GetExpectedCategoriesAsync();
 
         // Act
-        var httpResponseMsg = await _client
-            .GetAsync(endpoint);
-
-        httpResponseMsg
-            .EnsureSuccessStatusCode();
-
-        var categoryList = await httpResponseMsg
-            .Content
-            .ReadFromJsonAsync<List<Category>>();
-
-        var actualCategories = categoryList!
-            .Select(_mapper.Map<CategoryDto>)
-            .ToList();
+        var actualCategories = await GetActualAsync<List<CategoryDto>>(endpoint);
 
         // Assert
         Assert.NotNull(actualCategories);
@@ -69,28 +49,12 @@ public class CategoryControllerTestsHappyPath :
     {
         // Arrange
         var endpopint = ApiEndPoints.SingleCategoryEndpoint(categoryId);
-        using var dbContext = ScopedDbContext
-            .Create(_scopeFactory)
-            .DbContext;
-
-        var expected = await dbContext
-            .Categories
-            .FindAsync(categoryId);
-
-        var expectedCatagory = _mapper
-            .Map<CategoryDto>(expected);
+        var expectedCatagory = await GetExpectedCategoryAsync(categoryId);
 
         // Act
-        var httpResponseMsg = await _client
-            .GetAsync(endpopint);
-
-        httpResponseMsg.EnsureSuccessStatusCode();
-        var actualCategory = await httpResponseMsg
-            .Content
-            .ReadFromJsonAsync<CategoryDto>();
+        var actualCategory = await GetActualAsync<CategoryDto>(endpopint);
 
         // Assert
-        httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         actualCategory.Should().NotBeNull();
         actualCategory!.Name.Should().Be(expectedCatagory.Name);
         actualCategory!.DateAdded.Should().Be(expectedCatagory.DateAdded);
@@ -98,6 +62,45 @@ public class CategoryControllerTestsHappyPath :
     }
 
     public void Dispose() => _testScope.Dispose();
+
+    private async Task<List<CategoryDto>> GetExpectedCategoriesAsync()
+    {
+        using var dbContext = ScopedDbContext
+            .Create(_scopeFactory)
+            .DbContext;
+
+        var expected = await dbContext
+            .Categories
+            .ToListAsync();
+
+        return _mapper
+            .Map<List<CategoryDto>>(expected);
+    }
+
+    private async Task<CategoryDto> GetExpectedCategoryAsync(int id)
+    {
+        using var dbContext = ScopedDbContext
+            .Create(_scopeFactory)
+            .DbContext;
+
+        var expected = await dbContext
+            .Categories
+            .FindAsync(id);
+
+        return _mapper
+            .Map<CategoryDto>(expected);
+    }
+
+    private async Task<T?> GetActualAsync<T>(string endpoint)
+    {
+        var httpResponseMsg = await _client
+            .GetAsync(endpoint);
+
+        httpResponseMsg.EnsureSuccessStatusCode();
+
+        return await httpResponseMsg
+            .Content.ReadFromJsonAsync<T>();
+    }
 
     private readonly CustomWebApplicationFactory _factory;
     private readonly HttpClient _client;
