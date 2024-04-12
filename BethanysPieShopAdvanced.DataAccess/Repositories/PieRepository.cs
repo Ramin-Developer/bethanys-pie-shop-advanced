@@ -54,7 +54,7 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
             .FirstOrDefaultAsync(p => p.Name == name);
     }
 
-    public async Task<int> GetNoOfPiesAsync() =>
+    public async Task<int> GetPiesCountAsync() =>
         await _dbContext
             .Pies
             .CountAsync();

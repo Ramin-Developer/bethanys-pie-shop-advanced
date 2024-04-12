@@ -15,4 +15,6 @@ public interface ICategoryRepository
     Task<int> UpdateCategoryNamesAsync(List<Category> categories);
 
     Task<int> DeleteCategoryAsync(int id);
+
+    Task<int> GetCategoriesCountAsync();
 }

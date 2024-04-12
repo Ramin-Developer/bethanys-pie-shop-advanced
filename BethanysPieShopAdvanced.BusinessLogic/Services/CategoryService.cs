@@ -4,8 +4,9 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 {
     public async Task<List<CategoryDto>> GetCategoriesAsync()
     {
-        var cat = (await _categoryRepository
+        var cat = (await _categoryRepo
             .GetCategoriesAsync())
+            .OrderBy(c => c.Id)
             .ToList();
 
         return _mapper
@@ -16,27 +17,29 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
     {
         if (id <= 0)
-
             throw new EntityIdFormatException<Category>(id);
 
-        var category = await _categoryRepository
+        var category = await _categoryRepo
             .GetCategoryByIdAsync(id);
 
         return category == null
-
             ? throw new EntityNotFoundException<Category>(id)
             : _mapper.Map<CategoryDto>(category);
     }
 
     public async Task<CategoryDto?> FindCategoryByTypeAsync(CategoryType categoryType)
     {
-        var category = await _categoryRepository
+        var category = await _categoryRepo
             .FindCategoryByTypeAsync(categoryType);
 
         return category == null
             ? throw new EntityNotFoundException<Category>(categoryType.ToString())
             : _mapper.Map<CategoryDto>(category);
     }
+
+    public async Task<int> GetCategioryCountAsync() =>
+        await _categoryRepo
+        .GetCategoriesCountAsync();
 
     public async Task<int> AddCategoryAsync(CategoryDto categoryDto)
     {
@@ -48,7 +51,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
         var category = _mapper.Map<Category>(categoryDto);
 
-        return await _categoryRepository
+        return await _categoryRepo
             .AddCategoryAsync(category);
     }
 
@@ -62,7 +65,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
         var cat = _mapper.Map<Category>(updatedCategoryDto);
 
-        return await _categoryRepository
+        return await _categoryRepo
             .UpdateCategoryAsync(cat);
     }
 
@@ -75,7 +78,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         if (isPerformable == false)
             throw new CategoryNotEmptyException(id);
 
-        return await _categoryRepository
+        return await _categoryRepo
             .DeleteCategoryAsync(id);
     }
 
@@ -136,7 +139,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
             throw new ArgumentNullException(nameof(categoryDto), GeneralValues.ArgumentNullError);
     }
 
-    private readonly ICategoryRepository _categoryRepository = categoryRepository
+    private readonly ICategoryRepository _categoryRepo = categoryRepository
         ?? throw new ArgumentNullException(nameof(categoryRepository), GeneralValues.ArgumentNullError);
 
     private readonly IMapper _mapper = mapper

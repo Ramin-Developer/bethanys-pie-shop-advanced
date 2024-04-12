@@ -56,9 +56,8 @@ public class PieService(
             .GetPieByIdAsync(id);
 
         return pie == null
-
             ? throw new EntityNotFoundException<Pie>(id)
-            : _pieMapper.Map<PieDto?>(pie);
+            : _pieMapper.Map<PieDto>(pie);
     }
 
     public async Task<PieDto?> GetPieByNameAsync(string pieName)
@@ -76,12 +75,11 @@ public class PieService(
     }
 
     public async Task<int> GetPiesCountAsync() =>
-        await _pieRepo.GetNoOfPiesAsync();
+        await _pieRepo.GetPiesCountAsync();
 
     public async Task<int> AddPieAsync(PieDto pieDto)
     {
-        if (pieDto == null)
-            throw new ArgumentNullException(nameof(pieDto), GeneralValues.ArgumentNullError);
+        ArgumentNullException.ThrowIfNull(pieDto, nameof(pieDto));
 
         if (string.IsNullOrWhiteSpace(pieDto.Name))
             throw new EntityNameFormatException<Pie>(pieDto.Name);
@@ -99,18 +97,20 @@ public class PieService(
 
     public async Task<int> UpdatePieAsync(PieDto pieUpdate)
     {
-        ValidatePieUpdate(pieUpdate);
+        await ValidatePieUpdateAsync(pieUpdate);
 
         var pieToUpdate = await _pieRepo
-            .GetPieByIdAsync(pieUpdate.Id)
-            ?? throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+            .GetPieByIdAsync(pieUpdate.Id);
 
-        await UpdateCategoryIfNeeded(pieUpdate, pieToUpdate);
+        if (pieToUpdate != null)
+            throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+
+        await UpdateCategoryIfNeeded(pieUpdate, pieToUpdate!);
 
         _pieMapper.Map(pieUpdate, pieToUpdate);
 
         return await _pieRepo
-            .UpdatePieAsync(pieToUpdate);
+            .UpdatePieAsync(pieToUpdate!);
     }
 
     public async Task<int> DeletePieAsync(int id)
@@ -122,45 +122,46 @@ public class PieService(
         return await _pieRepo.DeletePieAsync(id);
     }
 
-    private void ValidatePieUpdate(PieDto pieUpdate)
+    private async Task ValidatePieUpdateAsync(PieDto pieUpdate)
     {
-        // Check if the pieUpdate is null
         ArgumentNullException.ThrowIfNull(pieUpdate, nameof(pieUpdate));
 
-        // Check if if pieUpdate.Name is null or empty
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
             throw new EntityNameFormatException<Pie>(pieUpdate.Name);
 
-        // Check if pieUpdate.CategoryId is less than or equal to 0
+        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName))
+            throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
+
+        if (pieUpdate.Id <= 0)
+            throw new EntityIdFormatException<Pie>(pieUpdate.Id);
+
+        var pieExists = await PieExistsAsync(pieUpdate.Id);
+        if (pieExists == false)
+            throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+
         if (pieUpdate.CategoryId <= 0)
             throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
+
+        // Todo: Check if pieUpdate.Price is less than or equal to 0
     }
 
     private async Task UpdateCategoryIfNeeded(PieDto pieUpdate, Pie existingPie)
     {
-        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName) == false)
-        {
-            var isResultOk = Enum.TryParse<CategoryType>(pieUpdate.CategoryName, out var categoryType);
-            if (isResultOk == false)
-                throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
+        var isResultOk = Enum.TryParse<CategoryType>(pieUpdate.CategoryName, true, out var categoryType);
+        if (isResultOk == false)
+            throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
 
-            var category = await _categoryRepo
-                .FindCategoryByTypeAsync(categoryType)
-                ?? throw new EntityNotFoundException<Category>(pieUpdate.CategoryName);
+        var category = await _categoryRepo
+            .FindCategoryByTypeAsync(categoryType)
+            ?? throw new EntityNotFoundException<Category>(pieUpdate.CategoryName);
 
-            existingPie.CategoryId = category.Id;
-        }
+        existingPie.CategoryId = category.Id;
     }
 
-    private async Task<bool> PieExistsAsync(int id)
-    {
-        if (id <= 0)
-            throw new EntityIdFormatException<Pie>(id);
-
-        return await _pieRepo
+    private async Task<bool> PieExistsAsync(int id) =>
+        await _pieRepo
             .GetPies()
             .AnyAsync(Pie => Pie.Id == id);
-    }
 
     private readonly IPieRepository _pieRepo = pieRepo
         ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
