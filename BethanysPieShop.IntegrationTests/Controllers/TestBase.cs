@@ -16,7 +16,7 @@ public abstract class TestBase
             IsPieOfTheWeek = false,
             InStock = true,
             CategoryId = 1,
-            CategoryName = "Fruit Pies",
+            CategoryName = CategoryValues.FruitPies,
         };
 
     protected PieDto GetCreatedPie(string pieName, int categoryId)

@@ -101,17 +101,11 @@ public class PieService(
     {
         ValidatePieUpdate(pieUpdate);
 
-        var existingPie = await _pieRepo
-            .GetPieByIdAsync(pieUpdate.Id);
-
-        if (existingPie != null && existingPie.Id != pieUpdate.Id)
-            throw new EntityNotFoundException<Pie>(pieUpdate.Id);
-
         var pieToUpdate = await _pieRepo
             .GetPieByIdAsync(pieUpdate.Id)
             ?? throw new EntityNotFoundException<Pie>(pieUpdate.Id);
 
-        await UpdateCategory(pieUpdate, pieToUpdate);
+        await UpdateCategoryIfNeeded(pieUpdate, pieToUpdate);
 
         _pieMapper.Map(pieUpdate, pieToUpdate);
 
@@ -131,31 +125,31 @@ public class PieService(
     private void ValidatePieUpdate(PieDto pieUpdate)
     {
         // Check if the pieUpdate is null
-        if (pieUpdate == null)
-            throw new ArgumentNullException(nameof(pieUpdate), GeneralValues.ArgumentNullError);
+        ArgumentNullException.ThrowIfNull(pieUpdate, nameof(pieUpdate));
 
         // Check if if pieUpdate.Name is null or empty
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
             throw new EntityNameFormatException<Pie>(pieUpdate.Name);
 
         // Check if pieUpdate.CategoryId is less than or equal to 0
-        if (pieUpdate.CategoryId <= 0 || pieUpdate.CategoryId >= 4)
+        if (pieUpdate.CategoryId <= 0)
             throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
     }
 
-    private async Task UpdateCategory(PieDto pieUpdate, Pie existingPie)
+    private async Task UpdateCategoryIfNeeded(PieDto pieUpdate, Pie existingPie)
     {
-        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName))
-            throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
+        if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName) == false)
+        {
+            var isResultOk = Enum.TryParse<CategoryType>(pieUpdate.CategoryName, out var categoryType);
+            if (isResultOk == false)
+                throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
 
-        if (Enum.TryParse<CategoryType>(pieUpdate.CategoryName, out var categoryType) == false)
-            throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
+            var category = await _categoryRepo
+                .FindCategoryByTypeAsync(categoryType)
+                ?? throw new EntityNotFoundException<Category>(pieUpdate.CategoryName);
 
-        var category = await _categoryRepo
-            .FindCategoryByTypeAsync(categoryType)
-            ?? throw new EntityNotFoundException<Category>(pieUpdate.CategoryName);
-
-        existingPie.CategoryId = category.Id;
+            existingPie.CategoryId = category.Id;
+        }
     }
 
     private async Task<bool> PieExistsAsync(int id)
