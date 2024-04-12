@@ -3,6 +3,7 @@ global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.EnumTypes;
 global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.Common.Pagination;
+global using BethanysPieShop.Common.Utilities;
 global using BethanysPieShop.DataAccess.Context;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

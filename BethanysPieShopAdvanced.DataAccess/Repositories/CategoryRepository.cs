@@ -31,12 +31,12 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
             .Include(c => c.Pies)
             .FirstOrDefaultAsync(c => c.Id == id);
 
-    public async Task<Category?> GetCategoryByNameAsync(string name) =>
+    public async Task<Category?> FindCategoryByTypeAsync(CategoryType categoryType) =>
         await _dbContext
             .Categories
             .AsNoTracking()
             .Include(c => c.Pies)
-            .FirstOrDefaultAsync(c => c.Name == name);
+            .FirstOrDefaultAsync(c => c.Name == EnumExtensions.GetDisplayName(categoryType));
 
     public async Task<int> AddCategoryAsync(Category category)
     {

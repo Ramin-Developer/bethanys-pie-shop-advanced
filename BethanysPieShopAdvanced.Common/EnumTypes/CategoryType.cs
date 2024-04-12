@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.Common.EnumTypes;
 
-public enum CategoryEnum
+public enum CategoryType
 {
     [Display(Name = CategoryValues.FruitPies)]
     FruitPies,

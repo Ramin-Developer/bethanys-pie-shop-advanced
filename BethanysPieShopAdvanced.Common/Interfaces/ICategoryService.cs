@@ -6,7 +6,7 @@ public interface ICategoryService
 
     Task<CategoryDto?> GetCategoryByIdAsync(int id);
 
-    Task<CategoryDto?> GetCategoryByNameAsync(string name);
+    Task<CategoryDto?> FindCategoryByTypeAsync(CategoryType categoryType);
 
     Task<int> AddCategoryAsync(CategoryDto category);
 

@@ -28,13 +28,13 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
             : _mapper.Map<CategoryDto>(category);
     }
 
-    public async Task<CategoryDto?> GetCategoryByNameAsync(string categoryName)
+    public async Task<CategoryDto?> FindCategoryByTypeAsync(CategoryType categoryType)
     {
         var category = await _categoryRepository
-            .GetCategoryByNameAsync(categoryName);
+            .FindCategoryByTypeAsync(categoryType);
 
         return category == null
-            ? throw new EntityNotFoundException<Category>(categoryName)
+            ? throw new EntityNotFoundException<Category>(categoryType.ToString())
             : _mapper.Map<CategoryDto>(category);
     }
 
@@ -99,14 +99,24 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
     private async Task<bool> CanCreateCategory(CategoryDto categoryDto)
     {
-        var existingCategory = await GetCategoryByNameAsync(categoryDto.Name);
+        var resultOk = Enum
+            .TryParse(categoryDto.Name, ignoreCase: false, out CategoryType categoryType);
 
-        return existingCategory == null;
+        var existingCategory = default(CategoryDto);
+        if (resultOk)
+            existingCategory = await FindCategoryByTypeAsync(categoryType);
+
+        return resultOk && existingCategory == null;
     }
 
     private async Task<bool> CanUpdateCategory(CategoryDto categoryDto)
     {
-        var existingCategory = await GetCategoryByNameAsync(categoryDto.Name);
+        var resultOk = Enum
+            .TryParse(categoryDto.Name, ignoreCase: false, out CategoryType categoryType);
+
+        var existingCategory = default(CategoryDto);
+        if (resultOk)
+            existingCategory = await FindCategoryByTypeAsync(categoryType);
 
         return existingCategory == null ||
                (existingCategory.Name == categoryDto.Name && existingCategory.Id == categoryDto.Id);

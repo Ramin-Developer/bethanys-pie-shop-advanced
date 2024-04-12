@@ -6,7 +6,7 @@ public interface ICategoryRepository
 
     Task<Category?> GetCategoryByIdAsync(int id);
 
-    Task<Category?> GetCategoryByNameAsync(string name);
+    Task<Category?> FindCategoryByTypeAsync(CategoryType categoryType);
 
     Task<int> AddCategoryAsync(Category category);
 
