@@ -19,7 +19,7 @@ public class PieControllerTestsHappyPath :
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
     {
         // Arrange
-        var endPoint = ApiEndPoints.BasePieEndpoint;
+        var endPoint = PieApiEndPoints.BasePieEndpoint;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
@@ -49,7 +49,7 @@ public class PieControllerTestsHappyPath :
     public async Task GetById_ReturnsPie_GivenValidInputAsync(int pieId)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(pieId);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(pieId);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
         
@@ -72,7 +72,7 @@ public class PieControllerTestsHappyPath :
     public async Task Create_ShouldReturnOk_WhenValidData(string pieName, int categoryId)
     {
         // Arrange
-        var endPoint = ApiEndPoints.CreatePieEndpoint;
+        var endPoint = PieApiEndPoints.CreatePieEndpoint;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
         
@@ -105,7 +105,7 @@ public class PieControllerTestsHappyPath :
     public async Task Update_ShouldReturnOk_GivenValidData(int id)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(id);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
@@ -136,7 +136,7 @@ public class PieControllerTestsHappyPath :
     public async Task Delete_ShouldRemovePie_GivenValidData(int id) 
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(id);
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 

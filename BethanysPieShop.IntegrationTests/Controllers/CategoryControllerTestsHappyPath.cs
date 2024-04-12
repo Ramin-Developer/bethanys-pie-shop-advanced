@@ -29,7 +29,7 @@ public class CategoryControllerTestsHappyPath :
     public async Task GetAllAsync_ReturnsCategoryDtoList()
     {
         // Arrange
-        var endpoint = ApiEndPoints.BaseCategoryEndpoint;
+        var endpoint = CategoryApiEndpoints.BaseCategoryEndpoint;
         var expectedCategories = await GetExpectedCategoriesAsync();
 
         // Act
@@ -48,7 +48,7 @@ public class CategoryControllerTestsHappyPath :
     public async Task GetById_ReturnsCategry_GivenValidData(int categoryId)
     {
         // Arrange
-        var endpopint = ApiEndPoints.SingleCategoryEndpoint(categoryId);
+        var endpopint = CategoryApiEndpoints.SingleCategoryEndpoint(categoryId);
         var expectedCatagory = await GetExpectedCategoryAsync(categoryId);
 
         // Act

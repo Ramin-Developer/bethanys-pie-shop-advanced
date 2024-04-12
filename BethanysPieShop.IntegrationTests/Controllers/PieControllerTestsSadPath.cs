@@ -21,7 +21,7 @@ public class PieControllerTestsSadPath :
     public async Task GetPieByIdAsync_ReturnsBadRequest_GivenInvalidIdAsync(int invalidId)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(invalidId);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
@@ -37,7 +37,7 @@ public class PieControllerTestsSadPath :
     public async Task GetPieByIdAsync_ReturnsNotFound_GivenNonExistentIdAsync(int invalidId)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(invalidId);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
         var httpResponseMsg = await _client.GetAsync(endpoint);
@@ -54,7 +54,7 @@ public class PieControllerTestsSadPath :
     public async Task Delete_ShouldReturnBadRequest_GivenInvalidData(int id)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(id);
 
         // Act
         var httpResponseMsg = await _client.DeleteAsync(endpoint);
@@ -69,7 +69,7 @@ public class PieControllerTestsSadPath :
     public async Task Delete_ShouldReturnNotFound_GivenInvalidData(int id)
     {
         // Arrange
-        var endpoint = ApiEndPoints.SinglePieEndpoint(id);
+        var endpoint = PieApiEndPoints.SinglePieEndpoint(id);
 
         // Act
         var httpResponseMsg = await _client.DeleteAsync(endpoint);
