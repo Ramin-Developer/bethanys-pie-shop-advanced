@@ -3,6 +3,7 @@
 public interface IPieRepository
 {
     // CRUD Operations on Pies
+    // Todo: Find out why this method is synchronoius
     IQueryable<Pie> GetPies();
 
     Task<Pie?> GetPieByIdAsync(int id);
@@ -16,7 +17,7 @@ public interface IPieRepository
     // Other Operations, GetPieByName, Count, Paging, Sorting, Searching
     Task<Pie?> GetPieByNameAsync(string name);
 
-    Task<int> GetNoOfPiesAsync();
+    Task<int> GetPiesCountAsync();
 
     IQueryable<Pie> GetPagedPies(RequestPage requestPage);
 

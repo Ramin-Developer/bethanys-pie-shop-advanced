@@ -1,7 +1,6 @@
 ﻿namespace BethanysPieShop.DataAccess.Repositories;
 
-public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryCache)
-    : ICategoryRepository
+public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryCache) : ICategoryRepository
 {
     public async Task<IEnumerable<Category>> GetCategoriesAsync()
     {
@@ -103,6 +102,11 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
 
         return await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> GetCategoriesCountAsync() =>
+        await _dbContext
+            .Categories
+            .CountAsync();
 
     private string CategoriesCacheName { get; } = "CategoriesCache";
 

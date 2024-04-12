@@ -56,9 +56,8 @@ public class PieService(
             .GetPieByIdAsync(id);
 
         return pie == null
-
             ? throw new EntityNotFoundException<Pie>(id)
-            : _pieMapper.Map<PieDto?>(pie);
+            : _pieMapper.Map<PieDto>(pie);
     }
 
     public async Task<PieDto?> GetPieByNameAsync(string pieName)
@@ -76,12 +75,11 @@ public class PieService(
     }
 
     public async Task<int> GetPiesCountAsync() =>
-        await _pieRepo.GetNoOfPiesAsync();
+        await _pieRepo.GetPiesCountAsync();
 
     public async Task<int> AddPieAsync(PieDto pieDto)
     {
-        if (pieDto == null)
-            throw new ArgumentNullException(nameof(pieDto), GeneralValues.ArgumentNullError);
+        ArgumentNullException.ThrowIfNull(pieDto, nameof(pieDto));
 
         if (string.IsNullOrWhiteSpace(pieDto.Name))
             throw new EntityNameFormatException<Pie>(pieDto.Name);
@@ -102,15 +100,14 @@ public class PieService(
         ValidatePieUpdate(pieUpdate);
 
         var pieToUpdate = await _pieRepo
-            .GetPieByIdAsync(pieUpdate.Id)
-            ?? throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+            .GetPieByIdAsync(pieUpdate.Id);
 
-        await UpdateCategoryIfNeeded(pieUpdate, pieToUpdate);
+        await UpdateCategoryIfNeeded(pieUpdate, pieToUpdate!);
 
         _pieMapper.Map(pieUpdate, pieToUpdate);
 
         return await _pieRepo
-            .UpdatePieAsync(pieToUpdate);
+            .UpdatePieAsync(pieToUpdate!);
     }
 
     public async Task<int> DeletePieAsync(int id)
@@ -132,8 +129,18 @@ public class PieService(
             throw new EntityNameFormatException<Pie>(pieUpdate.Name);
 
         // Check if pieUpdate.CategoryId is less than or equal to 0
+        if (pieUpdate.Id <= 0)
+            throw new EntityIdFormatException<Pie>(pieUpdate.Id);
+
+        // Check if pieUpdate.Id exists
+        if (PieExistsAsync(pieUpdate.Id).Result == false)
+            throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+
+        // Check if pieUpdate.CategoryId is less than or equal to 0
         if (pieUpdate.CategoryId <= 0)
             throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
+
+        // Todo: Check if pieUpdate.Price is less than or equal to 0
     }
 
     private async Task UpdateCategoryIfNeeded(PieDto pieUpdate, Pie existingPie)
@@ -152,15 +159,10 @@ public class PieService(
         }
     }
 
-    private async Task<bool> PieExistsAsync(int id)
-    {
-        if (id <= 0)
-            throw new EntityIdFormatException<Pie>(id);
-
-        return await _pieRepo
+    private async Task<bool> PieExistsAsync(int id) =>
+        await _pieRepo
             .GetPies()
             .AnyAsync(Pie => Pie.Id == id);
-    }
 
     private readonly IPieRepository _pieRepo = pieRepo
         ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);

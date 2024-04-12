@@ -1,4 +1,5 @@
-﻿namespace BethanysPieShop.Common.Constants;
+﻿
+namespace BethanysPieShop.Common.Constants;
 
 public class EntityValues
 {
