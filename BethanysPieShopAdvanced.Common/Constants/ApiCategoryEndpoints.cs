@@ -6,11 +6,11 @@ public class ApiCategoryEndpoints
 
     public const string AllCategoriesEndpoint = BaseCategoryEndpoint;
 
-    public static string UpdateCategoryEndpoint(int pieId) => SingleCategoryEndpoint(pieId);
-
-    public static string SingleCategoryEndpoint(int pieId) => $"{BaseCategoryEndpoint}/{pieId}";
+    public static string SingleCategoryIdEndpoint(int id) => $"{BaseCategoryEndpoint}/{id}";
 
     public const string CreateCategoryEndpoint = BaseCategoryEndpoint;
 
-    public static string DeleteCategoryEndpoint(int pieId) => SingleCategoryEndpoint(pieId);
+    public static string UpdateCategoryEndpoint(int id) => SingleCategoryIdEndpoint(id);
+
+    public static string DeleteCategoryEndpoint(int id) => SingleCategoryIdEndpoint(id);
 }

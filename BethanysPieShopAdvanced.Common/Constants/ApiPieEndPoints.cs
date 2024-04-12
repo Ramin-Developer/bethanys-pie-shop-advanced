@@ -6,11 +6,11 @@ public static class ApiPieEndPoints
 
     public const string AllPiesEndpoint = BasePieEndpoint;
 
-    public static string SinglePieEndpoint(int pieId) => $"{BasePieEndpoint}/{pieId}";
+    public static string SinglePieEndpoint(int id) => $"{BasePieEndpoint}/{id}";
 
     public const string CreatePieEndpoint = BasePieEndpoint;
 
-    public static string UpdatePieEndpoint(int pieId) => SinglePieEndpoint(pieId);
+    public static string UpdatePieEndpoint(int id) => SinglePieEndpoint(id);
 
-    public static string DeletePieEndpoint(int pieId) => SinglePieEndpoint(pieId);
+    public static string DeletePieEndpoint(int id) => SinglePieEndpoint(id);
 }

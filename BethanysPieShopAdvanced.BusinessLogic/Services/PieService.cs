@@ -2,7 +2,7 @@
 
 public class PieService(
     IPieRepository pieRepo,
-    ICategoryRepository catRepo,
+    ICategoryRepository categoryRepo,
     IMapper pieMapper) : IPieService
 {
     public async Task<List<PieDto>> GetPiesAsync()
@@ -145,7 +145,7 @@ public class PieService(
         if (string.IsNullOrWhiteSpace(pieUpdate.CategoryName))
             return;
 
-        var category = await _catRepo
+        var category = await _categoryRepo
             .GetCategoryByNameAsync(pieUpdate.CategoryName)
             ?? throw new EntityNameFormatException<Category>(pieUpdate.CategoryName);
 
@@ -165,7 +165,7 @@ public class PieService(
     private readonly IPieRepository _pieRepo = pieRepo
         ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
 
-    private readonly ICategoryRepository _catRepo = catRepo
+    private readonly ICategoryRepository _categoryRepo = categoryRepo
         ?? throw new ArgumentNullException(nameof(pieRepo), GeneralValues.ArgumentNullError);
 
     private readonly IMapper _pieMapper = pieMapper

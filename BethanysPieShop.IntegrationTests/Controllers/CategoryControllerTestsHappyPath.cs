@@ -45,11 +45,11 @@ public class CategoryControllerTestsHappyPath :
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
-    public async Task GetById_ReturnsCategry_GivenValidData(int categoryId)
+    public async Task GetById_ReturnsCategry_GivenValidData(int id)
     {
         // Arrange
-        var endpopint = ApiCategoryEndpoints.SingleCategoryEndpoint(categoryId);
-        var expectedCatagory = await GetExpectedCategoryAsync(categoryId);
+        var endpopint = ApiCategoryEndpoints.SingleCategoryIdEndpoint(id);
+        var expectedCatagory = await GetExpectedCategoryAsync(id);
 
         // Act
         var actualCategory = await GetActualAsync<CategoryDto>(endpopint);
@@ -111,4 +111,3 @@ public class CategoryControllerTestsHappyPath :
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IMapper _mapper;
 }
-
