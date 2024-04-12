@@ -2,12 +2,12 @@
 
 public enum CategoryEnum
 {
-    [Display(Name = "Fruit Pies")]
+    [Display(Name = CategoryValues.FruitPies)]
     FruitPies,
 
-    [Display(Name = "Cheese Cakes")]
+    [Display(Name = CategoryValues.CheeseCakes)]
     CheeseCakes,
 
-    [Display(Name = "Seasonal Pies")]
+    [Display(Name = CategoryValues.SeasonalPies)]
     SeasonalPies
 }
