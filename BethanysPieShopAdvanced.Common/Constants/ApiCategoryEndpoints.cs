@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.Common.Constants;
 
-public class CategoryApiEndpoints
+public class ApiCategoryEndpoints
 {
     public const string BaseCategoryEndpoint = "/api/category";
 

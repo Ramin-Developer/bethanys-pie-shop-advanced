@@ -58,7 +58,6 @@ public class PieService(
         return pie == null
 
             ? throw new EntityNotFoundException<Pie>(id)
-
             : _pieMapper.Map<PieDto?>(pie);
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace BethanysPieShop.Common.Constants;
 
-public static class PieApiEndPoints
+public static class ApiPieEndPoints
 {
     public const string BasePieEndpoint = "/api/pie";
 
