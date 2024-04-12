@@ -142,7 +142,8 @@ public class PieService(
         if (pieUpdate.CategoryId <= 0)
             throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
 
-        // Todo: Check if pieUpdate.Price is less than or equal to 0
+        if (pieUpdate.Price <= 0)
+            throw new EntityPropertyFormatException<Pie>("Price", pieUpdate.Price.ToString());
     }
 
     private async Task UpdateCategoryIfNeeded(PieDto pieUpdate, Pie existingPie)
