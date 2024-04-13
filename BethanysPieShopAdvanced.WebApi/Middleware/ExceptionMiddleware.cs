@@ -18,7 +18,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     private static Task HandlesExceptionAsync(HttpContext context, Exception exception)
     {
         // Below, add more exception types as needed
-        var statusCode = exception switch
+        var statusCodes = exception switch
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
             ArgumentException => HttpStatusCode.BadRequest,
@@ -28,6 +28,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             EntityIdFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNameFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNameFormatException<Category> => HttpStatusCode.BadRequest,
+            EntityPropertyFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
             EntityNotFoundException<Category> => HttpStatusCode.NotFound,
             EntityIdFormatException<Category> => HttpStatusCode.BadRequest,
@@ -38,7 +39,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             .Serialize(new { error = exception.Message });
 
         context.Response.ContentType = GeneralValues.JsonMediaType;
-        context.Response.StatusCode = (int)statusCode;
+        context.Response.StatusCode = (int)statusCodes;
 
         return context.Response.WriteAsync(result);
     }
