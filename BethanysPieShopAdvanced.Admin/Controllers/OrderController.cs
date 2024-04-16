@@ -1,13 +1,12 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-[Produces("application/json")]
 [Route("/[controller]/[action]/")]
 public class OrderController(
     ILogger<OrderController> logger,
     IOrderService orderService,
     IPieModelErrorService errorService) : BaseController<OrderController>(logger, errorService)
 {
-    [HttpGet]
+    [HttpGet("{orderId:int?}/{orderLineId:int?}")]
     public async Task<IActionResult> IndexAsync(int? orderId, int? orderLineId)
     {
         var orderIndexVm = await BuildOrderIndexViewModelAsync(orderId, orderLineId);
@@ -15,7 +14,7 @@ public class OrderController(
         return View(orderIndexVm);
     }
 
-    [HttpGet]
+    [HttpGet("{orderId:int?}")]
     public async Task<IActionResult> DetailsAsync(int orderId)
     {
         var order = await _orderService

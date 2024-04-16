@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-[Produces("application/json")]
 [Route("/[controller]/[action]/")]
 public class PieController(
     ILogger<PieController> logger,
@@ -18,7 +17,7 @@ public class PieController(
         return View(pies);
     }
 
-    [HttpGet]
+    [HttpGet("{pageNumber:int?}")]
     public async Task<IActionResult> IndexPagingAsync(int? pageNumber)
     {
         var paginatedList = await _pieHelperService
@@ -27,7 +26,7 @@ public class PieController(
         return View(paginatedList);
     }
 
-    [HttpGet]
+    [HttpGet("{pageNumber:int?}/{sortOption}")]
     public async Task<IActionResult> IndexPagingSortingAsync(int? pageNumber, PieSortOption sortOption)
     {
         var paginatedList = await _pieHelperService
@@ -36,7 +35,7 @@ public class PieController(
         return View(paginatedList);
     }
 
-    [HttpGet]
+    [HttpGet("{searchCategory:int?}/{searchQuery}")]
     public async Task<IActionResult> SearchAsync(int? searchCategory, string? searchQuery)
     {
         var viewModel = await _pieHelperService
@@ -45,8 +44,8 @@ public class PieController(
         return View(viewModel);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> DetailsAsync(int? id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> DetailsAsync(int id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -54,7 +53,7 @@ public class PieController(
             return errorResult;
 
         var pieDto = await _pieService
-            .GetPieByIdAsync(id!.Value);
+            .GetPieByIdAsync(id);
 
         var viewModel = new PieDetailsViewModel
         {
@@ -82,6 +81,7 @@ public class PieController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddAsync(PieAddViewModel pieAddViewModel)
     {
         if (ModelState.IsValid)
@@ -102,8 +102,8 @@ public class PieController(
         return View(pieAddViewModel);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> EditAsync(int? id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> EditAsync(int id)
     {
         var validationResult = ValidateId(id);
         if (validationResult.IsValid == false)
@@ -115,7 +115,7 @@ public class PieController(
         }
 
         var pieToUpdate = await _pieService
-            .GetPieByIdAsync(id!.Value);
+            .GetPieByIdAsync(id);
 
         if (pieToUpdate == null)
         {
@@ -132,6 +132,7 @@ public class PieController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditAsync(PieEditViewModel pieEditViewModel)
     {
         if (ModelState.IsValid)
@@ -144,8 +145,8 @@ public class PieController(
         return View(pieEditViewModel);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> DeleteAsync(int? id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> DeleteAsync(int id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -154,7 +155,7 @@ public class PieController(
 
         var selectedPie = await
             _pieService
-            .GetPieByIdAsync(id!.Value);
+            .GetPieByIdAsync(id);
 
         var viewModel = new PieDeleteViewModel
         {
@@ -165,7 +166,7 @@ public class PieController(
         return View(viewModel);
     }
 
-    [HttpPost]
+    [HttpPost("{id}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmedAsync(int? id)
     {

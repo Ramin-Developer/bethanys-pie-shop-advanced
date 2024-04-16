@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.Admin.Controllers;
 
-[Produces("application/json")]
 [Route("/[controller]/[action]/")]
 public class CategoryController(
     ILogger<CategoryController> logger,
@@ -8,6 +7,7 @@ public class CategoryController(
     ICategoryService categoryService,
     IMapper mapper) : BaseController<CategoryController>(logger, errorService)
 {
+    // Todo: Ask ChatGPT how to configure methjod attribute for this one.
     [HttpGet]
     public async Task<IActionResult> IndexAsync(string? successMessage)
     {
@@ -26,7 +26,7 @@ public class CategoryController(
         return View(viewModel);
     }
 
-    [HttpGet]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> DetailsAsync(int id)
     {
         var selectedCategory = await _categoryService
@@ -45,6 +45,7 @@ public class CategoryController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddAsync(
         [Bind("Name", "Description", "DateAdded")] CategoryDto catDto)
     {
@@ -59,11 +60,11 @@ public class CategoryController(
         return View(catDto);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> EditAsync(int? id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> EditAsync(int id)
     {
         var selectedCategory = await _categoryService
-            .GetCategoryByIdAsync(id!.Value);
+            .GetCategoryByIdAsync(id);
 
         return View(selectedCategory);
     }
@@ -89,7 +90,7 @@ public class CategoryController(
         }
     }
 
-    [HttpGet]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var selectedCatDto = await _categoryService.GetCategoryByIdAsync(id);
@@ -97,11 +98,12 @@ public class CategoryController(
         return View(selectedCatDto);
     }
 
-    [HttpPost]
+    [HttpPost("{id:int}")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmedAsync(int id)
     {
         await _categoryService.DeleteCategoryAsync(id);
-        
+
         return RedirectToAction(nameof(IndexAsync), new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
     }
 
