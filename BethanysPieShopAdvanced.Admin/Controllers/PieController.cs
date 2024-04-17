@@ -9,7 +9,7 @@ public class PieController(
     IPieHelperService pieHelperService) : BaseController<PieController>(logger, errorService)
 {
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> IndexAsync()
     {
         var pies = await _pieService
             .GetPiesAsync();
@@ -92,7 +92,7 @@ public class PieController(
 
             await _pieService.AddPieAsync(pieDto);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
 
         // There were error(s) in the submission, please correct them and try again.
@@ -131,15 +131,21 @@ public class PieController(
         return View(pieEditViewModel);
     }
 
-    [HttpPost]
+    [HttpPost("{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditAsync(PieEditViewModel pieEditViewModel)
+    public async Task<IActionResult> EditAsync(int id, PieEditViewModel pieEditViewModel)
     {
+        if (id != pieEditViewModel.PieDto!.Id)
+        {
+            ModelState.AddModelError("", "There is an ID mismatch.");
+            return View(pieEditViewModel);
+        }
+
         if (ModelState.IsValid)
         {
             await _pieService.UpdatePieAsync(pieEditViewModel.PieDto!);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync), "Pie");
         }
 
         return View(pieEditViewModel);
@@ -168,7 +174,7 @@ public class PieController(
 
     [HttpPost("{id}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmedAsync(int? id)
+    public async Task<IActionResult> DeleteConfirmedAsync(int id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -178,9 +184,9 @@ public class PieController(
         try
         {
             await _pieService
-                .DeletePieAsync(id!.Value);
+                .DeletePieAsync(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
         catch (Exception ex)
         {
