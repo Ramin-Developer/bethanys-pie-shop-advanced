@@ -3,7 +3,7 @@
 public interface IPieRepository
 {
     // CRUD Operations on Pies
-    // Todo: Find out why this method is synchronoius
+    // Todo: Find out why this method is synchronoious
     IQueryable<Pie> GetPies();
 
     Task<Pie?> GetPieByIdAsync(int id);

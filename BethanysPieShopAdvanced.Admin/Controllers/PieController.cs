@@ -9,7 +9,7 @@ public class PieController(
     IPieHelperService pieHelperService) : BaseController<PieController>(logger, errorService)
 {
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> IndexAsync()
     {
         var pies = await _pieService
             .GetPiesAsync();
@@ -92,7 +92,7 @@ public class PieController(
 
             await _pieService.AddPieAsync(pieDto);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
 
         // There were error(s) in the submission, please correct them and try again.
@@ -145,7 +145,7 @@ public class PieController(
         {
             await _pieService.UpdatePieAsync(pieEditViewModel.PieDto!);
 
-            return RedirectToAction(nameof(Index), "Pie");
+            return RedirectToAction(nameof(IndexAsync), "Pie");
         }
 
         return View(pieEditViewModel);
@@ -186,7 +186,7 @@ public class PieController(
             await _pieService
                 .DeletePieAsync(id);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
         catch (Exception ex)
         {
