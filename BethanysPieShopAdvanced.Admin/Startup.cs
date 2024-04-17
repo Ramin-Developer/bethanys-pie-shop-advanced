@@ -41,8 +41,8 @@ public static class Startup
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
-        // Healthy Check
-        app.UseHealthChecks("/health");
+        // Routing should come before authorization and endpoint-dependent middleware
+        app.UseRouting();
 
         app.UseAuthorization();
 
@@ -50,7 +50,15 @@ public static class Startup
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
+        // Healthy Check
+        app.UseHealthChecks("/health");
+
         // Initialize the SQL Server database
+        InitializeDatabase(app);
+    }
+
+    private static void InitializeDatabase(WebApplication app)
+    {
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
         try

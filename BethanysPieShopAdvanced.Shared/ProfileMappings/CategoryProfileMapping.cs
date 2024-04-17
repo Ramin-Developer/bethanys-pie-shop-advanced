@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.SharedConfiguration.ProfileMappings;
+﻿namespace BethanysPieShop.Shared.ProfileMappings;
 
 public class CategoryProfileMapping : Profile
 {

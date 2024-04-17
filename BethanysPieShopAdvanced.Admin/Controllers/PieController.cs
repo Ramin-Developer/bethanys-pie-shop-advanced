@@ -92,7 +92,7 @@ public class PieController(
 
             await _pieService.AddPieAsync(pieDto);
 
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
 
         // There were error(s) in the submission, please correct them and try again.
@@ -145,7 +145,7 @@ public class PieController(
         {
             await _pieService.UpdatePieAsync(pieEditViewModel.PieDto!);
 
-            return RedirectToAction(nameof(IndexAsync), "Pie");
+            return RedirectToAction(nameof(Index));
         }
 
         return View(pieEditViewModel);
@@ -186,7 +186,7 @@ public class PieController(
             await _pieService
                 .DeletePieAsync(id);
 
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {

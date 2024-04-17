@@ -32,9 +32,9 @@
 </div>
 
 <form asp-controller="Pie" asp-action="DeleteConfirmed" asp-route-id="@Model.PieDto!.Id" method="post">
-    <input type="hidden" asp-for="@Model.PieDto!.Id" />
+    <input type="hidden" asp-for="PieDto!.Id" />
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-danger">Delete</button>
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
 </form>
 
 <br />

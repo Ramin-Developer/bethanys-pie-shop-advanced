@@ -8,7 +8,7 @@ global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.Common.Utilities;
 global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.DataAccess.Repositories;
-global using BethanysPieShop.SharedConfiguration.ProfileMappings;
+global using BethanysPieShop.Shared.ProfileMappings;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
