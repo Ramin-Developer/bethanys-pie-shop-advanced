@@ -131,15 +131,21 @@ public class PieController(
         return View(pieEditViewModel);
     }
 
-    [HttpPost]
+    [HttpPost("{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditAsync(PieEditViewModel pieEditViewModel)
+    public async Task<IActionResult> EditAsync(int id, PieEditViewModel pieEditViewModel)
     {
+        if (id != pieEditViewModel.PieDto!.Id)
+        {
+            ModelState.AddModelError("", "There is an ID mismatch.");
+            return View(pieEditViewModel);
+        }
+
         if (ModelState.IsValid)
         {
             await _pieService.UpdatePieAsync(pieEditViewModel.PieDto!);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Pie");
         }
 
         return View(pieEditViewModel);
