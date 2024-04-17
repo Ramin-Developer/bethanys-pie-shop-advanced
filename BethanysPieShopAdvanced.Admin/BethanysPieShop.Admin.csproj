@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BethanysPieShopAdvanced.BusinessLogic\BethanysPieShop.BusinessLogic.csproj" />
-    <ProjectReference Include="..\BethanysPieShopAdvanced.SharedConfiguration\BethanysPieShop.SharedConfiguration.csproj" />
+    <ProjectReference Include="..\BethanysPieShopAdvanced.Shared\BethanysPieShop.Shared.csproj" />
   </ItemGroup>
 
 </Project>

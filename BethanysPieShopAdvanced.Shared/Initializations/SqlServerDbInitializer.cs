@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.SharedConfiguration.Initializations;
+﻿namespace BethanysPieShop.Shared.Initializations;
 
 public class SqlServerDbInitializer(PieShopDbContext dbContext)
 {

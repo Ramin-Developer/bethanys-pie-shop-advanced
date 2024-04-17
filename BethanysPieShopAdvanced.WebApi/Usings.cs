@@ -4,7 +4,7 @@ global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.DataAccess.Context;
-global using BethanysPieShop.SharedConfiguration.Configurations;
+global using BethanysPieShop.Shared.Configurations;
 global using BethanysPieShop.WebApi;
 global using BethanysPieShop.WebApi.Middleware;
 global using Microsoft.AspNetCore.Mvc;

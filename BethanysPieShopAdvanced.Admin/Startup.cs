@@ -1,4 +1,6 @@
-﻿namespace BethanysPieShop.Admin;
+﻿using BethanysPieShop.Shared.Configurations;
+
+namespace BethanysPieShop.Admin;
 
 public static class Startup
 {

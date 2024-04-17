@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.SharedConfiguration.Configurations;
+﻿namespace BethanysPieShop.Shared.Configurations;
 
 public static class LoggingConfiguration
 {

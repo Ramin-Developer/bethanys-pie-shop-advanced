@@ -11,14 +11,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EditorConfigFiles Remove="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.App\BethanysPieShop.SharedConfiguration\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.App\BethanysPieShop.SharedConfiguration\.editorconfig" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
 	</ItemGroup>
