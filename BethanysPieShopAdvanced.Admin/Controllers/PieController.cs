@@ -172,9 +172,9 @@ public class PieController(
         return View(viewModel);
     }
 
-    [HttpPost("{id}")]
+    [HttpPost("{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmedAsync(int? id)
+    public async Task<IActionResult> DeleteConfirmedAsync(int id)
     {
         var validationResult = ValidateId(id);
         var errorResult = HandleValidation(validationResult);
@@ -184,7 +184,7 @@ public class PieController(
         try
         {
             await _pieService
-                .DeletePieAsync(id!.Value);
+                .DeletePieAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
