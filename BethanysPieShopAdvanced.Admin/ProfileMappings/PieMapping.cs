@@ -1,6 +1,5 @@
 ﻿namespace BethanysPieShop.Admin.ProfileMappings;
 
-// Todo: Move installation of AutoMapper and folder ProfileMapping to BethanysPieShop.WebApi.
 public class PieMapping : Profile
 {
     public PieMapping()

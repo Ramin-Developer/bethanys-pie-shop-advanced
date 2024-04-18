@@ -1,9 +1,5 @@
 ﻿namespace BethanysPieShop.WebApi.ApiControllers;
 
-// Todo: Fix the issue of "CategoryName is required" when adding or updating a pie.
-// Todo: In the Admin, when trying to delete a category an exception is thrown with the message:
-//       "This page isn’t working right now. If the problem continues, contact the site owner."
-
 [Route("api/[controller]")]
 [ApiController]
 [Produces(GeneralValues.JsonMediaType)]
