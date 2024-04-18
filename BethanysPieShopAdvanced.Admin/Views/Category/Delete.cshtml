@@ -38,8 +38,11 @@
     </dl>
 </div>
 
-<form asp-controller="Category" asp-action="DeleteConfirmed">
+<form asp-controller="Category" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <input type="submit" value="Delete the Category" class="btn btn-danger" />
 </form>
 

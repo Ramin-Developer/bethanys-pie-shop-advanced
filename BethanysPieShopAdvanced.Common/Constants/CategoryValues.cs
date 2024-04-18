@@ -39,4 +39,6 @@ public static class CategoryValues
 
     public const string DeleteSuccessMessage = "Category deleted Successfully.";
     public const string CategoryNotFoundError = "No Category with the given name found.";
+
+    public static string IdMisMatchError { get; } = "There is an ID mismatch.";
 }
