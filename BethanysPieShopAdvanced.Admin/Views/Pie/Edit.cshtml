@@ -8,9 +8,9 @@
     <p class="alert alert-danger">@Model.ErrorMessage</p>
 }
 
-<form asp-controller="Pie" asp-action="Edit" asp-route-id="@Model.PieDto!.Id" method="post">
-    <input asp-for="PieDto!.Id" type="hidden" />
+<form asp-controller="Pie" asp-action="Edit" asp-route-id="@Model.PieDto.Id" method="post">
     @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="PieDto!.Id" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="mb-3">

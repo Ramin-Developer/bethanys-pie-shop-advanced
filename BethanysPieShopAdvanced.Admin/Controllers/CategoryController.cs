@@ -8,7 +8,7 @@ public class CategoryController(
     IMapper mapper) : BaseController<CategoryController>(logger, errorService)
 {
     [HttpGet]
-    public async Task<IActionResult> Index(string? successMessage)
+    public async Task<IActionResult> IndexAsync(string? successMessage)
     {
         var viewModel = new CategoryListViewModel
         {
@@ -53,7 +53,7 @@ public class CategoryController(
             await _categoryService
                 .AddCategoryAsync(catDto);
 
-            return RedirectToAction(nameof(Index),
+            return RedirectToAction(nameof(IndexAsync),
                 new { successMessage = "Category added successfully!" });
         }
 
@@ -91,7 +91,7 @@ public class CategoryController(
             await _categoryService
                 .UpdateCategoryAsync(categoryDto);
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
         }
 
         return View(categoryDto);
@@ -111,7 +111,7 @@ public class CategoryController(
     {
         await _categoryService.DeleteCategoryAsync(id);
 
-        return RedirectToAction(nameof(Index),
+        return RedirectToAction(nameof(IndexAsync),
             new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
     }
 

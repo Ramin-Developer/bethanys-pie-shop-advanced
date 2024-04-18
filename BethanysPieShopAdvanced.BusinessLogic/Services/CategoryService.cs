@@ -102,8 +102,10 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
     private async Task<bool> CanCreateCategory(CategoryDto categoryDto)
     {
+        // Todo: Fix the following line to convert a string to the correct CategoryType enum, and use it further.
+        // var categoryType = CategoryType.None;
         var resultOk = Enum
-            .TryParse(categoryDto.Name, ignoreCase: false, out CategoryType categoryType);
+            .TryParse<CategoryType>(categoryDto.Name, ignoreCase: false, out var categoryType);
 
         var existingCategory = default(CategoryDto);
         if (resultOk)

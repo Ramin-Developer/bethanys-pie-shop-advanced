@@ -9,5 +9,8 @@ public enum CategoryType
     CheeseCakes,
 
     [Display(Name = CategoryValues.SeasonalPies)]
-    SeasonalPies
+    SeasonalPies,
+
+    [Display(Name = CategoryValues.NotSpecified)]
+    None
 }

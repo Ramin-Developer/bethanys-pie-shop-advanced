@@ -44,7 +44,7 @@ public class PieController(
         return View(viewModel);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> DetailsAsync(int id)
     {
         var validationResult = ValidateId(id);
@@ -95,7 +95,6 @@ public class PieController(
             return RedirectToAction(nameof(Index));
         }
 
-        // There were error(s) in the submission, please correct them and try again.
         await _pieHelperService
             .PopulateCategorySelectListAsync(pieAddViewModel);
 

@@ -5,6 +5,7 @@ public static class CategoryValues
     public const string FruitPies = "Fruit Pies";
     public const string CheeseCakes = "Cheese Cakes";
     public const string SeasonalPies = "Seasonal Pies";
+    public const string None = "Not Specified";
 
     public const string FruitPiesDecription = "All-Fruity Pies";
     public const string CheeseCakesDecription = "Cheesy all the way";
