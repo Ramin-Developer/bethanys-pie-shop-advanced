@@ -69,29 +69,6 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
         return await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> UpdateCategoryNamesAsync(List<Category> categories)
-    {
-        foreach (var cat in categories)
-        {
-            var catToUpdate = await _dbContext
-                .Categories
-                .FirstOrDefaultAsync(c => c.Id == cat.Id);
-
-            if (catToUpdate != null)
-            {
-                catToUpdate.Name = cat.Name;
-
-                _dbContext
-                    .Categories
-                    .Update(catToUpdate);
-            }
-        }
-
-        _memoryCache.Remove(CategoriesCacheName);
-
-        return await _dbContext.SaveChangesAsync();
-    }
-
     public async Task<int> DeleteCategoryAsync(int id)
     {
         var catToDelete =
