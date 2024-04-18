@@ -7,7 +7,6 @@ public class CategoryController(
     ICategoryService categoryService,
     IMapper mapper) : BaseController<CategoryController>(logger, errorService)
 {
-    // Todo: Ask ChatGPT how to configure method attribute for this one.
     [HttpGet]
     public async Task<IActionResult> Index(string? successMessage)
     {

@@ -19,7 +19,7 @@
     <input type="submit" value="Filter" class="btn btn-primary" />
 </form>
 
-@if (Model.IsNullOrEmpty) 
+@if (Model.IsNullOrEmpty)
 {
     <p>No results</p>
 }
@@ -40,9 +40,7 @@ else
                 <div>@pie.Name</div>
                 <div>@pie.Price</div>
                 <div>
-                    <a asp-controller="Pie" asp-action="Details" asp-route-id="@pie.Id">Details</a>
-                    <a asp-controller="Pie" asp-action="Edit" asp-route-id="@pie.Id">Edit</a>
-                    <a asp-controller="Pie" asp-action="Delete" asp-route-id="@pie.Id">Delete</a>
+                    <partial name="_PieActionPartial" model="pie" />
                 </div>
             </div>
         }
