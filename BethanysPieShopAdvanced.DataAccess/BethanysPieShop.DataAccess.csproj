@@ -22,14 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShopAdmin\BethanysPieShop.DataAccess\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShopAdmin\BethanysPieShop.DataAccess\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BethanysPieShopAdvanced.Common\BethanysPieShop.Common.csproj" />
   </ItemGroup>
 

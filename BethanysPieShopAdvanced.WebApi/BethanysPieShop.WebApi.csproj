@@ -19,14 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.App\BethanysPieShop.WebApi\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.App\BethanysPieShop.WebApi\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BethanysPieShopAdvanced.BusinessLogic\BethanysPieShop.BusinessLogic.csproj" />
     <ProjectReference Include="..\BethanysPieShopAdvanced.Common\BethanysPieShop.Common.csproj" />
     <ProjectReference Include="..\BethanysPieShopAdvanced.Shared\BethanysPieShop.Shared.csproj" />

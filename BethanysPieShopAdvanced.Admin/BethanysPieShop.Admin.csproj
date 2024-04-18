@@ -1,36 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>9784213b-b68b-4ff5-b465-811f34be3695</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>9784213b-b68b-4ff5-b465-811f34be3695</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShopAdmin\BethanysPieShopAdmin\.editorconfig" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Controllers\CategoryController.cs~RF3beb89.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="D:\Courses - Online\CSharp\Web Development\AspNetCore Mvc\Asp.Net Core 6 Fundamentals - Gil Cleeren\BethanysPieShop.Admin\BethanysPieShop.Admin\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BethanysPieShopAdvanced.BusinessLogic\BethanysPieShop.BusinessLogic.csproj" />
-    <ProjectReference Include="..\BethanysPieShopAdvanced.Shared\BethanysPieShop.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BethanysPieShopAdvanced.BusinessLogic\BethanysPieShop.BusinessLogic.csproj" />
+		<ProjectReference Include="..\BethanysPieShopAdvanced.Shared\BethanysPieShop.Shared.csproj" />
+	</ItemGroup>
 
 </Project>
