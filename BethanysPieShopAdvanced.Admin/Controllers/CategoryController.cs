@@ -9,12 +9,12 @@ public class CategoryController(
 {
     // Todo: Ask ChatGPT how to configure method attribute for this one.
     [HttpGet]
-    public async Task<IActionResult> IndexAsync(string? successMessage)
+    public async Task<IActionResult> Index(string? successMessage)
     {
         var viewModel = new CategoryListViewModel
         {
-            Categories = [.. (await _categoryService
-                .GetCategoriesAsync())]
+            Categories = await _categoryService
+                .GetCategoriesAsync()
         };
 
         if (string.IsNullOrEmpty(successMessage) == false)
@@ -54,7 +54,8 @@ public class CategoryController(
             await _categoryService
                 .AddCategoryAsync(catDto);
 
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index),
+                new { successMessage = "Category added successfully!" });
         }
 
         return View(catDto);
@@ -66,28 +67,35 @@ public class CategoryController(
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id);
 
+        if (selectedCategory == null)
+        {
+            // Handle not found scenario, maybe redirect or show an error message
+            return NotFound();
+        }
+
         return View(selectedCategory);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> EditAsync(CategoryDto catDto)
+    [HttpPost("{id:int}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditAsync(int id, CategoryDto categoryDto)
     {
-        try
+        if (id != categoryDto.Id)
         {
-            if (ModelState.IsValid == false)
-                return View(catDto);
+            ModelState.AddModelError("", CategoryValues.IdMisMatchError);
 
+            return View(categoryDto);
+        }
+
+        if (ModelState.IsValid)
+        {
             await _categoryService
-                .UpdateCategoryAsync(catDto);
+                .UpdateCategoryAsync(categoryDto);
 
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
-        catch
-        {
-            ModelState.AddModelError("", CategoryValues.UpdateLogError);
 
-            return View(catDto);
-        }
+        return View(categoryDto);
     }
 
     [HttpGet("{id:int}")]
@@ -104,7 +112,8 @@ public class CategoryController(
     {
         await _categoryService.DeleteCategoryAsync(id);
 
-        return RedirectToAction(nameof(IndexAsync), new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
+        return RedirectToAction(nameof(Index),
+            new { SuccessMessage = CategoryValues.DeleteSuccessMessage });
     }
 
     private readonly ICategoryService _categoryService = categoryService

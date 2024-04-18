@@ -3,7 +3,8 @@
 <h2>Update the Category: @Model.Name</h2>
 <hr />
 
-<form asp-controller="Category" asp-action="Edit">
+<form asp-controller="Category" asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
     <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
 

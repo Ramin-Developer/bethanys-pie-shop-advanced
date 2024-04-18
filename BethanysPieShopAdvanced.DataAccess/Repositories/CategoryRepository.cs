@@ -58,6 +58,7 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
         // The category exists, update it and save changes.
         catToUpdate.Name = category.Name;
         catToUpdate.Description = category.Description;
+        catToUpdate.DateAdded = category.DateAdded;
 
         _dbContext
             .Categories
