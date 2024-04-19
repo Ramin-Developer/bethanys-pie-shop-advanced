@@ -37,17 +37,6 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
             .Include(c => c.Pies)
             .FirstOrDefaultAsync(c => c.Name == EnumExtensions.GetDisplayName(categoryType));
 
-    //public async Task<int> AddCategoryAsync(Category category)
-    //{
-    //    await _dbContext
-    //        .Categories
-    //        .AddAsync(category);
-
-    //    _memoryCache.Remove(CategoriesCacheName);
-
-    //    return await _dbContext.SaveChangesAsync();
-    //}
-
     public async Task<int> UpdateCategoryAsync(Category category)
     {
         var catToUpdate = await _dbContext

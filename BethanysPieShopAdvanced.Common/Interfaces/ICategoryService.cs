@@ -8,8 +8,6 @@ public interface ICategoryService
 
     Task<CategoryDto?> FindCategoryByTypeAsync(CategoryType categoryType);
 
-    //Task<int> AddCategoryAsync(CategoryDto category);
-
     Task<int> UpdateCategoryAsync(CategoryDto updatedCategory);
 
     Task<int> DeleteCategoryAsync(int id);

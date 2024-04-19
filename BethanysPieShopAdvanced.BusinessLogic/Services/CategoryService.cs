@@ -41,20 +41,6 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         await _categoryRepo
         .GetCategoriesCountAsync();
 
-    //public async Task<int> AddCategoryAsync(CategoryDto categoryDto)
-    //{
-    //    ValidateCategory(categoryDto);
-
-    //    var isPerformable = await CanPerformOperation(CrudOperation.Create, categoryDto);
-    //    if (isPerformable == false)
-    //        throw new ArgumentException(CategoryValues.NameDuplicatedError, nameof(categoryDto));
-
-    //    var category = _mapper.Map<Category>(categoryDto);
-
-    //    return await _categoryRepo
-    //        .AddCategoryAsync(category);
-    //}
-
     public async Task<int> UpdateCategoryAsync(CategoryDto updatedCategoryDto)
     {
         ValidateCategory(updatedCategoryDto);
@@ -89,7 +75,6 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     {
         return operation switch
         {
-            CrudOperation.Create => await CanCreateCategory(categoryDto),
             CrudOperation.Update => await CanUpdateCategory(categoryDto),
             CrudOperation.Delete =>
                 id != null
@@ -98,20 +83,6 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
 
             _ => throw new NotImplementedException()
         };
-    }
-
-    private async Task<bool> CanCreateCategory(CategoryDto categoryDto)
-    {
-        // Todo: Fix the following line to convert a string to the correct CategoryType enum, and use it further.
-        // var categoryType = CategoryType.None;
-        var resultOk = Enum
-            .TryParse<CategoryType>(categoryDto.Name, ignoreCase: false, out var categoryType);
-
-        var existingCategory = default(CategoryDto);
-        if (resultOk)
-            existingCategory = await FindCategoryByTypeAsync(categoryType);
-
-        return resultOk && existingCategory == null;
     }
 
     private async Task<bool> CanUpdateCategory(CategoryDto categoryDto)

@@ -37,29 +37,6 @@ public class CategoryController(
         return View(result);
     }
 
-    //[HttpGet]
-    //public IActionResult Add()
-    //{
-    //    return View();
-    //}
-
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> AddAsync(
-    //    [Bind("Name", "Description", "DateAdded")] CategoryDto catDto)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        await _categoryService
-    //            .AddCategoryAsync(catDto);
-
-    //        return RedirectToAction(nameof(IndexAsync),
-    //            new { successMessage = "Category added successfully!" });
-    //    }
-
-    //    return View(catDto);
-    //}
-
     [HttpGet("{id:int}")]
     public async Task<IActionResult> EditAsync(int id)
     {

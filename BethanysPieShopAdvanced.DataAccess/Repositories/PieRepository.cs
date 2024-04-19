@@ -89,8 +89,6 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
         }
         catch (DbUpdateConcurrencyException)
         {
-            // Handle concurrency exception as shown in earlier examples
-
             return 0;
         }
     }
