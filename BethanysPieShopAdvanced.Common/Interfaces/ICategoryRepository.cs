@@ -8,7 +8,7 @@ public interface ICategoryRepository
 
     Task<Category?> FindCategoryByTypeAsync(CategoryType categoryType);
 
-    Task<int> AddCategoryAsync(Category category);
+    //Task<int> AddCategoryAsync(Category category);
 
     Task<int> UpdateCategoryAsync(Category category);
 
