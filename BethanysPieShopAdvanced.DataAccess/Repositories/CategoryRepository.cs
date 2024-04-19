@@ -37,20 +37,21 @@ public class CategoryRepository(PieShopDbContext dbContext, IMemoryCache memoryC
             .Include(c => c.Pies)
             .FirstOrDefaultAsync(c => c.Name == EnumExtensions.GetDisplayName(categoryType));
 
-    public async Task<int> UpdateCategoryAsync(Category category)
+    public async Task<int> UpdateCategoryAsync(Category categoryUpdate)
     {
         var catToUpdate = await _dbContext
             .Categories
-            .FirstOrDefaultAsync(cat => cat.Id == category.Id)
-                ?? throw new ArgumentException(CategoryValues.UpdateTargetNullError, nameof(category));
+            .FirstOrDefaultAsync(cat => cat.Id == categoryUpdate.Id)
+                ?? throw new ArgumentException(CategoryValues.UpdateTargetNullError, nameof(categoryUpdate));
 
         // The category exists, update it and save changes.
-        catToUpdate.Name = category.Name;
-        catToUpdate.Description = category.Description;
-        catToUpdate.DateAdded = category.DateAdded;
+        // Todo: Use mapping instead of manual update
+        catToUpdate.Name = categoryUpdate.Name;
+        catToUpdate.Description = categoryUpdate.Description;
+        catToUpdate.DateAdded = categoryUpdate.DateAdded;
 
         _dbContext
-            .Categories
+            .Categories 
             .Update(catToUpdate);
 
         _memoryCache.Remove(CategoriesCacheName);

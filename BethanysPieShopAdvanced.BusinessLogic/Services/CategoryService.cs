@@ -41,18 +41,18 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
         await _categoryRepo
         .GetCategoriesCountAsync();
 
-    public async Task<int> UpdateCategoryAsync(CategoryDto updatedCategoryDto)
+    public async Task<int> UpdateCategoryAsync(CategoryDto categoryUpdate)
     {
-        ValidateCategory(updatedCategoryDto);
+        ValidateCategory(categoryUpdate);
 
-        var isPerformable = await CanPerformOperation(CrudOperation.Update, updatedCategoryDto);
+        var isPerformable = await CanPerformOperation(CrudOperation.Update, categoryUpdate);
         if (isPerformable == false)
-            throw new EntityDuplicationException<Category>(CategoryValues.NameDuplicatedError, nameof(updatedCategoryDto));
+            throw new EntityDuplicationException<Category>(CategoryValues.NameDuplicatedError, nameof(categoryUpdate));
 
-        var cat = _mapper.Map<Category>(updatedCategoryDto);
+        var updatedCategory = _mapper.Map<Category>(categoryUpdate);
 
         return await _categoryRepo
-            .UpdateCategoryAsync(cat);
+            .UpdateCategoryAsync(updatedCategory);
     }
 
     public async Task<int> DeleteCategoryAsync(int id)

@@ -3,7 +3,7 @@
 <h2>Update the Category: @Model.Name</h2>
 <hr />
 
-<form asp-controller="Category" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+<form asp-controller="Category" asp-action="Update" asp-route-id="@Model.Id" method="post">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="@Model.Id" />
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -26,7 +26,7 @@
         <span asp-validation-for="DateAdded" class="text-danger"></span>
     </div>
 
-    <input type="submit" value="Update the Category" class="btn btn-primary" />
+    <input type="submit" value="Update Category" class="btn btn-primary" />
 </form>
 
 <br />

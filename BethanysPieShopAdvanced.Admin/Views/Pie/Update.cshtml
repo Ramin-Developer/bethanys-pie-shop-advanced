@@ -8,7 +8,7 @@
     <p class="alert alert-danger">@Model.ErrorMessage</p>
 }
 
-<form asp-controller="Pie" asp-action="Edit" asp-route-id="@Model.PieDto.Id" method="post">
+<form asp-controller="Pie" asp-action="Update" asp-route-id="@Model.PieDto.Id" method="post">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="PieDto!.Id" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -82,7 +82,7 @@
         <span asp-validation-for="PieDto!.CategoryId" class="text-danger"></span>
     </div>
 
-    <input type="submit" value="Update the Pie" class="btn btn-primary" />
+    <input type="submit" value="Update Pie" class="btn btn-primary" />
 </form>
 
 <br />

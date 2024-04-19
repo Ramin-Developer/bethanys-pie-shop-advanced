@@ -35,9 +35,8 @@ else
                     <td>@category.Name</td>
                     <td>@category.DateAdded.ToShortDateString()</td>
                     <td>
-                        <a asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">Details</a>
-                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
-                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id">Delete</a>
+                        @* Action Links to: Details, Update, Delete *@
+                        <partial name="_CategoryActionPartial" model="category" />
                     </td>
                 </tr>
             }

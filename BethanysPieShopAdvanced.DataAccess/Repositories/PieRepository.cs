@@ -80,7 +80,9 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
             ?? throw new Exception("Pie not found.");
 
         // If the Pie exists, proceed to update it
+        // Todo: Use mapping instead
         _dbContext.Entry(existingPie).CurrentValues.SetValues(updatedPie);
+        
         try
         {
             var rowsAffected = await _dbContext.SaveChangesAsync();

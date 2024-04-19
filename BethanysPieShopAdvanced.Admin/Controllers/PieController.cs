@@ -102,7 +102,7 @@ public class PieController(
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> EditAsync(int id)
+    public async Task<IActionResult> UpdateAsync(int id)
     {
         var validationResult = ValidateId(id);
         if (validationResult.IsValid == false)
@@ -132,7 +132,7 @@ public class PieController(
 
     [HttpPost("{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditAsync(int id, PieEditViewModel pieEditViewModel)
+    public async Task<IActionResult> UpdateAsync(int id, PieEditViewModel pieEditViewModel)
     {
         if (id != pieEditViewModel.PieDto!.Id)
         {

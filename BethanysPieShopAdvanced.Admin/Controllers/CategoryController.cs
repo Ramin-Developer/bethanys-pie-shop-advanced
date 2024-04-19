@@ -38,7 +38,7 @@ public class CategoryController(
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> EditAsync(int id)
+    public async Task<IActionResult> UpdateAsync(int id)
     {
         var selectedCategory = await _categoryService
             .GetCategoryByIdAsync(id);
@@ -54,24 +54,24 @@ public class CategoryController(
 
     [HttpPost("{id:int}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EditAsync(int id, CategoryDto categoryDto)
+    public async Task<IActionResult> UpdateAsync(int id, CategoryDto categoryUpdate)
     {
-        if (id != categoryDto.Id)
+        if (id != categoryUpdate.Id)
         {
             ModelState.AddModelError("", CategoryValues.IdMisMatchError);
 
-            return View(categoryDto);
+            return View(categoryUpdate);
         }
 
         if (ModelState.IsValid)
         {
             await _categoryService
-                .UpdateCategoryAsync(categoryDto);
+                .UpdateCategoryAsync(categoryUpdate);
 
             return RedirectToAction(nameof(Index));
         }
 
-        return View(categoryDto);
+        return View(categoryUpdate);
     }
 
     [HttpGet("{id:int}")]
