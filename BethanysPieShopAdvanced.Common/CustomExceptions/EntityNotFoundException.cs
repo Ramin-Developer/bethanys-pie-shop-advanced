@@ -11,7 +11,7 @@ public class EntityNotFoundException<TEntity> :
     }
 
     public EntityNotFoundException(string entityName)
-        : base(EntityValues.EntityNameFormatError(typeof(TEntity).Name, entityName))
+        : base(EntityValues.EntityPropertyFormatError(typeof(TEntity).Name, "Name", entityName))
     {
         EntityType = typeof(TEntity).Name;
         EntityName = entityName;

@@ -1,4 +1,6 @@
-﻿namespace BethanysPieShop.BusinessLogic.Services;
+﻿using BethanysPieShop.Common.CustomExceptions;
+
+namespace BethanysPieShop.BusinessLogic.Services;
 
 public class PieService(
     IPieRepository pieRepo,
@@ -50,7 +52,7 @@ public class PieService(
     public async Task<PieDto?> GetPieByIdAsync(int id)
     {
         if (id <= 0)
-            throw new EntityIdFormatException<Pie>(id);
+            throw new EntityPropertyFormatException<Pie>("Id", id.ToString());
 
         var pie = await _pieRepo
             .GetPieByIdAsync(id);
@@ -63,7 +65,7 @@ public class PieService(
     public async Task<PieDto?> GetPieByNameAsync(string pieName)
     {
         if (string.IsNullOrWhiteSpace(pieName))
-            throw new EntityNameFormatException<Pie>(pieName);
+            throw new EntityPropertyFormatException<Pie>("Name", pieName);
 
         var pie = await _pieRepo
             .GetPieByNameAsync(pieName);
@@ -82,7 +84,7 @@ public class PieService(
         ArgumentNullException.ThrowIfNull(pieDto, nameof(pieDto));
 
         if (string.IsNullOrWhiteSpace(pieDto.Name))
-            throw new EntityNameFormatException<Pie>(pieDto.Name);
+            throw new EntityPropertyFormatException<Pie>("Name", pieDto.Name);
 
         var existingPie = await _pieRepo
             .GetPieByNameAsync(pieDto.Name);
@@ -123,17 +125,17 @@ public class PieService(
         ArgumentNullException.ThrowIfNull(pieUpdate, nameof(pieUpdate));
 
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
-            throw new EntityNameFormatException<Pie>(pieUpdate.Name);
+            throw new EntityPropertyFormatException<Pie>("Name", pieUpdate.Name);
 
         if (pieUpdate.Id <= 0)
-            throw new EntityIdFormatException<Pie>(pieUpdate.Id);
+            throw new EntityPropertyFormatException<Pie>("Id", pieUpdate.Id.ToString());
 
         var pieExists = await PieExistsAsync(pieUpdate.Id);
         if (pieExists == false)
             throw new EntityNotFoundException<Pie>(pieUpdate.Id);
 
         if (pieUpdate.CategoryId <= 0)
-            throw new EntityIdFormatException<Category>(pieUpdate.CategoryId);
+            throw new EntityPropertyFormatException<Category>("Id", pieUpdate.CategoryId.ToString());
 
         if (pieUpdate.Price <= 0)
             throw new EntityPropertyFormatException<Pie>("Price", pieUpdate.Price.ToString());

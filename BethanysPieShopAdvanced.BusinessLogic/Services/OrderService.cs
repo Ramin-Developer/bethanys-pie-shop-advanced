@@ -16,8 +16,7 @@ public class OrderService(IOrderRepository orderRepo, IMapper mapper) : IOrderSe
     public async Task<OrderDto?> GetOrderDetailsAsync(int orderId)
     {
         if (orderId <= 0)
-
-            throw new EntityIdFormatException<Order>(orderId);
+            throw new EntityPropertyFormatException<Order>("OrderId", orderId.ToString());
 
         var result = await _orderRepo
             .GetOrderDetailsAsync(orderId);
