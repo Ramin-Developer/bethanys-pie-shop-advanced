@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.WebApi.Middleware;
+﻿namespace BethanysPieShop.Shared.Middleware;
 
 public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
@@ -18,6 +18,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
     private static Task HandlesExceptionAsync(HttpContext context, Exception exception)
     {
         // Below, add more exception types as needed
+        context.Response.ContentType = GeneralValues.JsonMediaType;
         var statusCodes = exception switch
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
@@ -35,11 +36,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             _ => HttpStatusCode.InternalServerError,
         };
 
+        context.Response.StatusCode = (int)statusCodes;
         var result = JsonSerializer
             .Serialize(new { error = exception.Message });
-
-        context.Response.ContentType = GeneralValues.JsonMediaType;
-        context.Response.StatusCode = (int)statusCodes;
 
         return context.Response.WriteAsync(result);
     }

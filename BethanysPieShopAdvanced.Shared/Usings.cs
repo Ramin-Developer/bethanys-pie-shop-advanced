@@ -1,6 +1,7 @@
 ﻿global using AutoMapper;
 global using BethanysPieShop.BusinessLogic.Services;
 global using BethanysPieShop.Common.Constants;
+global using BethanysPieShop.Common.CustomExceptions;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.EnumTypes;
@@ -10,7 +11,10 @@ global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.DataAccess.Repositories;
 global using BethanysPieShop.Shared.ProfileMappings;
 global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Http;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using System.Net;
+global using System.Text.Json;

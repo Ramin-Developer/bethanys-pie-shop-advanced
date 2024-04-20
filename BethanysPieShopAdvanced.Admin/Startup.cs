@@ -44,8 +44,11 @@ public static class Startup
         // Routing should come before authorization and endpoint-dependent middleware
         app.UseRouting();
 
+        app.UseMiddleware<ExceptionMiddleware>();
+
         app.UseAuthorization();
 
+        // Map endpont using conventional routing.
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");

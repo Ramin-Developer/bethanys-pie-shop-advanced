@@ -19,6 +19,7 @@ global using BethanysPieShop.Common.Utilities;
 global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.Shared.Configurations;
 global using BethanysPieShop.Shared.Initializations;
+global using BethanysPieShop.Shared.Middleware;
 global using BethanysPieShop.Shared.ProfileMappings;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Filters;
@@ -27,3 +28,4 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using Microsoft.EntityFrameworkCore;
 global using System.Diagnostics;
 global using System.Net;
+

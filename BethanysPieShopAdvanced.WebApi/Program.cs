@@ -1,5 +1,3 @@
-using BethanysPieShop.Shared.Configurations;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure shared logging.

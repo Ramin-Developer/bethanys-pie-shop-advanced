@@ -1,14 +1,12 @@
 ﻿global using BethanysPieShop.Common.Constants;
-global using BethanysPieShop.Common.CustomExceptions;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.Interfaces;
 global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.Shared.Configurations;
+global using BethanysPieShop.Shared.Middleware;
 global using BethanysPieShop.WebApi;
-global using BethanysPieShop.WebApi.Middleware;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
-global using System.Net;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
