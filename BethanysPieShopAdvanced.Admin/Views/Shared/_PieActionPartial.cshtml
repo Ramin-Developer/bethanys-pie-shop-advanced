@@ -1,6 +1,3 @@
 ﻿@model PieDto
-<div>
-    <a asp-controller="Pie" asp-action="Details" asp-route-id="@Model.Id">Details</a>
-    <a asp-controller="Pie" asp-action="Update" asp-route-id="@Model.Id">Update</a>
-    <a asp-controller="Pie" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-</div>
+
+<partial name="_ActionLinks" model='new ActionLinkViewModel { Id = Model.Id, ControllerName = "Pie" }' />
