@@ -1,6 +1,9 @@
 ﻿@model CategoryDto
-<div>
+
+@* <div>
     <a asp-controller="Category" asp-action="Details" asp-route-id="@Model.Id">Details</a>
     <a asp-controller="Category" asp-action="Update" asp-route-id="@Model.Id">Update</a>
     <a asp-controller="Category" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-</div>
+</div> *@
+
+<partial name="_ActionLinks" model='new ActionLinkViewModel { Id = Model.Id, ControllerName = "Category" }' />
