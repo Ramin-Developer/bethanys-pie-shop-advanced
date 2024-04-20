@@ -43,28 +43,26 @@ public static class Startup
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }
+        else if (app.Environment.IsDevelopment())
+        {
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
         else
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            else
-            {
-                // Use a generic exception handler in production.
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+            // Use a generic exception handler in production.
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
         }
+
 
         app.UseRouting();
         app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
-        
+
         app.MapControllers();
 
         // Add health checks

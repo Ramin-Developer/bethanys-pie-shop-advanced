@@ -17,7 +17,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<CategoryDto?> GetCategoryByIdAsync(int id)
     {
         if (id <= 0)
-            throw new EntityIdFormatException<Category>(id);
+            throw new EntityPropertyFormatException<Category>("Id", id.ToString());
 
         var category = await _categoryRepo
             .GetCategoryByIdAsync(id);
@@ -58,7 +58,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IMapper map
     public async Task<int> DeleteCategoryAsync(int id)
     {
         _ = await GetCategoryByIdAsync(id)
-            ?? throw new EntityIdFormatException<Category>(id);
+                ?? throw new EntityPropertyFormatException<Category>("Id", id.ToString());
 
         var isPerformable = await CanPerformOperation(CrudOperation.Delete, null!, id);
         if (isPerformable == false)

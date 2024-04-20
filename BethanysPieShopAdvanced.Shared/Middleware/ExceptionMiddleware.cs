@@ -26,13 +26,9 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             CategoryNotEmptyException => HttpStatusCode.BadRequest,
             EntityDuplicationException<Pie> => HttpStatusCode.BadRequest,
             EntityDuplicationException<Category> => HttpStatusCode.BadRequest,
-            EntityIdFormatException<Pie> => HttpStatusCode.BadRequest,
-            EntityNameFormatException<Pie> => HttpStatusCode.BadRequest,
-            EntityNameFormatException<Category> => HttpStatusCode.BadRequest,
             EntityPropertyFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
             EntityNotFoundException<Category> => HttpStatusCode.NotFound,
-            EntityIdFormatException<Category> => HttpStatusCode.BadRequest,
             _ => HttpStatusCode.InternalServerError,
         };
 
