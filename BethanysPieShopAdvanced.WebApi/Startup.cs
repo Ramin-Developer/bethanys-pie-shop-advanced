@@ -56,7 +56,6 @@ public static class Startup
             app.UseHsts();
         }
 
-
         app.UseRouting();
         app.UseHttpsRedirection();
 

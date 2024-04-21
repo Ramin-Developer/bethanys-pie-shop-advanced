@@ -15,11 +15,19 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         }
     }
 
-    private static Task HandlesExceptionAsync(HttpContext context, Exception exception)
+    private Task HandlesExceptionAsync(HttpContext context, Exception exception)
     {
         // Below, add more exception types as needed
         context.Response.ContentType = GeneralValues.JsonMediaType;
-        var statusCodes = exception switch
+        context.Response.StatusCode = MapStatusCode(exception);  
+        var result = JsonSerializer.Serialize(new { message = exception.Message });
+
+        return context.Response.WriteAsync(result);
+    }
+
+    private int MapStatusCode(Exception exception)
+    {
+        var result = exception switch
         {
             ArgumentNullException => HttpStatusCode.BadRequest,
             ArgumentException => HttpStatusCode.BadRequest,
@@ -29,14 +37,10 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             EntityPropertyFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
             EntityNotFoundException<Category> => HttpStatusCode.NotFound,
-            _ => HttpStatusCode.InternalServerError,
+            _ => HttpStatusCode.InternalServerError
         };
 
-        context.Response.StatusCode = (int)statusCodes;
-        var result = JsonSerializer
-            .Serialize(new { error = exception.Message });
-
-        return context.Response.WriteAsync(result);
+        return (int)result;
     }
 
     private readonly RequestDelegate _next = next;

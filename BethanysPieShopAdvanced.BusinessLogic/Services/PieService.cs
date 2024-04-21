@@ -1,6 +1,4 @@
-﻿using BethanysPieShop.Common.CustomExceptions;
-
-namespace BethanysPieShop.BusinessLogic.Services;
+﻿namespace BethanysPieShop.BusinessLogic.Services;
 
 public class PieService(
     IPieRepository pieRepo,
