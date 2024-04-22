@@ -47,26 +47,10 @@ public class PieController(
     [HttpGet("{id:int}")]
     public async Task<IActionResult> DetailsAsync(int id)
     {
-        var validationResult = ValidateId(id);
-        var errorResult = HandleValidation(validationResult);
-        if (errorResult != null)
-            return errorResult;
-
         var pieDto = await _pieService
             .GetPieByIdAsync(id);
 
-        var viewModel = new PieDetailsViewModel
-        {
-            PieDto = pieDto,
-        };
-
-        if (pieDto == null)
-        {
-            _logger.LogError(PieValues.NotFoundIdError);
-            viewModel.ErrorMessage = $"{PieValues.NotFoundIdError}";
-
-            return View(viewModel);
-        }
+        var viewModel = new PieDetailsViewModel { PieDto = pieDto };
 
         return View(viewModel);
     }
@@ -84,21 +68,21 @@ public class PieController(
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddAsync(PieAddViewModel pieAddViewModel)
     {
-        if (ModelState.IsValid)
+        if (ModelState.IsValid == false)
         {
-            // Convert PieAddViewModel directly to PieDto
-            var pieDto = _mapper
-                .Map<PieDto>(pieAddViewModel);
+            await _pieHelperService
+                .PopulateCategorySelectListAsync(pieAddViewModel);
 
-            await _pieService.AddPieAsync(pieDto);
-
-            return RedirectToAction(nameof(Index));
+            return View(pieAddViewModel);
         }
 
-        await _pieHelperService
-            .PopulateCategorySelectListAsync(pieAddViewModel);
+        // Convert PieAddViewModel directly to PieDto
+        var pieDto = _mapper
+            .Map<PieDto>(pieAddViewModel);
 
-        return View(pieAddViewModel);
+        await _pieService.AddPieAsync(pieDto);
+
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("{id:int}")]
@@ -115,14 +99,6 @@ public class PieController(
 
         var pieToUpdate = await _pieService
             .GetPieByIdAsync(id);
-
-        if (pieToUpdate == null)
-        {
-            var result = await _pieHelperService
-                .CreatePieEditViewModelAsync(null, null, PieValues.UpdateTargetNullError);
-
-            return View(result);
-        }
 
         var pieEditViewModel = await _pieHelperService
             .CreatePieEditViewModelAsync(pieToUpdate, pieToUpdate.CategoryId);

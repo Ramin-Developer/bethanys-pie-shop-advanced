@@ -4,7 +4,7 @@ public static class Startup
 {
     public static void ConfigureServices(this WebApplicationBuilder builder)
     {
-        // Call AddSharedSevices from SharedConfiguration project
+        // Call AddSharedSevices from Shared project
         builder.AddServices();
 
         // Add services to the container.
