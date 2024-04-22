@@ -49,14 +49,17 @@ public class PieHelperService(ICategoryService catService, IPieService pieServic
         };
     }
 
-    public async Task<PieEditViewModel> CreatePieEditViewModelAsync(
-        PieDto? pieToUpdate, int? selectedId = null!, string errorMessage = null!) =>
-            new PieEditViewModel
-            {
-                PieDto = pieToUpdate,
-                Categories = (await GetCategorySelectListAsync(selectedId)).ToList(),
-                ErrorMessage = errorMessage
-            };
+    public async Task<PieEditViewModel> CreatePieUpdateViewModelAsync(
+    PieDto? pieToUpdate, int? selectedId = null, string errorMessage = null)
+    {
+        var categories = await GetCategorySelectListAsync(selectedId);
+        return new PieEditViewModel
+        {
+            PieDto = pieToUpdate,
+            Categories = categories?.ToList() ?? new List<SelectListItem>(),  // Safely handle null
+            ErrorMessage = errorMessage
+        };
+    }
 
     public async Task<PieAddViewModel> CreatePieAddViewModelAsync()
     {

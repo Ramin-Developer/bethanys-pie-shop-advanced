@@ -37,6 +37,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             EntityPropertyFormatException<Pie> => HttpStatusCode.BadRequest,
             EntityNotFoundException<Pie> => HttpStatusCode.NotFound,
             EntityNotFoundException<Category> => HttpStatusCode.NotFound,
+            EntityIdMismatchException<Pie> => HttpStatusCode.Conflict,
             _ => HttpStatusCode.InternalServerError
         };
 

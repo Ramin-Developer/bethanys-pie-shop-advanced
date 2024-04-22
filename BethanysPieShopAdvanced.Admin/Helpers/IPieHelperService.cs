@@ -10,7 +10,7 @@ public interface IPieHelperService
 
     Task<PieSearchViewModel> CreatePieSearchViewModelAsync(string? searchQuery, int? searchCategory);
 
-    Task<PieEditViewModel> CreatePieEditViewModelAsync(
+    Task<PieEditViewModel> CreatePieUpdateViewModelAsync(
         PieDto? pieToUpdate, int? selectedId = null!, string errorMessage = null!);
 
     Task<PieAddViewModel> CreatePieAddViewModelAsync();

@@ -77,7 +77,7 @@ public class PieService(
     public async Task<int> GetPiesCountAsync() =>
         await _pieRepo.GetPiesCountAsync();
 
-    public async Task<int> AddPieAsync(PieDto pieDto)
+    public async Task<PieDto> AddPieAsync(PieDto pieDto)
     {
         ArgumentNullException.ThrowIfNull(pieDto, nameof(pieDto));
 
@@ -91,22 +91,23 @@ public class PieService(
             throw new EntityDuplicationException<Pie>(nameof(Pie.Name), pieDto.Name);
 
         var pie = _pieMapper.Map<Pie>(pieDto);
+        _ = await _pieRepo.AddPieAsync(pie);
 
-        return await _pieRepo.AddPieAsync(pie);
+        return _pieMapper.Map<PieDto>(pie);
     }
 
-    public async Task<int> UpdatePieAsync(PieDto pieUpdate)
+    public async Task<int> UpdatePieAsync(int id, PieDto pieDto)
     {
-        await ValidatePieUpdateAsync(pieUpdate);
+        await ValidatePieUpdateAsync(id, pieDto);
 
-        var pieToUpdate = await _pieRepo
-            .GetPieByIdAsync(pieUpdate.Id)
-            ?? throw new EntityNotFoundException<Pie>(pieUpdate.Id);
+        var existingPie = await _pieRepo
+            .GetPieByIdAsync(pieDto.Id)
+            ?? throw new EntityNotFoundException<Pie>(pieDto.Id);
 
-        _pieMapper.Map(pieUpdate, pieToUpdate);
+        _pieMapper.Map(pieDto, existingPie);
 
         return await _pieRepo
-            .UpdatePieAsync(pieToUpdate!);
+            .UpdatePieAsync(existingPie!);
     }
 
     public async Task<int> DeletePieAsync(int id)
@@ -118,9 +119,12 @@ public class PieService(
         return await _pieRepo.DeletePieAsync(id);
     }
 
-    private async Task ValidatePieUpdateAsync(PieDto pieUpdate)
+    private async Task ValidatePieUpdateAsync(int id, PieDto pieUpdate)
     {
         ArgumentNullException.ThrowIfNull(pieUpdate, nameof(pieUpdate));
+
+        if (id != pieUpdate.Id)
+            throw new EntityIdMismatchException<Pie>(id);
 
         if (string.IsNullOrWhiteSpace(pieUpdate.Name))
             throw new EntityPropertyFormatException<Pie>("Name", pieUpdate.Name);

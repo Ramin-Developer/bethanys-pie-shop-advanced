@@ -88,20 +88,11 @@ public class PieController(
     [HttpGet("{id:int}")]
     public async Task<IActionResult> UpdateAsync(int id)
     {
-        var validationResult = ValidateId(id);
-        if (validationResult.IsValid == false)
-        {
-            var result = await _pieHelperService
-                .CreatePieEditViewModelAsync(null, null, validationResult.ErrorMessage);
-
-            return View(result);
-        }
-
         var pieToUpdate = await _pieService
             .GetPieByIdAsync(id);
 
         var pieEditViewModel = await _pieHelperService
-            .CreatePieEditViewModelAsync(pieToUpdate, pieToUpdate.CategoryId);
+            .CreatePieUpdateViewModelAsync(pieToUpdate, pieToUpdate!.CategoryId);
 
         return View(pieEditViewModel);
     }
@@ -113,17 +104,17 @@ public class PieController(
         if (id != pieEditViewModel.PieDto!.Id)
         {
             ModelState.AddModelError("", "There is an ID mismatch.");
+           
             return View(pieEditViewModel);
         }
 
-        if (ModelState.IsValid)
-        {
-            await _pieService.UpdatePieAsync(pieEditViewModel.PieDto!);
+        if (ModelState.IsValid == false)
+            return View(pieEditViewModel);
 
-            return RedirectToAction(nameof(Index));
-        }
+        await _pieService
+            .UpdatePieAsync(id, pieEditViewModel.PieDto);
 
-        return View(pieEditViewModel);
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("{id:int}")]

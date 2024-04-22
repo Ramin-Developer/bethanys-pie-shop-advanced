@@ -6,5 +6,5 @@ public class PieEditViewModel
 
     public PieDto? PieDto { get; set; }
 
-    public string? ErrorMessage { get; set; } = string.Empty;
+    public string? ErrorMessage { get; set; }
 }

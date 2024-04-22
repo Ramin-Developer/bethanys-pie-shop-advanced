@@ -16,9 +16,9 @@ public interface IPieService
 
     Task<int> GetPiesCountAsync();
     
-    Task<int> AddPieAsync(PieDto pie);
+    Task<PieDto> AddPieAsync(PieDto pie);
 
-    Task<int> UpdatePieAsync(PieDto UpdatedPie);
+    Task<int> UpdatePieAsync(int id, PieDto UpdatedPie);
 
     Task<int> DeletePieAsync(int id);
 }

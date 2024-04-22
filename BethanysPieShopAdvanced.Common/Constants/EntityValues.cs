@@ -1,4 +1,5 @@
-﻿namespace BethanysPieShop.Common.Constants;
+﻿
+namespace BethanysPieShop.Common.Constants;
 
 public static class EntityValues
 {
@@ -10,4 +11,7 @@ public static class EntityValues
 
     public static string DuplicateEntityError(string entityType, string Property, string PropertyValue) =>
     $"The value '{PropertyValue}' of property '{Property}' already exists in '{entityType}'.";
+
+    public static string EntityIdMismatchError(string entityType, int id) =>
+        $"The ID '{id}' does not match the ID of the entity '{entityType}'.";
 }
