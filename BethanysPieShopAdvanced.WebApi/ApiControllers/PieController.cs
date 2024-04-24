@@ -3,6 +3,7 @@
 [Route("api/[controller]")]
 [ApiController]
 [Produces(GeneralValues.JsonMediaType)]
+
 public class PieController(ILogger<Pie> logger, IPieService pieService) : ControllerBase
 {
     // Get: /api/pie
@@ -16,7 +17,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     }
 
     // Get: /api/pie/5
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<PieDto>> GetPieByIdAsync(int id)
     {
         var pieDto = await _pieService
@@ -27,32 +28,31 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Post: api/pie
     [HttpPost]
-    public async Task<ActionResult> CreateAsync([FromBody] PieDto pieDto)
+    public async Task<ActionResult<PieDto>> CreateAsync([FromBody] PieDto pieDto)
     {
-        _ = await _pieService
+        if (ModelState.IsValid == false)
+            return BadRequest(ModelState);
+
+        var createdPie = await _pieService
             .AddPieAsync(pieDto);
 
-        return Ok();
+        _logger.LogInformation("Creating at action with ID: {PieId}", createdPie.Id);
+
+        return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
+        //return Ok(new { Url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id }) });
     }
 
     // Put: api/pie/5
     [HttpPut("{id}")]
-    public async Task<ActionResult<int>> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
+    public async Task<ActionResult> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
     {
-        if (id != updatedPieDto.Id)
-            return BadRequest(PieValues.IdMismatchError);
+        if (ModelState.IsValid == false)
+            return BadRequest(ModelState);
 
-        var affectedRows = await _pieService
-                .UpdatePieAsync(updatedPieDto);
+        _ = await _pieService
+            .UpdatePieAsync(id, updatedPieDto);
 
-        if (affectedRows <= 0)
-        {
-            var errorMsg = PieValues.NotFoundIdError.Replace("{pieId}", updatedPieDto.Id.ToString());
-
-            return NotFound(errorMsg);
-        }
-
-        return Ok(affectedRows);
+        return Ok();
     }
 
     // Delete: api/pie/5

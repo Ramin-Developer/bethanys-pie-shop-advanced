@@ -6,6 +6,7 @@ public static class LoggingConfiguration
     {
         // Shared logging configurations here, e.g.:
         _ = builder.Logging.ClearProviders();
+        _ = builder.Logging.AddDebug();
         _ = builder.Logging.AddConsole();
         _ = builder.Logging.SetMinimumLevel(LogLevel.Information);
 

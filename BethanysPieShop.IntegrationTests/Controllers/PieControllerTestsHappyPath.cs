@@ -69,7 +69,7 @@ public class PieControllerTestsHappyPath :
 
     [Theory]
     [InlineData("My New Pie", 1)]
-    public async Task Create_ShouldReturnOk_WhenValidData(string pieName, int categoryId)
+    public async Task Create_ShouldReturnCreated_WhenValidData(string pieName, int categoryId)
     {
         // Arrange
         var endPoint = ApiPieEndPoints.CreatePieEndpoint;
