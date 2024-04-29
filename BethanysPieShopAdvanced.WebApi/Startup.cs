@@ -57,11 +57,13 @@ public static class Startup
         }
 
         app.UseRouting();
+
         app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
 
+        // Top-level route registrations for controllers
         app.MapControllers();
 
         // Add health checks

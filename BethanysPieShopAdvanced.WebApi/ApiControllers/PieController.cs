@@ -36,14 +36,19 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         var createdPie = await _pieService
             .AddPieAsync(pieDto);
 
-        _logger.LogInformation("Creating at action with ID: {PieId}", createdPie.Id);
+        // Generate the URL for the newly created pie
+        _logger.LogInformation("Attempting to create URL for action {ActionName} with ID: {PieId}",
+            nameof(GetPieByIdAsync), createdPie.Id);
 
-        return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
-        //return Ok(new { Url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id }) });
+        var url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id });
+        _logger.LogInformation("Generated URL: {Url}", url);
+
+        //return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
+        return Ok(new { Url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id }) });
     }
 
     // Put: api/pie/5
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
     {
         if (ModelState.IsValid == false)
@@ -56,7 +61,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     }
 
     // Delete: api/pie/5
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync(int id)
     {
         if (id <= 0)
