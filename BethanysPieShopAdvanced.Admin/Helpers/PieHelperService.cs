@@ -1,6 +1,7 @@
 ﻿namespace BethanysPieShop.Admin.Helpers;
 
-public class PieHelperService(ICategoryService catService, IPieService pieService) : IPieHelperService
+public class PieHelperService(ICategoryService catService, IPieService pieService) :
+    IPieHelperService
 {
     public IEnumerable<SelectListItem> GetSelectList(IEnumerable<CategoryDto> catDTOs, int? selectedId) =>
         catDTOs.Select(c => new SelectListItem
