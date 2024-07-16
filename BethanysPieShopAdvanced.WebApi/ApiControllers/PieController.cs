@@ -23,7 +23,9 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         var pieDto = await _pieService
             .GetPieByIdAsync(id);
 
-        return Ok(pieDto);
+        //return Ok(pieDto);
+
+        return CreatedAtAction(nameof(GetPieByIdAsync), new { id = pieDto!.Id }, pieDto);
     }
 
     // Post: api/pie
@@ -33,18 +35,25 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         if (ModelState.IsValid == false)
             return BadRequest(ModelState);
 
-        var createdPie = await _pieService
-            .AddPieAsync(pieDto);
+        try
+        {
+            var createdPie = await _pieService.AddPieAsync(pieDto);
 
-        // Generate the URL for the newly created pie
-        _logger.LogInformation("Attempting to create URL for action {ActionName} with ID: {PieId}",
-            nameof(GetPieByIdAsync), createdPie.Id);
+            if (createdPie == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error creating new pie record.");
 
-        var url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id });
-        _logger.LogInformation("Generated URL: {Url}", url);
-
-        //return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
-        return Ok(new { Url = Url.Action(nameof(GetPieByIdAsync), new { id = createdPie.Id }) });
+            return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
+        }
+        catch (EntityNotFoundException<Pie> ex)
+        {
+            _logger.LogError(ex, "The pie was not found.");
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while creating the pie.");
+            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
     }
 
     // Put: api/pie/5
