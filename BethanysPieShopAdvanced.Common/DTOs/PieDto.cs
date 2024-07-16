@@ -4,6 +4,7 @@ public class PieDto
 {
     public int Id { get; set; }
 
+    [Required]
     [Display(Name = PieValues.NameDisplay)]
     [StringLength(PieValues.MaxNameLength, ErrorMessage = PieValues.InvalidName)]
     public string Name { get; set; } = string.Empty;
@@ -20,6 +21,7 @@ public class PieDto
     [StringLength(PieValues.MaxAllergyInfoLength, ErrorMessage = PieValues.InvalidAllergyInfo)]
     public string? AllergyInformation { get; set; }
 
+    [Range(0, double.MaxValue)]
     [Display(Name = PieValues.PriceDisplay)]
     public decimal Price { get; set; }
 
@@ -35,6 +37,7 @@ public class PieDto
     [Display(Name = PieValues.InStockDisplay)]
     public bool InStock { get; set; }
 
+    [Required]
     [Display(Name = PieValues.CategoryIdDisplay)]
     public int CategoryId { get; set; }
 

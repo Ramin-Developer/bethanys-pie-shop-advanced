@@ -46,7 +46,7 @@ public class PieControllerTestsHappyPath :
     [InlineData(7)]
     [InlineData(12)]
     [InlineData(16)]
-    public async Task GetById_ReturnsPie_GivenValidInputAsync(int pieId)
+    public async Task GetPieByIdAsync_ReturnsPie_GivenValidInputAsync(int pieId)
     {
         // Arrange
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(pieId);
@@ -75,28 +75,31 @@ public class PieControllerTestsHappyPath :
         var endPoint = ApiPieEndPoints.CreatePieEndpoint;
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
-        
+
         var expectedPie = GetCreatedPie(pieName, categoryId);
 
         // Act
+        // Log the serialized JSON
         var serializedPie = JsonSerializer.Serialize(expectedPie, JsonSettings.JsonOptions);
+        Console.WriteLine("Serialized Pie: " + serializedPie);
         var httpContent = new StringContent(serializedPie, Encoding.UTF8, GeneralValues.JsonMediaType);
         var httpResponseMsg = await _client.PostAsync(endPoint, httpContent);
 
+        // Log response content for debugging
+        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync();
+        Console.WriteLine("Response Content: " + responseContent);
+
+        // Assert
+        httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.Created, responseContent);
+
         // Fetch the updated pie from the database
-        var createdPie = await dbContext
-            .Pies
-            .FirstOrDefaultAsync(p => p.Name == pieName);
+        var createdPie = await dbContext.Pies.FirstOrDefaultAsync(p => p.Name == pieName);
         expectedPie.Id = createdPie!.Id;
 
         var actualPie = _mapper.Map<PieDto>(createdPie);
-        actualPie.CategoryName = expectedPie.CategoryName;
 
-        // Assert
-        httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
         expectedPie.Should().NotBeNull();
         actualPie.Should().NotBeNull();
-
         actualPie.Should().BeEquivalentTo(expectedPie);
     }
 

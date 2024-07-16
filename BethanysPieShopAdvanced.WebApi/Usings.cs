@@ -1,4 +1,5 @@
 ﻿global using BethanysPieShop.Common.Constants;
+global using BethanysPieShop.Common.CustomExceptions;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.Interfaces;

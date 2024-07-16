@@ -50,7 +50,7 @@ public class PieHelperService(ICategoryService catService, IPieService pieServic
     }
 
     public async Task<PieEditViewModel> CreatePieUpdateViewModelAsync(
-    PieDto? pieToUpdate, int? selectedId = null, string errorMessage = null)
+    PieDto? pieToUpdate, int? selectedId = null, string errorMessage = null!)
     {
         var categories = await GetCategorySelectListAsync(selectedId);
         return new PieEditViewModel
