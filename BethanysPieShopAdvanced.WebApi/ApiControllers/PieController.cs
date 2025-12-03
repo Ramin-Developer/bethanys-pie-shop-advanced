@@ -3,16 +3,13 @@
 [Route("api/[controller]")]
 [ApiController]
 [Produces(GeneralValues.JsonMediaType)]
-
 public class PieController(ILogger<Pie> logger, IPieService pieService) : ControllerBase
 {
     // Get: /api/pie
     [HttpGet]
     public async Task<ActionResult<List<PieDto>>> GetAllAsync()
     {
-        var pieDtoList = await _pieService
-            .GetPiesAsync();
-
+        var pieDtoList = await _pieService.GetPiesAsync();
         return Ok(pieDtoList);
     }
 
@@ -20,12 +17,10 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     [HttpGet("{id:int}")]
     public async Task<ActionResult<PieDto>> GetPieByIdAsync(int id)
     {
-        var pieDto = await _pieService
-            .GetPieByIdAsync(id);
-
-        //return Ok(pieDto);
-
-        return CreatedAtAction(nameof(GetPieByIdAsync), new { id = pieDto!.Id }, pieDto);
+        var pieDto = await _pieService.GetPieByIdAsync(id);
+        if (pieDto is null)
+            return NotFound();
+        return Ok(pieDto);
     }
 
     // Post: api/pie
@@ -38,10 +33,10 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         try
         {
             var createdPie = await _pieService.AddPieAsync(pieDto);
-
-            if (createdPie == null)
+            if (createdPie is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating new pie record.");
 
+            // Return 201 with location header pointing to GetPieByIdAsync
             return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
         }
         catch (EntityNotFoundException<Pie> ex)
@@ -58,41 +53,35 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
 
     // Put: api/pie/5
     [HttpPut("{id:int}")]
-    public async Task<ActionResult> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
+    public async Task<IActionResult> UpdateAsync(int id, [FromBody] PieDto updatedPieDto)
     {
         if (ModelState.IsValid == false)
             return BadRequest(ModelState);
 
-        _ = await _pieService
-            .UpdatePieAsync(id, updatedPieDto);
-
-        return Ok();
+        await _pieService.UpdatePieAsync(id, updatedPieDto);
+        return NoContent();
     }
 
     // Delete: api/pie/5
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult> DeleteAsync(int id)
+    public async Task<IActionResult> DeleteAsync(int id)
     {
         if (id <= 0)
             return BadRequest(GeneralValues.InvalidIdError);
 
-        var pieDto = await _pieService
-            .GetPieByIdAsync(id);
-
-        if (pieDto == null)
+        var pieDto = await _pieService.GetPieByIdAsync(id);
+        if (pieDto is null)
         {
             var errorMsg = PieValues.NotFoundIdError.Replace("{pieId}", id.ToString());
-
             return NotFound(errorMsg);
         }
-        await _pieService.DeletePieAsync(id);
 
-        return Ok();
+        await _pieService.DeletePieAsync(id);
+        return NoContent();
     }
 
     private readonly ILogger<Pie> _logger = logger
-            ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
-
+        ?? throw new ArgumentNullException(nameof(logger), GeneralValues.ArgumentNullError);
     private readonly IPieService _pieService = pieService
         ?? throw new ArgumentNullException(nameof(pieService), GeneralValues.ArgumentNullError);
 }
