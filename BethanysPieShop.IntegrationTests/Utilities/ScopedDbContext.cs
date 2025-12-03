@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.IntegrationTest.Utilities;
+﻿namespace BethanysPieShop.IntegrationTests.Utilities;
 
 public class ScopedDbContext : IDisposable
 {

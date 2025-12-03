@@ -1,6 +1,4 @@
-﻿using BethanysPieShop.Common.EnumTypes;
-
-namespace BethanysPieShop.Admin.Helpers;
+﻿namespace BethanysPieShop.Admin.Helpers;
 
 public interface IPieHelperService
 {

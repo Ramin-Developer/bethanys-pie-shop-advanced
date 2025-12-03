@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.Admin.CustomExceptions;
+﻿namespace BethanysPieShop.Common.CustomExceptions;
 
 public class CustomHandledException(
     string customMessage,

@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.IntegrationTest.Configurations;
+﻿namespace BethanysPieShop.IntegrationTests.Configurations;
 
 [CollectionDefinition("Database Collection", DisableParallelization = true)]
 public class DatabaseCollection : ICollectionFixture<DatabaseFixture>

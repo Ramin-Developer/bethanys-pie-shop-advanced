@@ -7,5 +7,6 @@ global using BethanysPieShop.Common.Utilities;
 global using BethanysPieShop.DataAccess.Context;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.EntityFrameworkCore.Migrations;
 global using Microsoft.Extensions.Caching.Memory;
 global using System.Linq.Expressions;

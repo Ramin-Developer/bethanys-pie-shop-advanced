@@ -1,7 +1,6 @@
 ﻿global using AutoMapper;
 global using BethanysPieShop.Admin;
 global using BethanysPieShop.Admin.Controllers;
-global using BethanysPieShop.Admin.CustomExceptions;
 global using BethanysPieShop.Admin.Helpers;
 global using BethanysPieShop.Admin.ProfileMappings;
 global using BethanysPieShop.Admin.ViewModels;
@@ -10,6 +9,7 @@ global using BethanysPieShop.Admin.ViewModels.Order;
 global using BethanysPieShop.Admin.ViewModels.Pie;
 global using BethanysPieShop.BusinessLogic.Validations;
 global using BethanysPieShop.Common.Constants;
+global using BethanysPieShop.Common.CustomExceptions;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
 global using BethanysPieShop.Common.EnumTypes;
@@ -28,4 +28,5 @@ global using Microsoft.AspNetCore.Mvc.Rendering;
 global using Microsoft.EntityFrameworkCore;
 global using System.Diagnostics;
 global using System.Net;
+
 

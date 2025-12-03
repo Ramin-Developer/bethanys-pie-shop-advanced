@@ -1,4 +1,4 @@
-﻿namespace BethanysPieShop.Admin.CustomExceptions;
+﻿namespace BethanysPieShop.Common.CustomExceptions;
 
 public class NotFoundPieException(int pieId, Exception innerException = null!) :
     CustomHandledException(PieValues.NotFoundIdError, PieValues.NotFoundIdError, innerException)
