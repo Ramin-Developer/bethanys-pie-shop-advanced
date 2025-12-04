@@ -2,6 +2,8 @@
 
 public static class ServiceConfiguration
 {
+    private const string ConnectionStringKey = "DefaultConnection";
+
     public static void AddServices(this WebApplicationBuilder builder)
     {
         AddControllerSettings(builder);
@@ -23,11 +25,19 @@ public static class ServiceConfiguration
         });
     }
 
-    private static void AddDbContext(WebApplicationBuilder builder) => builder
-            .Services
-            .AddDbContext<PieShopDbContext>(options =>
-                options
-                .UseSqlServer(builder.Configuration.GetConnectionString(GeneralValues.ConnectionStringKey)));
+    private static void AddDbContext(WebApplicationBuilder builder)
+    {
+        var connStr = builder.Configuration.GetConnectionString(ConnectionStringKey);
+        if (string.IsNullOrWhiteSpace(connStr))
+        {
+            throw new InvalidOperationException(
+                $"Connection string '{ConnectionStringKey}' is missing. " +
+                "Add it under ConnectionStrings in appsettings.json or user secrets.");
+        }
+
+        builder.Services.AddDbContext<PieShopDbContext>(options =>
+            options.UseSqlServer(connStr));
+    }
 
     private static void AddRepositories(WebApplicationBuilder builder)
     {
