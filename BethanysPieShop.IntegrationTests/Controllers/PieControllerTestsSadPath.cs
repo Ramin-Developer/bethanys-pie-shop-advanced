@@ -7,7 +7,6 @@ public class PieControllerTestsSadPath :
     public PieControllerTestsSadPath(CustomWebApplicationFactory factory)
     {
         _factory = factory;
-        _factory.SeedData();
         _client = _factory.CreateClient();
 
         _testScope = _factory.Services.CreateScope();

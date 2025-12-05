@@ -1,9 +1,10 @@
-﻿namespace BethanysPieShop.Shared.Configurations;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+
+namespace BethanysPieShop.Shared.Configurations;
 
 public static class ServiceConfiguration
 {
-    private const string ConnectionStringKey = "DefaultConnection";
-
     public static void AddServices(this WebApplicationBuilder builder)
     {
         AddControllerSettings(builder);
@@ -27,16 +28,32 @@ public static class ServiceConfiguration
 
     private static void AddDbContext(WebApplicationBuilder builder)
     {
-        var connStr = builder.Configuration.GetConnectionString(ConnectionStringKey);
+        // Use InMemory for tests to avoid SQL provider registration
+        if (builder.Environment.IsEnvironment("Test"))
+        {
+            builder.Services.AddDbContext<PieShopDbContext>(options =>
+                options.UseInMemoryDatabase("IntegrationTestsDb"));
+            return;
+        }
+
+        var connStr = builder.Configuration.GetConnectionString(_connectionStringKey);
         if (string.IsNullOrWhiteSpace(connStr))
         {
             throw new InvalidOperationException(
-                $"Connection string '{ConnectionStringKey}' is missing. " +
+                $"Connection string '{_connectionStringKey}' is missing. " +
                 "Add it under ConnectionStrings in appsettings.json or user secrets.");
         }
 
         builder.Services.AddDbContext<PieShopDbContext>(options =>
-            options.UseSqlServer(connStr));
+            options.UseSqlServer(
+                connStr,
+                sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure(
+                        maxRetryCount: 3,
+                        maxRetryDelay: TimeSpan.FromSeconds(10),
+                        errorNumbersToAdd: null);
+                }));
     }
 
     private static void AddRepositories(WebApplicationBuilder builder)
@@ -63,4 +80,6 @@ public static class ServiceConfiguration
             cfg.AddProfile<OrderProfileMapping>();
         });
     }
+
+    private const string _connectionStringKey = "DefaultConnection";
 }

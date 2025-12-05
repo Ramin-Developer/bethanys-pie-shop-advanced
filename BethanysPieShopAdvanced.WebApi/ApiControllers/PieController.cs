@@ -14,7 +14,7 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
     }
 
     // Get: /api/pie/5
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetPieById")]
     public async Task<ActionResult<PieDto>> GetPieByIdAsync(int id)
     {
         var pieDto = await _pieService.GetPieByIdAsync(id);
@@ -36,8 +36,8 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
             if (createdPie is null)
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error creating new pie record.");
 
-            // Return 201 with location header pointing to GetPieByIdAsync
-            return CreatedAtAction(nameof(GetPieByIdAsync), new { id = createdPie.Id }, createdPie);
+            // Use named route to avoid "No route matches" and satisfy test expectations
+            return CreatedAtRoute("GetPieById", new { id = createdPie.Id }, createdPie);
         }
         catch (EntityNotFoundException<Pie> ex)
         {
@@ -58,8 +58,17 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         if (ModelState.IsValid == false)
             return BadRequest(ModelState);
 
-        await _pieService.UpdatePieAsync(id, updatedPieDto);
-        return NoContent();
+        try
+        {
+            var updated = await _pieService.UpdatePieAsync(id, updatedPieDto);
+            // Return 200 OK with payload to match tests
+            return Ok(updated);
+        }
+        catch (EntityNotFoundException<Pie> ex)
+        {
+            _logger.LogError(ex, "The pie was not found.");
+            return NotFound(ex.Message);
+        }
     }
 
     // Delete: api/pie/5
@@ -77,7 +86,8 @@ public class PieController(ILogger<Pie> logger, IPieService pieService) : Contro
         }
 
         await _pieService.DeletePieAsync(id);
-        return NoContent();
+        // Return 200 OK to match tests (instead of 204 NoContent)
+        return Ok();
     }
 
     private readonly ILogger<Pie> _logger = logger

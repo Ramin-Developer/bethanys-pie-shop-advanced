@@ -6,6 +6,7 @@ global using BethanysPieShop.Common.Utilities;
 global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.IntegrationTests.Configurations;
 global using BethanysPieShop.IntegrationTests.Utilities;
+global using BethanysPieShop.Shared.Initializations;
 global using FluentAssertions;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;
@@ -16,6 +17,3 @@ global using System.Net;
 global using System.Net.Http.Json;
 global using System.Text;
 global using System.Text.Json;
-
-
-

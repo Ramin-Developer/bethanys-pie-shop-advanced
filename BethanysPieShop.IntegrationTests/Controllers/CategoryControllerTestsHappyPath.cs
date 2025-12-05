@@ -1,4 +1,8 @@
-﻿namespace BethanysPieShop.IntegrationTests.Controllers;
+﻿using System.Net.Http.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
+namespace BethanysPieShop.IntegrationTests.Controllers;
 
 [Collection("Database Collection")]
 public class CategoryControllerTestsHappyPath :
@@ -7,7 +11,6 @@ public class CategoryControllerTestsHappyPath :
     public CategoryControllerTestsHappyPath(CustomWebApplicationFactory factory)
     {
         _factory = factory;
-        _factory.SeedData();
 
         _client = _factory
             .CreateClient();
@@ -45,19 +48,19 @@ public class CategoryControllerTestsHappyPath :
     [InlineData(1)]
     [InlineData(2)]
     [InlineData(3)]
-    public async Task GetById_ReturnsCategry_GivenValidData(int id)
+    public async Task GetById_ReturnsCategory_GivenValidData(int id)
     {
         // Arrange
-        var endpopint = ApiCategoryEndpoints.SingleCategoryIdEndpoint(id);
-        var expectedCatagory = await GetExpectedCategoryAsync(id);
+        var endpoint = ApiCategoryEndpoints.SingleCategoryIdEndpoint(id);
+        var expectedCategory = await GetExpectedCategoryAsync(id);
 
         // Act
-        var actualCategory = await GetActualAsync<CategoryDto>(endpopint);
+        var actualCategory = await GetActualAsync<CategoryDto>(endpoint);
 
         // Assert
         actualCategory.Should().NotBeNull();
         actualCategory.Should()
-            .BeEquivalentTo(expectedCatagory, options => options
+            .BeEquivalentTo(expectedCategory, options => options
                 .Excluding(c => c.Id)
                 .Excluding(c => c.ErrorMessage)
                 .Excluding(c => c.SuccessMessage)

@@ -18,21 +18,6 @@ public static class Startup
             options.JsonSerializerOptions.WriteIndented = true;
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         });
-
-        // Configure your DbContext with retry policy for handling transient
-        // database concurrency exceptions
-        builder.Services.AddDbContext<PieShopDbContext>((serviceProvider, options) =>
-        {
-            options.UseSqlServer(
-                GeneralValues.ConnectionStringKey,
-                sqlServerOptions =>
-                {
-                    sqlServerOptions.EnableRetryOnFailure(
-                        maxRetryCount: 3,
-                        maxRetryDelay: TimeSpan.FromSeconds(10),
-                        errorNumbersToAdd: null);
-                });
-        });
     }
 
     public static void Configure(this WebApplication app)
