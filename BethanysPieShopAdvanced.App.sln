@@ -13,14 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.Admin", "Be
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.WebApi", "BethanysPieShopAdvanced.WebApi\BethanysPieShop.WebApi.csproj", "{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.IntegrationTests", "BethanysPieShop.IntegrationTests\BethanysPieShop.IntegrationTests.csproj", "{8740CE43-A376-4A4D-9083-485807FD6672}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BethanysPieShop.Shared", "BethanysPieShopAdvanced.Shared\BethanysPieShop.Shared.csproj", "{3B3C1E1D-D16E-49E5-99AE-C532B5A69194}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0E8BA1A6-DAF5-4C4F-A820-5A4C2CA6E55D}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BethanysPieShop.IntegrationTests", "BethanysPieShopAdvanced.IntegrationTests\BethanysPieShop.IntegrationTests.csproj", "{08ABA652-F3C5-1B9B-830B-C12A332A1736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,14 +48,14 @@ Global
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3C19A4C-04CC-4E64-84B4-80C6DC6B10A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8740CE43-A376-4A4D-9083-485807FD6672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8740CE43-A376-4A4D-9083-485807FD6672}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8740CE43-A376-4A4D-9083-485807FD6672}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8740CE43-A376-4A4D-9083-485807FD6672}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B3C1E1D-D16E-49E5-99AE-C532B5A69194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B3C1E1D-D16E-49E5-99AE-C532B5A69194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B3C1E1D-D16E-49E5-99AE-C532B5A69194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B3C1E1D-D16E-49E5-99AE-C532B5A69194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08ABA652-F3C5-1B9B-830B-C12A332A1736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08ABA652-F3C5-1B9B-830B-C12A332A1736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08ABA652-F3C5-1B9B-830B-C12A332A1736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08ABA652-F3C5-1B9B-830B-C12A332A1736}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
