@@ -98,6 +98,9 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# Visual Studio design-time build hosts
+#BuildHost-*
+
 # Chutzpah Test files
 _Chutzpah*
 
