@@ -1,0 +1,36 @@
+version: 2
+updates:
+  # NuGet dependencies (central package management via Directory.Packages.props)
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      nuget-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # AutoMapper 15+ requires a commercial license; pin to the last free version.
+      - dependency-name: "AutoMapper"
+        update-types: ["version-update:semver-major"]
+      # FluentAssertions 8+ uses a paid commercial license; pin to the last free version.
+      - dependency-name: "FluentAssertions"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions used in workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
+    groups:
+      github-actions:
+        update-types:
+          - "minor"
+          - "patch"
