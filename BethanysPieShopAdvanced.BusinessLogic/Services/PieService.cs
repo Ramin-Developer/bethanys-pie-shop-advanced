@@ -70,8 +70,7 @@ public class PieService(
 
         return pie == null
             ? null
-            : (_pieMapper
-            ?.Map<PieDto?>(pie));
+            : _pieMapper.Map<PieDto>(pie);
     }
 
     public async Task<int> GetPiesCountAsync() =>
