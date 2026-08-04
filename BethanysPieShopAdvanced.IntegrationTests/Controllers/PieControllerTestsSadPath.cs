@@ -1,19 +1,9 @@
 ﻿namespace BethanysPieShop.IntegrationTests.Controllers;
 
 [Collection("Database Collection")]
-public class PieControllerTestsSadPath :
+public class PieControllerTestsSadPath(CustomWebApplicationFactory factory) :
     TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public PieControllerTestsSadPath(CustomWebApplicationFactory factory)
-    {
-        _factory = factory;
-        _client = _factory.CreateClient();
-
-        _testScope = _factory.Services.CreateScope();
-        _scopeFactory = _testScope.ServiceProvider.GetRequiredService<IServiceScopeFactory>();
-        _mapper = _testScope.ServiceProvider.GetRequiredService<IMapper>();
-    }
-
     [Theory]
     [InlineData(-1)]
     [InlineData(0)]
@@ -23,7 +13,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -39,7 +29,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -56,7 +46,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(id);
 
         // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
+        var httpResponseMsg = await _client.DeleteAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, httpResponseMsg.StatusCode);
@@ -71,16 +61,15 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(id);
 
         // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
+        var httpResponseMsg = await _client.DeleteAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, httpResponseMsg.StatusCode);
     }
 
-    private readonly CustomWebApplicationFactory _factory;
-    private readonly HttpClient _client;
-    private readonly IServiceScope _testScope;
-    private readonly IServiceScopeFactory _scopeFactory;
-    private readonly IMapper _mapper;
+    private readonly HttpClient _client = factory.CreateClient();
+    private readonly IServiceScope _testScope = factory.Services.CreateScope();
+    private readonly IServiceScopeFactory _scopeFactory = factory.Services.GetRequiredService<IServiceScopeFactory>();
+    private readonly IMapper _mapper = factory.Services.GetRequiredService<IMapper>();
 }
 
