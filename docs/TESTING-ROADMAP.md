@@ -3,6 +3,16 @@
 Tracks the automated-testing work for the Bethany's Pie Shop Advanced solution:
 what has been implemented and what remains.
 
+## Status — You Are Here
+
+- **Branch:** `main` (clean, synced with `origin/main`).
+- **Last merged:** PR #12 — *CategoryService unit tests + testing roadmap* ✅ merged.
+- **Test suite:** 23 unit tests passing (14 PieService + 9 CategoryService).
+- **NEXT STEP:** Start **"Async-queryable unit tests"** (first item under *Planned / TODO*).
+  Create a branch (e.g. `test/async-queryable-service-tests`), add a
+  `TestAsyncQueryable`/`TestAsyncEnumerator` helper, then cover the listed
+  `PieService` / `CategoryService` methods.
+
 ## Implemented
 
 - [x] **Integration tests** (`BethanysPieShopAdvanced.IntegrationTests`) — end-to-end
