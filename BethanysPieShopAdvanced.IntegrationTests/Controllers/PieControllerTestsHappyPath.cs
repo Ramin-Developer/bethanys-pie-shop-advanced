@@ -11,7 +11,11 @@ public class PieControllerTestsHappyPath(CustomWebApplicationFactory factory) :
         return ValueTask.CompletedTask;
     }
 
-    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+    public ValueTask DisposeAsync()
+    {
+        GC.SuppressFinalize(this);
+        return ValueTask.CompletedTask;
+    }
 
     [Fact]
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
@@ -152,7 +156,11 @@ public class PieControllerTestsHappyPath(CustomWebApplicationFactory factory) :
         Assert.Null(pie);
     }
 
-    public void Dispose() => _testScope.Dispose();
+    public void Dispose()
+    {
+        _testScope.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     private readonly CustomWebApplicationFactory _factory = factory;
     private readonly HttpClient _client = factory.CreateClient();

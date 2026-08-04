@@ -35,7 +35,11 @@ public class PieControllerTestsSadPath(CustomWebApplicationFactory factory) :
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
-    public void Dispose() => _testScope.Dispose();
+    public void Dispose()
+    {
+        _testScope.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     [Theory]
     [InlineData(-1)]
