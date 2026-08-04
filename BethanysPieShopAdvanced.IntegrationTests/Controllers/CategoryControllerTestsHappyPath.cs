@@ -43,7 +43,11 @@ public class CategoryControllerTestsHappyPath(CustomWebApplicationFactory factor
                 .Excluding(c => c.PieList));
     }
 
-    public void Dispose() => _testScope.Dispose();
+    public void Dispose()
+    {
+        _testScope.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     private async Task<List<CategoryDto>> GetExpectedCategoriesAsync()
     {

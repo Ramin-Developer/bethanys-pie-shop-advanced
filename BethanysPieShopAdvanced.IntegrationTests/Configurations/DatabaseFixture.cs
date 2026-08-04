@@ -11,7 +11,11 @@ public class DatabaseFixture : IDisposable
         DbContext = new PieShopDbContext(options);
     }
 
-    public void Dispose() => DbContext.Dispose();
+    public void Dispose()
+    {
+        DbContext.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     public PieShopDbContext DbContext { get; }
 

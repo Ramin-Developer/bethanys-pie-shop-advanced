@@ -10,7 +10,11 @@ public class ScopedDbContext : IDisposable
         return new ScopedDbContext(scope, dbContext);
     }
 
-    public void Dispose() => _scope.Dispose();
+    public void Dispose()
+    {
+        _scope.Dispose();
+        GC.SuppressFinalize(this);
+    }
 
     public PieShopDbContext DbContext { get; }
 
