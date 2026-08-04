@@ -1,10 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-
-namespace BethanysPieShop.IntegrationTests.Configurations;
+﻿namespace BethanysPieShop.IntegrationTests.Configurations;
 
 public sealed class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {

@@ -9,7 +9,7 @@ public class HomeControllerTests(CustomWebApplicationFactory factory)
         // Arrange
 
         // Act
-        var response = await _client.GetAsync("/health");
+        var response = await _client.GetAsync("/health", TestContext.Current.CancellationToken);
 
         // Assert
         response.EnsureSuccessStatusCode();
