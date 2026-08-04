@@ -7,8 +7,7 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
             .Pies
             .Include(p => p.Category)
             .OrderBy(p => p.Name)
-            .AsNoTracking()
-            ?? Enumerable.Empty<Pie>().AsQueryable();
+            .AsNoTracking();
 
     public IQueryable<Pie> GetPagedPies(RequestPage requestPage)
     {
@@ -17,8 +16,7 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
         var pagedPies = ApplyPaging(pies, requestPage);
 
         return pagedPies
-            .AsNoTracking()
-            ?? Enumerable.Empty<Pie>().AsQueryable();
+            .AsNoTracking();
     }
 
     public IQueryable<Pie> SearchPies(string searchQuery, int? catId)
@@ -34,8 +32,7 @@ public class PieRepository(PieShopDbContext dbContext) : IPieRepository
         if (catId != null)
             pies = pies.Where(s => s.CategoryId == catId);
 
-        return pies
-            ?? Enumerable.Empty<Pie>().AsQueryable();
+        return pies;
     }
 
     public async Task<Pie?> GetPieByIdAsync(int id) =>
