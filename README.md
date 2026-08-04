@@ -1,5 +1,7 @@
 # Bethany's Pie Shop — Advanced
 
+[![CI](https://github.com/Ramin-Developer/bethanys-pie-shop-advanced/actions/workflows/ci.yml/badge.svg)](https://github.com/Ramin-Developer/bethanys-pie-shop-advanced/actions/workflows/ci.yml)
+
 A layered **.NET 10** sample application for managing an online pie shop's catalog and orders, built to demonstrate clean architecture, modern ASP.NET Core, EF Core, a REST API, .NET Aspire orchestration, and integration testing.
 
 > **Origin & attribution:** The domain and initial structure are based on Gill Cleeren's "Bethany's Pie Shop" training material. This repository extends that foundation with my own additions — a .NET 10 upgrade, a Web API layer, a .NET Aspire AppHost for orchestration, central package management, and an integration test suite. See [My Contributions](#my-contributions) below.
