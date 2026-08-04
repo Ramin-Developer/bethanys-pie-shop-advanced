@@ -20,14 +20,14 @@ public class PieControllerTestsHappyPath :
         _mapper = _testScope.ServiceProvider.GetRequiredService<IMapper>();
     }
 
-    public Task InitializeAsync()
+    public ValueTask InitializeAsync()
     {
         // Ensure each test starts from a known seeded state
         _factory.ResetDb();
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
-    public Task DisposeAsync() => Task.CompletedTask;
+    public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 
     [Fact]
     public async Task Index_ReturnsAllPies_GivenValidRouteAsync()
