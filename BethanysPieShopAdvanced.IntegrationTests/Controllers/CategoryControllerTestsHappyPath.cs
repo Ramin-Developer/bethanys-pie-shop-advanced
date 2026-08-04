@@ -1,33 +1,9 @@
-﻿using System.Net.Http.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-
-namespace BethanysPieShop.IntegrationTests.Controllers;
+﻿namespace BethanysPieShop.IntegrationTests.Controllers;
 
 [Collection("Database Collection")]
-public class CategoryControllerTestsHappyPath :
+public class CategoryControllerTestsHappyPath(CustomWebApplicationFactory factory) :
     TestBase, IClassFixture<CustomWebApplicationFactory>, IDisposable
 {
-    public CategoryControllerTestsHappyPath(CustomWebApplicationFactory factory)
-    {
-        _factory = factory;
-
-        _client = _factory
-            .CreateClient();
-
-        _testScope = _factory
-            .Services
-            .CreateScope();
-
-        _scopeFactory = _testScope
-            .ServiceProvider
-            .GetRequiredService<IServiceScopeFactory>();
-
-        _mapper = _testScope
-            .ServiceProvider
-            .GetRequiredService<IMapper>();
-    }
-
     [Fact]
     public async Task GetAllAsync_ReturnsCategoryDtoList()
     {
@@ -77,7 +53,7 @@ public class CategoryControllerTestsHappyPath :
 
         var expected = await dbContext
             .Categories
-            .ToListAsync();
+            .ToListAsync(TestContext.Current.CancellationToken);
 
         return _mapper
             .Map<List<CategoryDto>>(expected);
@@ -91,7 +67,7 @@ public class CategoryControllerTestsHappyPath :
 
         var expected = await dbContext
             .Categories
-            .FindAsync(id);
+            .FindAsync([id], TestContext.Current.CancellationToken);
 
         return _mapper
             .Map<CategoryDto>(expected);
@@ -100,17 +76,16 @@ public class CategoryControllerTestsHappyPath :
     private async Task<T?> GetActualAsync<T>(string endpoint)
     {
         var httpResponseMsg = await _client
-            .GetAsync(endpoint);
+            .GetAsync(endpoint, TestContext.Current.CancellationToken);
 
         httpResponseMsg.EnsureSuccessStatusCode();
 
         return await httpResponseMsg
-            .Content.ReadFromJsonAsync<T>();
+            .Content.ReadFromJsonAsync<T>(TestContext.Current.CancellationToken);
     }
 
-    private readonly CustomWebApplicationFactory _factory;
-    private readonly HttpClient _client;
-    private readonly IServiceScope _testScope;
-    private readonly IServiceScopeFactory _scopeFactory;
-    private readonly IMapper _mapper;
+    private readonly HttpClient _client = factory.CreateClient();
+    private readonly IServiceScope _testScope = factory.Services.CreateScope();
+    private readonly IServiceScopeFactory _scopeFactory = factory.Services.GetRequiredService<IServiceScopeFactory>();
+    private readonly IMapper _mapper = factory.Services.GetRequiredService<IMapper>();
 }
