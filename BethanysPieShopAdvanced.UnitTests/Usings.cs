@@ -3,6 +3,7 @@ global using BethanysPieShop.BusinessLogic.Services;
 global using BethanysPieShop.Common.CustomExceptions;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
+global using BethanysPieShop.Common.EnumTypes;
 global using BethanysPieShop.Common.Interfaces;
 global using FluentAssertions;
 global using NSubstitute;
