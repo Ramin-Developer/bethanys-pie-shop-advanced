@@ -23,7 +23,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -39,7 +39,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(invalidId);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -56,7 +56,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(id);
 
         // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
+        var httpResponseMsg = await _client.DeleteAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.BadRequest, httpResponseMsg.StatusCode);
@@ -71,7 +71,7 @@ public class PieControllerTestsSadPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(id);
 
         // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
+        var httpResponseMsg = await _client.DeleteAsync(endpoint, TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, httpResponseMsg.StatusCode);

@@ -37,13 +37,13 @@ public class PieControllerTestsHappyPath :
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
-        var expected = (await dbContext.Pies.ToListAsync()).OrderBy(p => p.Name);
+        var expected = (await dbContext.Pies.ToListAsync(TestContext.Current.CancellationToken)).OrderBy(p => p.Name);
         var expectedPies = _mapper.Map<List<PieDto>>(expected);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
         httpResponseMsg.EnsureSuccessStatusCode();
-        var actual = await httpResponseMsg.Content.ReadFromJsonAsync<List<Pie>>();
+        var actual = await httpResponseMsg.Content.ReadFromJsonAsync<List<Pie>>(TestContext.Current.CancellationToken);
 
         // Assert
         actual.Should().NotBeNull();
@@ -64,13 +64,13 @@ public class PieControllerTestsHappyPath :
         using var scopedDb = ScopedDbContext.Create(_scopeFactory);
         var dbContext = scopedDb.DbContext;
 
-        var expected = await dbContext.FindAsync<Pie>(pieId);
+        var expected = await dbContext.FindAsync<Pie>([pieId], TestContext.Current.CancellationToken);
         var expectedPie = _mapper.Map<PieDto>(expected);
 
         // Act
-        var httpResponseMsg = await _client.GetAsync(endpoint);
+        var httpResponseMsg = await _client.GetAsync(endpoint, TestContext.Current.CancellationToken);
         httpResponseMsg.EnsureSuccessStatusCode();
-        var actualPie = await httpResponseMsg.Content.ReadFromJsonAsync<PieDto>();
+        var actualPie = await httpResponseMsg.Content.ReadFromJsonAsync<PieDto>(TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -90,8 +90,8 @@ public class PieControllerTestsHappyPath :
         var httpContent = new StringContent(serializedPie, Encoding.UTF8, GeneralValues.JsonMediaType);
 
         // Act
-        var httpResponseMsg = await _client.PostAsync(endpoint, httpContent);
-        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync();
+        var httpResponseMsg = await _client.PostAsync(endpoint, httpContent, TestContext.Current.CancellationToken);
+        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.Created, responseContent);
@@ -100,7 +100,7 @@ public class PieControllerTestsHappyPath :
         using var verifyScope = _factory.Services.CreateScope();
         var verifyDb = verifyScope.ServiceProvider.GetRequiredService<PieShopDbContext>();
 
-        var createdPie = await verifyDb.Pies.FirstOrDefaultAsync(p => p.Name == pieName);
+        var createdPie = await verifyDb.Pies.FirstOrDefaultAsync(p => p.Name == pieName, TestContext.Current.CancellationToken);
         createdPie.Should().NotBeNull(responseContent);
 
         expectedPie.Id = createdPie!.Id;
@@ -123,8 +123,8 @@ public class PieControllerTestsHappyPath :
         var httpContent = new StringContent(serializedPie, Encoding.UTF8, GeneralValues.JsonMediaType);
 
         // Act
-        var httpResponseMsg = await _client.PutAsync(endpoint, httpContent);
-        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync();
+        var httpResponseMsg = await _client.PutAsync(endpoint, httpContent, TestContext.Current.CancellationToken);
+        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK, responseContent);
@@ -133,7 +133,7 @@ public class PieControllerTestsHappyPath :
         using var verifyScope = _factory.Services.CreateScope();
         var verifyDb = verifyScope.ServiceProvider.GetRequiredService<PieShopDbContext>();
 
-        var updatedPie = await verifyDb.Pies.FindAsync(id);
+        var updatedPie = await verifyDb.Pies.FindAsync([id], TestContext.Current.CancellationToken);
         updatedPie.Should().NotBeNull(responseContent);
 
         var actualPie = _mapper.Map<PieDto>(updatedPie);
@@ -154,8 +154,8 @@ public class PieControllerTestsHappyPath :
         var endpoint = ApiPieEndPoints.SinglePieEndpoint(id);
 
         // Act
-        var httpResponseMsg = await _client.DeleteAsync(endpoint);
-        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync();
+        var httpResponseMsg = await _client.DeleteAsync(endpoint, TestContext.Current.CancellationToken);
+        var responseContent = await httpResponseMsg.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         // Assert
         httpResponseMsg.StatusCode.Should().Be(HttpStatusCode.OK, responseContent);
@@ -164,7 +164,7 @@ public class PieControllerTestsHappyPath :
         using var verifyScope = _factory.Services.CreateScope();
         var verifyDb = verifyScope.ServiceProvider.GetRequiredService<PieShopDbContext>();
 
-        var pie = await verifyDb.Pies.FindAsync(id);
+        var pie = await verifyDb.Pies.FindAsync([id], TestContext.Current.CancellationToken);
         Assert.Null(pie);
     }
 

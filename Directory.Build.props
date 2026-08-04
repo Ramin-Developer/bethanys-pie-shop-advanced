@@ -1,0 +1,22 @@
+<Project>
+
+  <!--
+	Solution-wide build properties.
+
+	NU1903 suppression (AutoMapper 14.0.0):
+	  Advisory GHSA-rvv3-g6hj-g44x reports a high-severity Denial-of-Service via
+	  uncontrolled recursion, fixed in AutoMapper 15.1.1 / 16.1.1. Those versions,
+	  however, require a commercial license, whereas 14.0.0 is the last free/OSS
+	  release (see the pin note in Directory.Packages.props).
+
+	  This application maps small, flat, non-recursive DTOs from trusted internal
+	  data only; there is no code path that feeds untrusted or self-referential
+	  object graphs into AutoMapper, so the DoS vector is not reachable here.
+	  The advisory is therefore suppressed deliberately rather than accepting the
+	  paid license. Revisit if AutoMapper usage changes or a free fix is released.
+  -->
+  <PropertyGroup>
+	<NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
+
+</Project>
