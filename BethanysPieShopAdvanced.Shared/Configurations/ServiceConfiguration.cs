@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace BethanysPieShop.Shared.Configurations;
 

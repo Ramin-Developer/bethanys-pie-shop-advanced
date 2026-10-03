@@ -2,11 +2,11 @@
 
 public class OrderIndexViewModel
 {
-    public IEnumerable<OrderDto> OrderDtoList { get; set; } = new List<OrderDto>();
+    public IEnumerable<OrderDto> OrderDtoList { get; set; } = [];
 
-    public IEnumerable<OrderLineDto> OrderLines { get; set; } = new List<OrderLineDto>();
+    public IEnumerable<OrderLineDto> OrderLines { get; set; } = [];
 
-    public IEnumerable<PieDto> Pies { get; set; } = new List<PieDto>();
+    public IEnumerable<PieDto> Pies { get; set; } = [];
 
     public int? SelectedOrderId { get; set; }
 

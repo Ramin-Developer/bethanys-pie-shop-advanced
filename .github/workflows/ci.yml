@@ -21,10 +21,10 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore BethanysPieShopAdvanced.App.sln
+        run: dotnet restore BethanysPieShopAdvanced.App.slnx
 
       - name: Build
-        run: dotnet build BethanysPieShopAdvanced.App.sln --configuration Release --no-restore
+        run: dotnet build BethanysPieShopAdvanced.App.slnx --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --solution BethanysPieShopAdvanced.App.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test --solution BethanysPieShopAdvanced.App.slnx --configuration Release --no-build --verbosity normal

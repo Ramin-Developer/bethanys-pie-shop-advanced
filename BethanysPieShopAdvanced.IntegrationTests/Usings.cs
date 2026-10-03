@@ -1,4 +1,5 @@
 ﻿global using AutoMapper;
+global using AwesomeAssertions;
 global using BethanysPieShop.Common.Constants;
 global using BethanysPieShop.Common.DTOs;
 global using BethanysPieShop.Common.Entities;
@@ -7,7 +8,6 @@ global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.IntegrationTests.Configurations;
 global using BethanysPieShop.IntegrationTests.Utilities;
 global using BethanysPieShop.Shared.Initializations;
-global using AwesomeAssertions;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;
 global using Microsoft.EntityFrameworkCore;

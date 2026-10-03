@@ -1,34 +1,24 @@
 ﻿namespace BethanysPieShop.Admin.ViewModels.Pie;
 
-public class PaginatedPieViewModel
+public class PaginatedPieViewModel(List<PieDto> itemList, int totalItemCount, int? currentPage, int? pageSize = null)
 {
-    public PaginatedPieViewModel(List<PieDto> itemList, int totalItemCount, int? currentPage, int? pageSize = null)
-    {
-        _data = itemList ?? [];
-        TotalItemsCount = totalItemCount;
+    public List<PieDto> Pies => [.. _data];
 
-        PageSize = pageSize ?? PieValues.DefaultPageSize;
-        CurrentPage = currentPage ?? PieValues.DefaultPageNumber;
-        NoOfPages = (int)Math.Ceiling((double)TotalItemsCount / PageSize);
-    }
-
-    public List<PieDto> Pies => _data.ToList();
-
-    public int TotalItemsCount { get; }
+    public int TotalItemsCount { get; } = totalItemCount;
 
     public int FirstPage => PieValues.DefaultPageNumber;
 
     public int LastPage => NoOfPages;
 
-    public int? CurrentPage { get; }
+    public int? CurrentPage { get; } = currentPage ?? PieValues.DefaultPageNumber;
 
     public int PreviousPage => CurrentPage!.Value - 1;
 
     public int NextPage => CurrentPage!.Value + 1;
 
-    public int PageSize { get; }
+    public int PageSize { get; } = pageSize ?? PieValues.DefaultPageSize;
 
-    public int NoOfPages { get; }
+    public int NoOfPages => (int)Math.Ceiling((double)TotalItemsCount / PageSize);
 
     public bool HasPreviousPage => CurrentPage > 1;
 
@@ -60,5 +50,5 @@ public class PaginatedPieViewModel
 
     public IEnumerator<PieDto> GetEnumerator() => _data.GetEnumerator();
 
-    private readonly List<PieDto> _data;
+    private readonly List<PieDto> _data = itemList ?? [];
 }

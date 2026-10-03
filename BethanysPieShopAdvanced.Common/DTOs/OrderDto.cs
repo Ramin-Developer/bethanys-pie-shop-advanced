@@ -4,7 +4,7 @@ public class OrderDto
 {
     public int Id { get; set; }
 
-    public ICollection<OrderLineDto> OrderLineDtoList { get; set; } = new List<OrderLineDto>();
+    public ICollection<OrderLineDto> OrderLineDtoList { get; set; } = [];
 
     [Display(Name = OrderValues.Status)]
     public OrderStatus OrderStatus { get; set; }

@@ -1,0 +1,23 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/BethanysPieShopAdvanced.BusinessLogic/" />
+  <Folder Name="/BethanysPieShopAdvanced.Common/" />
+  <Folder Name="/BethanysPieShopAdvanced.UnitTests/">
+    <Project Path="BethanysPieShopAdvanced.UnitTests/BethanysPieShop.UnitTests.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="BethanysPieShop.AppHost/BethanysPieShop.AppHost.csproj" />
+  <Project Path="BethanysPieShopAdvanced.Admin/BethanysPieShop.Admin.csproj" />
+  <Project Path="BethanysPieShopAdvanced.BusinessLogic/BethanysPieShop.BusinessLogic.csproj" />
+  <Project Path="BethanysPieShopAdvanced.Common/BethanysPieShop.Common.csproj" />
+  <Project Path="BethanysPieShopAdvanced.DataAccess/BethanysPieShop.DataAccess.csproj" />
+  <Project Path="BethanysPieShopAdvanced.IntegrationTests/BethanysPieShop.IntegrationTests.csproj" />
+  <Project Path="BethanysPieShopAdvanced.Shared/BethanysPieShop.Shared.csproj" />
+  <Project Path="BethanysPieShopAdvanced.WebApi/BethanysPieShop.WebApi.csproj" />
+</Solution>

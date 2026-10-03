@@ -57,7 +57,7 @@ public class PieHelperService(ICategoryService catService, IPieService pieServic
         return new PieEditViewModel
         {
             PieDto = pieToUpdate,
-            Categories = categories?.ToList() ?? new List<SelectListItem>(),  // Safely handle null
+            Categories = categories?.ToList() ?? [],  // Safely handle null
             ErrorMessage = errorMessage
         };
     }

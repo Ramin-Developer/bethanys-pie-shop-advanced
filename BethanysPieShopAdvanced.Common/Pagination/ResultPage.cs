@@ -2,7 +2,7 @@
 
 public class ResultPage<T>
 {
-    public List<T> Results { get; set; } = new List<T>();
+    public List<T> Results { get; set; } = [];
 
     public int ItemsCount { get; set; }
 
