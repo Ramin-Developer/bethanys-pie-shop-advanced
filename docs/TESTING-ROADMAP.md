@@ -24,7 +24,7 @@ what has been implemented and what remains.
 - [x] **Code hygiene** — redundant `using` directives removed, global usings consolidated
   into `Usings.cs`, primary constructors + file-scoped namespaces applied to test classes.
 - [x] **Unit test project** (`BethanysPieShopAdvanced.UnitTests`, xUnit v3 + NSubstitute +
-  FluentAssertions):
+  AwesomeAssertions):
   - [x] `PieServiceTests` — `GetPieByIdAsync`, `GetPieByNameAsync`, `AddPieAsync`
 	(null / empty / duplicate / valid), `GetPiesCountAsync`.
   - [x] `CategoryServiceTests` — `GetCategoriesAsync`, `GetCategoryByIdAsync`
