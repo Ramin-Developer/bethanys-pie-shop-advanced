@@ -30,7 +30,7 @@ Flow: **UI / API → BusinessLogic (services) → DataAccess (repositories) → 
 - **Entity Framework Core 10** (SQL Server)
 - **AutoMapper** for entity ↔ DTO mapping
 - **.NET Aspire** for local orchestration and the developer dashboard
-- **xUnit** + `Microsoft.AspNetCore.Mvc.Testing` + **FluentAssertions** for integration tests
+**AwesomeAssertions** for integration tests
 - **Central Package Management** (`Directory.Packages.props`)
 
 ## Getting Started
@@ -79,7 +79,7 @@ Additions and modernizations I made on top of the original course material:
 - Upgraded the entire solution to **.NET 10**.
 - Added a **Web API** project (`BethanysPieShopAdvanced.WebApi`).
 - Added a **.NET Aspire AppHost** for orchestration and observability, including correct DCP/Dashboard SDK wiring and launch profiles.
-- Introduced **Central Package Management** and pinned licensing-sensitive packages (AutoMapper, FluentAssertions) to their last free versions.
+(AutoMapper) to its last free version; replaced FluentAssertions with the Apache-2.0 fork AwesomeAssertions.
 - Built an **integration test suite** (happy-path and sad-path) with a custom `WebApplicationFactory` and database fixtures.
 - Applied **custom generic exceptions** and consistent service-layer validation.
 

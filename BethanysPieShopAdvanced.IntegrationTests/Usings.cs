@@ -7,7 +7,7 @@ global using BethanysPieShop.DataAccess.Context;
 global using BethanysPieShop.IntegrationTests.Configurations;
 global using BethanysPieShop.IntegrationTests.Utilities;
 global using BethanysPieShop.Shared.Initializations;
-global using FluentAssertions;
+global using AwesomeAssertions;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc.Testing;
 global using Microsoft.EntityFrameworkCore;

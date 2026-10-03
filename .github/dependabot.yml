@@ -17,9 +17,6 @@ updates:
       # AutoMapper 15+ requires a commercial license; pin to the last free version.
       - dependency-name: "AutoMapper"
         update-types: ["version-update:semver-major"]
-      # FluentAssertions 8+ uses a paid commercial license; pin to the last free version.
-      - dependency-name: "FluentAssertions"
-        update-types: ["version-update:semver-major"]
 
   # GitHub Actions used in workflows
   - package-ecosystem: "github-actions"

@@ -27,4 +27,4 @@ jobs:
         run: dotnet build BethanysPieShopAdvanced.App.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test BethanysPieShopAdvanced.App.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test --solution BethanysPieShopAdvanced.App.sln --configuration Release --no-build --verbosity normal
