@@ -10,5 +10,5 @@ public class Category
 
     public DateTime DateAdded { get; set; }
 
-    public ICollection<Pie> Pies { get; set; } = new List<Pie>();
+    public ICollection<Pie> Pies { get; set; } = [];
 }

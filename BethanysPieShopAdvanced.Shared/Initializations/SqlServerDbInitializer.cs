@@ -33,7 +33,7 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
     }
 
     private List<Category> CategoryList =>
-        GetCategoryDict.Select(c => c.Value).ToList();
+        [.. GetCategoryDict.Select(c => c.Value)];
 
     private Dictionary<string, Category> GetCategoryDict
     {
@@ -300,15 +300,15 @@ public class SqlServerDbInitializer(PieShopDbContext dbContext)
             OrderPlaced = DateTime.Now,
             OrderStatus = OrderStatus.OutForDelivery,
             OrderTotal = 1235,
-            OrderLines = new List<OrderLine>()
-            {
+            OrderLines =
+            [
                 new()
                 {
                     Amount = 1,
                     PieId = 1,
                     Price = 22.95M
                 }
-            }
+            ]
         },
     ];
 

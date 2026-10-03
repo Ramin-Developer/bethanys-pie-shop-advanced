@@ -4,7 +4,7 @@ public class Order
 {
     public int Id { get; set; }
 
-    public ICollection<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
+    public ICollection<OrderLine> OrderLines { get; set; } = [];
 
     public OrderStatus OrderStatus { get; set; }
 

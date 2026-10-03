@@ -10,7 +10,7 @@ public class OrderRepository(PieShopDbContext dbContext) : IOrderRepository
             .ThenInclude(ol => ol.Pie)
             .OrderBy(o => o.Id)
             .ToListAsync()
-            ?? new List<Order>();
+            ?? [];
 
     public async Task<Order?> GetOrderDetailsAsync(int? orderId)
     {
